@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Command">
+    <Text>Command RLX</Text>
+    <Description>Some description for RLX</Description>
+    <Assembly>RLX.dll</Assembly>
+    <FullClassName>RLX.Command</FullClassName>
+    <ClientId>b055ad32-3ec3-4542-905f-eb56ee9a0c29</ClientId>
+    <VendorId>com.typepad.thebuildingcoder</VendorId>
+    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
+  </AddIn>
+  <AddIn Type="Application">
+    <Name>Application RLX</Name>
+    <Assembly>RLX.dll</Assembly>
+    <FullClassName>RLX.App</FullClassName>
+    <ClientId>2342c35b-3627-4331-afd2-4f4144d4b1bf</ClientId>
+    <VendorId>com.typepad.thebuildingcoder</VendorId>
+    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
+  </AddIn>
+</RevitAddIns>
