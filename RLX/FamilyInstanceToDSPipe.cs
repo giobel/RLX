@@ -14,7 +14,7 @@ using System.Linq;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class FamilyInstanceToDSValve : IExternalCommand
+    public class FamilyInstanceToDSPipe : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -67,7 +67,7 @@ namespace RLX
                                 //{
                                 try
                                 {
-                                    DirectShape directShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeAccessory));
+                                    DirectShape directShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeCurves));
                                     directShape.SetShape(new List<GeometryObject>() { item });
                                     counter++;
                                 }

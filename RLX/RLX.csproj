@@ -52,10 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="FamilyInstanceToDSPipeFitt - Copy %282%29.cs" />
-    <Compile Include="FamilyInstanceToDSValve.cs" />
+    <Compile Include="ObjectsToDSValve.cs" />
+    <Compile Include="ObjectsToDSPipeFitt.cs" />
     <Compile Include="ObjectsToDS.cs" />
-    <Compile Include="FamilyInstanceToDSPipeFitt.cs" />
+    <Compile Include="FamilyInstanceToDSPipe.cs" />
     <Compile Include="MechEquipFindClosestPipe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

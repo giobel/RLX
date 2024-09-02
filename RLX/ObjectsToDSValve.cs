@@ -14,7 +14,7 @@ using System.Linq;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class ObejctsToDS : IExternalCommand
+    public class ObjectsToDSValve : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -59,7 +59,7 @@ namespace RLX
 
                 t.Start();
 
-                DirectShape directShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_GenericModel));
+                DirectShape directShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeAccessory));
                 directShape.SetShape(geoObjects);
 
                 doc.Delete(familiesIds);
