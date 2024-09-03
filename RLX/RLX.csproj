@@ -51,21 +51,23 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenericModelsExplode\ObjectsToDSPipe.cs" />
+    <Compile Include="MechEquip\MechEquipFillTitle.cs" />
     <Compile Include="Misc\App.cs" />
     <Compile Include="GenericModelsExplode\ObjectsToDSValve.cs" />
     <Compile Include="GenericModelsExplode\ObjectsToDSPipeFitt.cs" />
     <Compile Include="GenericModelsExplode\ObjectsToDS.cs" />
-    <Compile Include="GenericModelsExplode\FamilyInstanceToDSPipe.cs" />
-    <Compile Include="MechEquip\MechEquipFindClosestPipe.cs" />
+    <Compile Include="GenericModelsExplode\FamilyInstanceToDS.cs" />
+    <Compile Include="MechEquip\MechEquipCopyClosestPipeParams.cs" />
     <Compile Include="CopyParams.cs" />
+    <Compile Include="Pipes\PipeFittCopyClosestPipeParams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Valves\FillValveParams.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="RLX.addin" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pipes\" />
+    <Folder Include="Valves\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

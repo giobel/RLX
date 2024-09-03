@@ -14,7 +14,7 @@ using System.Linq;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class MechEquipFindClosestPipe : IExternalCommand
+    public class MechEquipCopyClosestPipeParams : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -31,21 +31,29 @@ namespace RLX
 
                 List<Curve> pipeCurves = new List<Curve>();
 
-                foreach (Element pipe in allPipes)
-                {
+            List<Element> pipesToRemove = new List<Element>();
 
-                    LocationCurve pipeCurve = pipe.Location as LocationCurve;
+            foreach (Element pipe in allPipes)
+            {
+
+                LocationCurve pipeCurve = pipe.Location as LocationCurve;
+
+                if (pipeCurve != null)
+                {
                     pipeCurves.Add(pipeCurve.Curve);
                 }
-
-                if (allPipes.Count() != pipeCurves.Count())
+                else
                 {
-
-                    TaskDialog.Show("Error", "Cannot find a curve for some pipes");
-                    return Result.Failed;
+                    pipesToRemove.Add(pipe);
                 }
+            }
 
-                IList<Element> mechEquipments = new FilteredElementCollector(doc, doc.ActiveView.Id).OfCategory(BuiltInCategory.OST_MechanicalEquipment).WhereElementIsNotElementType().ToElements();
+            foreach (var item in pipesToRemove)
+            {
+                allPipes.Remove(item);
+            }
+
+            IList<Element> mechEquipments = new FilteredElementCollector(doc, doc.ActiveView.Id).OfCategory(BuiltInCategory.OST_MechanicalEquipment).WhereElementIsNotElementType().ToElements();
 
                 Element closestPipe = null;
                 double distance = 100 / 304.8;
