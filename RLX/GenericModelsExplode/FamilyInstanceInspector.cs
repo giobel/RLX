@@ -69,7 +69,7 @@ namespace RLX
                                 {
                                     DirectShape directShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeFitting));
                                     directShape.SetShape(new List<GeometryObject>() { item });
-                                    directShape.LookupParameter("Comments").Set(item.Id.ToString());
+                                    directShape.LookupParameter("Comments").Set(item.GetHashCode().ToString());
 
                                     counter++;
                                 }
