@@ -14,7 +14,7 @@ using System.Linq;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class FamilyInstanceToDS : IExternalCommand
+    public class FamilyInstanceInspector : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -42,15 +42,15 @@ namespace RLX
 
                 t.Start();
 
-
+                #region Subelements
                 if (subElements != null)
-            {
-
-                foreach (ElementId eid in subElements)
                 {
-                    FamilyInstance fi = doc.GetElement(eid) as FamilyInstance;
 
-                    GeometryElement fiGeometry = fi.get_Geometry(opt);
+                    foreach (ElementId eid in subElements)
+                    {
+                        FamilyInstance fi = doc.GetElement(eid) as FamilyInstance;
+
+                        GeometryElement fiGeometry = fi.get_Geometry(opt);
 
                         foreach (GeometryObject geoObj in fiGeometry)
                         {
@@ -69,6 +69,8 @@ namespace RLX
                                 {
                                     DirectShape directShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeFitting));
                                     directShape.SetShape(new List<GeometryObject>() { item });
+                                    directShape.LookupParameter("Comments").Set(item.Id.ToString());
+
                                     counter++;
                                 }
                                 catch { }
@@ -78,8 +80,10 @@ namespace RLX
                     }
 
 
-            }
-            GeometryElement geometryElement = familyInstance.get_Geometry(opt);
+                }
+
+                #endregion
+                GeometryElement geometryElement = familyInstance.get_Geometry(opt);
 
 
                 // Set a name for the DirectShape
@@ -98,18 +102,6 @@ namespace RLX
 
                     int counter = 0;
 
-                    List<GeometryObject> cabinet = ge.Where(x => x.Id == 3638 || 
-                                                                 x.Id == 3673 ||
-                                                                 x.Id == 11288 ||
-                                                                 x.Id == 11584 ||
-                                                                 x.Id == 11678 ||
-                                                                 x.Id == 11132 ||
-                                                                x.Id == 11393 ||
-                                                                x.Id == 11487
-                                                                 ).ToList();
-
-                    DirectShape directShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_Furniture));
-                    directShape.SetShape(cabinet);
 
                     foreach (var item in ge)
                     {
@@ -117,13 +109,13 @@ namespace RLX
                         //{
                             try
                             {
-                            //    DirectShape directShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeCurves));
-                            //directShape.Name = item.Id.ToString();
-                            //directShape.SetShape(new List<GeometryObject>() { item });
-                            //directShape.LookupParameter("Comments").Set(item.Id.ToString());
-                            //    counter++;
-                            }
-                            catch { }
+                            DirectShape directShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeCurves));
+                            directShape.Name = item.Id.ToString();
+                            directShape.SetShape(new List<GeometryObject>() { item });
+                            directShape.LookupParameter("Comments").Set(item.Id.ToString());
+                            counter++;
+                        }
+                        catch { }
                         //}
                     }
 

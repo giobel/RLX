@@ -51,6 +51,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenericModelsExplode\FamilyInstanceInspector.cs" />
     <Compile Include="GenericModelsExplode\ObjectsToDSPipe.cs" />
     <Compile Include="MechEquip\MechEquipFillTitle.cs" />
     <Compile Include="Misc\App.cs" />
