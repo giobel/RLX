@@ -36,7 +36,7 @@ namespace RLX
 
             var subElements = familyInstance.GetSubComponentIds();
 
-            using (Transaction t = new Transaction(doc, "AA"))
+            using (Transaction t = new Transaction(doc, "Explode family"))
             {
 
 

@@ -56,7 +56,7 @@ namespace RLX
             IList<Element> mechEquipments = new FilteredElementCollector(doc, doc.ActiveView.Id).OfCategory(BuiltInCategory.OST_MechanicalEquipment).WhereElementIsNotElementType().ToElements();
 
                 Element closestPipe = null;
-                double distance = 100 / 304.8;
+                double distance = 1000 / 304.8;
 
 
                 List<string> paramsToSet = new List<string>(){"RLX_ActualCost","RLX_ClassificationUniclassEF_Description",
