@@ -31,11 +31,26 @@ namespace RLX
 
             Element alignment = doc.GetElement(alignmentsRef);
 
+            
 
             LocationCurve alignmentLoc = alignment.Location as LocationCurve;
 
             Curve alignmentCrv = alignmentLoc.Curve;
 
+            string alignmentName = doc.GetElement(alignmentCrv.GraphicsStyleId).Name;
+
+            //TaskDialog.Show("R", alignmentName);
+
+            double chainageStart = 0;
+
+            if (alignmentName == "SOUTH BOUND")
+            {
+                chainageStart = 680;
+            }
+            else if (alignmentName == "NORTH BOUND")
+            {
+                chainageStart = 680.543;
+            }
 
             List<XYZ> tessellation = alignmentCrv.Tessellate().ToList();
 
@@ -54,20 +69,33 @@ namespace RLX
             builtInCats.Add(BuiltInCategory.OST_Sprinklers);
             builtInCats.Add(BuiltInCategory.OST_GenericModel);
             builtInCats.Add(BuiltInCategory.OST_MechanicalEquipment);
+            builtInCats.Add(BuiltInCategory.OST_PipeFitting);
+
 
             ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);
 
             IList<Element> mepObjects = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(filter1).WhereElementIsNotElementType().ToElements();
 
-            using (Transaction t = new Transaction(doc, "Place circles"))
+            using (Transaction t = new Transaction(doc, "Find closest chainage"))
             {
 
                 t.Start();
 
                 foreach (Element element in mepObjects)
                 {
-                    LocationPoint MEPLp = element.Location as LocationPoint;
-                    XYZ MEPprojectedPt = new XYZ(MEPLp.Point.X, MEPLp.Point.Y, 0);
+                    XYZ MEPprojectedPt = null;
+
+                    //if (element.Category.Name == "Pipes")
+                    //{
+                    //    LocationCurve locationCurve = element.Location as LocationCurve;
+                    //    MEPprojectedPt = locationCurve.Curve.Evaluate(0.5, true);
+                    //}
+                    //else
+                    //{
+                        LocationPoint MEPLp = element.Location as LocationPoint;
+                        MEPprojectedPt = new XYZ(MEPLp.Point.X, MEPLp.Point.Y, 0);
+                    //}
+
 
                     IntersectionResult intersection = alignmentCrv.Project(MEPprojectedPt);
 
@@ -85,16 +113,18 @@ namespace RLX
 
                     plcurve[0].TryGetPolyline(out splitAlignment);
 
-                    
+                    double chainage = splitAlignment.Length * 0.3048 + chainageStart;
 
-                    TaskDialog.Show("Length", (splitAlignment.Length * 0.3048 + 680.543).ToString());
+                    element.LookupParameter("DS_Chainage").Set(chainage.ToString());
+
+                    //TaskDialog.Show("Length", chainage.ToString());
 
 
-                    TaskDialog.Show("Rhino", $"{closestPt.X * 304.8} {closestPt.Y * 304.8} ");
-
-
+                    //TaskDialog.Show("Rhino", $"{closestPt.X * 304.8} {closestPt.Y * 304.8} ");
 
                     //
+
+
                     //TaskDialog.Show("R", $"{pointOnAlign.X * 304.8} {pointOnAlign.Y * 304.8} ");
                     //TaskDialog.Show("R", parameter.ToString());
 
