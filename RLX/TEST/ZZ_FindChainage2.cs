@@ -14,7 +14,7 @@ using System.Linq;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class FindChainage2 : IExternalCommand
+    public class ZZ_FindChainage2 : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,

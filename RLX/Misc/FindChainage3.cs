@@ -90,11 +90,19 @@ namespace RLX
                     //    LocationCurve locationCurve = element.Location as LocationCurve;
                     //    MEPprojectedPt = locationCurve.Curve.Evaluate(0.5, true);
                     //}
-                    //else
-                    //{
-                        LocationPoint MEPLp = element.Location as LocationPoint;
+                    
+                    LocationPoint MEPLp = element.Location as LocationPoint;
+                    
+                    if (MEPLp != null)
+                    {
                         MEPprojectedPt = new XYZ(MEPLp.Point.X, MEPLp.Point.Y, 0);
-                    //}
+                    }
+                    else
+                    {
+                        //these are the directshape elements -> location is null
+                        XYZ centroid = Helpers.GetElementCentroid(element);
+                        MEPprojectedPt = new XYZ(centroid.X, centroid.Y, 0);
+                    }
 
 
                     IntersectionResult intersection = alignmentCrv.Project(MEPprojectedPt);

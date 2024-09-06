@@ -16,7 +16,7 @@ using RG = Rhino.Geometry;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class FindChainage : IExternalCommand
+    public class ZZ_FindChainage : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,

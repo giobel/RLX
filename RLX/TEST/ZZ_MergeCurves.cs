@@ -16,7 +16,7 @@ using System.Runtime.InteropServices;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class MergeCurves : IExternalCommand
+    public class ZZ_MergeCurves : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,

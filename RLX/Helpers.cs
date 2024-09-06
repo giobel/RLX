@@ -11,6 +11,17 @@ namespace RLX
 {
     internal class Helpers
     {
+        public static XYZ GetElementCentroid(Element element)
+        {
+            BoundingBoxXYZ bbox = element.get_BoundingBox(null);
+            if (bbox == null)
+                return null;
+
+            XYZ min = bbox.Min;
+            XYZ max = bbox.Max;
+
+            return new XYZ((min.X + max.X) / 2, (min.Y + max.Y) / 2, (min.Z + max.Z) / 2);
+        }
 
         public static RG.Point3d RevitToRhinoPt (XYZ pt)
         {

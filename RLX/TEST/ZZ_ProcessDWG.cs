@@ -15,7 +15,7 @@ using System.Runtime.InteropServices;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class ProcessDWG : IExternalCommand
+    public class ZZ_ProcessDWG : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
