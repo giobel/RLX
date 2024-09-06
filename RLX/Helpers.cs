@@ -5,11 +5,43 @@ using System.Text;
 using System.Threading.Tasks;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using RG = Rhino.Geometry;
 
 namespace RLX
 {
     internal class Helpers
     {
+
+        public static RG.Point3d RevitToRhinoPt (XYZ pt)
+        {
+            return new RG.Point3d(pt.X, pt.Y, pt.Z);
+        }
+
+        public static XYZ RhinoToRevitPt(RG.Point3d pt)
+        {
+            return new XYZ(pt.X, pt.Y, pt.Z);
+        }
+
+
+
+        public static List<XYZ> SortPoints(List<XYZ> points)
+        {
+            // Sort the points using a custom comparison
+            points.Sort((p1, p2) =>
+            {
+                int result = p1.X.CompareTo(p2.X); // Compare by X coordinate
+
+                if (result == 0)
+                {
+                    result = p1.Y.CompareTo(p2.Y); // Compare by Y coordinate if X is equal
+                }
+
+                return result;
+            });
+
+            return points;
+
+        }
         public static int FindClosestPointIndex(XYZ targetPoint, List<XYZ> points)
         {
             XYZ closestPoint = null;
@@ -85,5 +117,30 @@ namespace RLX
         }
 
 
+
+
+    }
+
+
+    // Custom equality comparer for XYZ points
+    public class XYZEqualityComparer : IEqualityComparer<XYZ>
+    {
+        public bool Equals(XYZ x, XYZ y)
+        {
+            if (x == null || y == null)
+                return false;
+
+            // Check if both points are approximately equal
+            return x.IsAlmostEqualTo(y);
+        }
+
+        public int GetHashCode(XYZ obj)
+        {
+            if (obj == null)
+                return 0;
+
+            // Compute hash code based on coordinates
+            return obj.X.GetHashCode() ^ obj.Y.GetHashCode() ^ obj.Z.GetHashCode();
+        }
     }
 }

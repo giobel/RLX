@@ -4,12 +4,11 @@ using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
-using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using RG = Rhino.Geometry;
+using System.Runtime.InteropServices;
 
 #endregion
 
@@ -73,10 +72,15 @@ namespace RLX
                             var curve = item as NurbSpline;
 
                             doc.Create.NewModelCurve(curve, sp);
+                            }
+                        else if (geoType == "Arc")
+                            {
+                                var curve = item as Arc;
+
+                                doc.Create.NewModelCurve(curve, sp);
+                            }
 
                         }
-                        
-                    }
 
                 }
 

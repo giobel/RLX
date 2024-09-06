@@ -61,7 +61,10 @@
     <Compile Include="GenericModelsExplode\ObjectsToDSPipe.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="MechEquip\MechEquipFillTitle.cs" />
+    <Compile Include="Misc\FindChainage3.cs" />
+    <Compile Include="Misc\FindChainage2.cs" />
     <Compile Include="Misc\FindChainage.cs" />
+    <Compile Include="Misc\MergeCurves.cs" />
     <Compile Include="Misc\ProcessDWG.cs" />
     <Compile Include="Misc\App.cs" />
     <Compile Include="GenericModelsExplode\ObjectsToDSValve.cs" />
