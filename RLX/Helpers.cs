@@ -11,6 +11,21 @@ namespace RLX
 {
     internal class Helpers
     {
+
+        public static double FindChainage(XYZ point, RG.Polyline alignment, double startCh)
+        {
+            RG.Point3d closestPt = alignment.ClosestPoint(Helpers.RevitToRhinoPt(point));
+
+            double rhinoPar = alignment.ClosestParameter(closestPt);
+            RG.Curve[] plcurve = alignment.ToPolylineCurve().Split(rhinoPar);
+
+            RG.Polyline splitAlignment = null;
+
+            plcurve[0].TryGetPolyline(out splitAlignment);
+
+            return splitAlignment.Length * 0.3048 + startCh;
+        }
+
         public static XYZ GetElementCentroid(Element element)
         {
             BoundingBoxXYZ bbox = element.get_BoundingBox(null);
