@@ -60,6 +60,7 @@
     <Compile Include="GenericModelsExplode\FamilyInstanceInspector.cs" />
     <Compile Include="GenericModelsExplode\ObjectsToDSPipe.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="macro.cs" />
     <Compile Include="MechEquip\MechEquipFillTitle.cs" />
     <Compile Include="Misc\FindChainagePipes.cs" />
     <Compile Include="Misc\FindChainage.cs" />
