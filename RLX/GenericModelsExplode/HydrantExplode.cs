@@ -49,30 +49,32 @@ namespace RLX
 
                 List<GeometryObject> geoObjects = new List<GeometryObject>();
 
-                List<int> cabinetIds = new List<int>() {3638, 3673};
-
-                List<GeometryObject> cabinetObjects = new List<GeometryObject>();
-
                 // Iterate over the geometry and add it to the list
                 foreach (GeometryObject geoObj in geometryElement)
                 {
-                    if (cabinetIds.Contains(geoObj.Id))
+
+
+                    GeometryInstance gi = geoObj as GeometryInstance;
+
+                    GeometryElement ge = gi.GetInstanceGeometry();
+
+
+                    List<GeometryObject> cabinet = ge.Where(x => x.Id == 3638 ||
+                                                                 x.Id == 3673
+                                                                 ).ToList();
+
+
+                    try
                     {
-                        cabinetObjects.Add(geoObj);
+                        DirectShape directShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeCurves));
+
+                        directShape.SetShape(cabinet);
+
                     }
-                }
+                    catch { }
 
-                try
-                {
-                    DirectShape directShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeCurves));
-
-                    directShape.SetShape(cabinetObjects);
 
                 }
-                catch { }
-
-
-
 
 
 
