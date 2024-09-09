@@ -35,6 +35,8 @@ namespace RLX
             FamilyInstance familyInstance = doc.GetElement(familyRef) as FamilyInstance;
 
             var subElements = familyInstance.GetSubComponentIds();
+  
+
 
             using (Transaction t = new Transaction(doc, "Explode family"))
             {
@@ -59,17 +61,27 @@ namespace RLX
 
                             GeometryElement ge = gi.GetInstanceGeometry();
 
+                            Transform transf = gi.Transform;
+
+                            GeometryElement gs = gi.GetSymbolGeometry(transf);
+
                             int counter = 0;
 
-                            foreach (var item in ge)
+                            foreach (var item in gs)
                             {
                                 //if (counter < 2000)
                                 //{
                                 try
                                 {
+                                    //Solid instanceGeomSolid = item as Solid;
+
+                                    //XYZ centroid = instanceGeomSolid.ComputeCentroid();
+                                    //XYZ tCentroid = transf.Inverse.OfPoint(centroid);
+
                                     DirectShape directShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeFitting));
                                     directShape.SetShape(new List<GeometryObject>() { item });
-                                    directShape.LookupParameter("Comments").Set(item.GetHashCode().ToString());
+                                    directShape.LookupParameter("Comments").Set(item.Id.ToString());
+
 
                                     counter++;
                                 }
@@ -100,26 +112,27 @@ namespace RLX
 
                     GeometryElement ge = gi.GetInstanceGeometry();
 
-                    int counter = 0;
+                    GeometryElement gs = gi.GetSymbolGeometry(gi.Transform);
 
 
-                    foreach (var item in ge)
+
+                    //foreach (var item in ge)
+                    foreach (var item in gs)
                     {
                         //if (counter < 2000)
                         //{
-                            try
-                            {
+                        try
+                        {
                             DirectShape directShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeCurves));
                             directShape.Name = item.Id.ToString();
                             directShape.SetShape(new List<GeometryObject>() { item });
                             directShape.LookupParameter("Comments").Set(item.Id.ToString());
-                            counter++;
                         }
                         catch { }
                         //}
                     }
 
-                    geoObjects.Add(geoObj);
+                    //geoObjects.Add(geoObj);
                     // Set the geometry of the DirectShape
                 }
 

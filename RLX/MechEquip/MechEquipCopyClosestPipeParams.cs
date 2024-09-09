@@ -64,7 +64,13 @@ namespace RLX
                 "RLX_ClassificationUniclassPr_Number","RLX_ClassificationUniclassSs_Description",
                 "RLX_ClassificationUniclassSs_Number","RLX_Component","RLX_CoordinatesX","RLX_CoordinatesY",
                 "RLX_CoordinatesZ","RLX_Facility","RLX_GridReferenceSystem","RLX_Location","RLX_MaintenanceCost",
-                "RLX_Space","RLX_Specification","RLX_System","RLX_Type","RLX_UniqueIdentifier","RLX_Zone","DS_AssetID"};
+                "RLX_Space","RLX_Specification","RLX_System","RLX_Type","RLX_UniqueIdentifier","RLX_Zone","RLX_MainMaterial",
+                "DS_AssetID",
+                "DS_AssetType",
+                "DS_Axis",
+                "DS_Lane",
+                "DS_Chainage",
+                "DS_Location"};
 
                 using (Transaction t = new Transaction(doc, "Pipe fittings copy pipe parameters"))
                 {
@@ -89,13 +95,19 @@ namespace RLX
 
                         if (closestPipe != null)
                         {
-                            foreach (string paramName in paramsToSet)
-                            {
-                                //					TaskDialog.Show("R", paramName);
-                                string p = closestPipe.LookupParameter(paramName).AsValueString();
-                                mecEquip.LookupParameter(paramName).Set(p);
-                            }
+                        foreach (string paramName in paramsToSet)
+                        {
+                            //					TaskDialog.Show("R", paramName);
+                            Parameter p = closestPipe.LookupParameter(paramName);
+
+                            if (p.StorageType == StorageType.String)
+                                mecEquip.LookupParameter(paramName).Set(p.AsValueString());
+
+                            if (p.StorageType == StorageType.ElementId)
+                                mecEquip.LookupParameter(paramName).Set(p.AsElementId());
+
                         }
+                    }
 
                         closestPipe = null;
                         distance = 100 / 304.8;

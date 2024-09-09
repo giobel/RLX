@@ -58,10 +58,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GenericModelsExplode\FamilyInstanceInspector.cs" />
+    <Compile Include="GenericModelsExplode\ExplodePipes.cs" />
+    <Compile Include="GenericModelsExplode\MecEqDelugeCabSB.cs" />
     <Compile Include="GenericModelsExplode\ObjectsToDSPipe.cs" />
     <Compile Include="Helpers.cs" />
-    <Compile Include="macro.cs" />
     <Compile Include="MechEquip\MechEquipFillTitle.cs" />
+    <Compile Include="Misc\CopyOLDids.cs" />
     <Compile Include="Misc\FindChainagePipes.cs" />
     <Compile Include="Misc\FindChainage.cs" />
     <Compile Include="TEST\ZZ_FindChainage2.cs" />
