@@ -14,7 +14,7 @@ using System.Linq;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class CopyParams : IExternalCommand
+    public class CopyParamsMultipleObjs : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -30,7 +30,7 @@ namespace RLX
 
             Element sourcePipe = doc.GetElement(sourcePiperef);
 
-            Reference destinationPipesRef = uidoc.Selection.PickObject(ObjectType.Element, "Select destination pipes");
+            IList<Reference> destinationPipesRef = uidoc.Selection.PickObjects(ObjectType.Element, "Select destination pipes");
 
                 List<string> paramsToSet = new List<string>(){"RLX_ActualCost",
                     "RLX_ClassificationUniclassEF_Description","RLX_Title",
@@ -50,8 +50,10 @@ namespace RLX
                 {
                     t.Start();
 
+                    foreach (Reference pipeRef in destinationPipesRef)
+                    {
 
-                           Element pipe = doc.GetElement(destinationPipesRef);
+                           Element pipe = doc.GetElement(pipeRef);
                             foreach (string paramName in paramsToSet)
                             {
                                 //					TaskDialog.Show("R", paramName);
@@ -59,7 +61,7 @@ namespace RLX
                                 pipe.LookupParameter(paramName).Set(p);
                             }
 
-                
+                }
                     t.Commit();
                 }//close transaction
 

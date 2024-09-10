@@ -70,6 +70,7 @@ namespace RLX
             builtInCats.Add(BuiltInCategory.OST_GenericModel);
             builtInCats.Add(BuiltInCategory.OST_MechanicalEquipment);
             builtInCats.Add(BuiltInCategory.OST_PipeFitting);
+            builtInCats.Add (BuiltInCategory.OST_PipeCurves);
 
 
             ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);
@@ -83,6 +84,8 @@ namespace RLX
 
                 foreach (Element element in mepObjects)
                 {
+
+
                     XYZ MEPprojectedPt = null;
 
                     //if (element.Category.Name == "Pipes")
@@ -99,32 +102,40 @@ namespace RLX
                     }
                     else
                     {
+                        //exclude the pipes with a location curve. use the other script
+                        LocationCurve lc = element.Location as LocationCurve;
+                        if (lc == null)
+                        {
                         //these are the directshape elements -> location is null
                         XYZ centroid = Helpers.GetElementCentroid(element);
                         MEPprojectedPt = new XYZ(centroid.X, centroid.Y, 0);
+                        }
                     }
 
+                    if (MEPprojectedPt != null)
+                    {
 
-                    IntersectionResult intersection = alignmentCrv.Project(MEPprojectedPt);
 
-                    XYZ pointOnAlign = intersection.XYZPoint;
+                        IntersectionResult intersection = alignmentCrv.Project(MEPprojectedPt);
 
-                    //Helpers.CreateCircle(doc, pointOnAlign, 2);
+                        XYZ pointOnAlign = intersection.XYZPoint;
 
-                    //RHINO
-                    RG.Point3d closestPt = rhinoAlignment.ClosestPoint(Helpers.RevitToRhinoPt(MEPprojectedPt));
+                        //Helpers.CreateCircle(doc, pointOnAlign, 2);
 
-                    double rhinoPar = rhinoAlignment.ClosestParameter(closestPt);
-                    RG.Curve[] plcurve = rhinoAlignment.ToPolylineCurve().Split(rhinoPar);
+                        //RHINO
+                        RG.Point3d closestPt = rhinoAlignment.ClosestPoint(Helpers.RevitToRhinoPt(MEPprojectedPt));
 
-                    RG.Polyline splitAlignment = null;
+                        double rhinoPar = rhinoAlignment.ClosestParameter(closestPt);
+                        RG.Curve[] plcurve = rhinoAlignment.ToPolylineCurve().Split(rhinoPar);
 
-                    plcurve[0].TryGetPolyline(out splitAlignment);
+                        RG.Polyline splitAlignment = null;
 
-                    double chainage = splitAlignment.Length * 0.3048 + chainageStart;
+                        plcurve[0].TryGetPolyline(out splitAlignment);
 
-                    element.LookupParameter("DS_Chainage").Set(chainage.ToString());
+                        double chainage = splitAlignment.Length * 0.3048 + chainageStart;
 
+                        element.LookupParameter("DS_Chainage").Set(chainage.ToString());
+                    }
                     //TaskDialog.Show("Length", chainage.ToString());
 
 

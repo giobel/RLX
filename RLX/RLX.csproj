@@ -57,9 +57,11 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CopyParamsMultipleObjs.cs" />
     <Compile Include="GenericModelsExplode\FamilyInstanceInspector.cs" />
     <Compile Include="GenericModelsExplode\ExplodePipes.cs" />
     <Compile Include="GenericModelsExplode\HydrantExplode.cs" />
+    <Compile Include="GenericModelsExplode\HydrantBranchExplode.cs" />
     <Compile Include="GenericModelsExplode\MecEqDelugeCabSB.cs" />
     <Compile Include="GenericModelsExplode\ObjectsToDSPipe.cs" />
     <Compile Include="Helpers.cs" />

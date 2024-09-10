@@ -12,6 +12,17 @@ namespace RLX
     internal class Helpers
     {
 
+        public static List<List<T>> ChunkList<T>(List<T> list, int chunkSize)
+        {
+            var chunks = new List<List<T>>();
+
+            for (int i = 0; i < list.Count; i += chunkSize)
+            {
+                chunks.Add(list.Skip(i).Take(chunkSize).ToList());
+            }
+
+            return chunks;
+        }
         public static double FindChainage(XYZ point, RG.Polyline alignment, double startCh)
         {
             RG.Point3d closestPt = alignment.ClosestPoint(Helpers.RevitToRhinoPt(point));

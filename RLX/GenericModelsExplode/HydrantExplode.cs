@@ -50,7 +50,10 @@ namespace RLX
                 // Iterate over the geometry and add it to the list
                 foreach (GeometryObject geoObj in geometryElement)
                 {
-
+                    if (geoObj.GetType() == typeof(Solid))
+                    {
+                        TaskDialog.Show("R", "solid");
+                    }
 
                     GeometryInstance gi = geoObj as GeometryInstance;
 

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RevitAddIns>
   <AddIn Type="Command">
-    <Text>Command RLX</Text>
+    <Text>Copy Parameters</Text>
     <Description>Some description for RLX</Description>
     <Assembly>RLX.dll</Assembly>
-    <FullClassName>RLX.Command</FullClassName>
+    <FullClassName>RLX.CopyParams</FullClassName>
     <ClientId>b055ad32-3ec3-4542-905f-eb56ee9a0c29</ClientId>
     <VendorId>com.typepad.thebuildingcoder</VendorId>
     <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
