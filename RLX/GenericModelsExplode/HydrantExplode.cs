@@ -35,8 +35,6 @@ namespace RLX
 
             Element familyInstance = doc.GetElement(familyRef) as Element;
 
-
-
             using (Transaction t = new Transaction(doc, "Explode hydrant family"))
             {
 
