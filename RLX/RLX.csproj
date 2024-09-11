@@ -65,6 +65,7 @@
     <Compile Include="GenericModelsExplode\MecEqDelugeCabSB.cs" />
     <Compile Include="GenericModelsExplode\ObjectsToDSPipe.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="MechEquip\HangerFittingsCopyClosestPipeParamsBBox.cs" />
     <Compile Include="MechEquip\MechEquipFillTitle.cs" />
     <Compile Include="Misc\CopyOLDids.cs" />
     <Compile Include="Misc\FindChainagePipes.cs" />

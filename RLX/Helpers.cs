@@ -12,6 +12,21 @@ namespace RLX
     internal class Helpers
     {
 
+        public static bool DoBoundingBoxesIntersect(BoundingBoxXYZ box1, BoundingBoxXYZ box2)
+        {
+            // Check if the bounding boxes intersect along the X axis
+            bool intersectX = box1.Min.X <= box2.Max.X && box1.Max.X >= box2.Min.X;
+
+            // Check if the bounding boxes intersect along the Y axis
+            bool intersectY = box1.Min.Y <= box2.Max.Y && box1.Max.Y >= box2.Min.Y;
+
+            // Check if the bounding boxes intersect along the Z axis
+            bool intersectZ = box1.Min.Z <= box2.Max.Z && box1.Max.Z >= box2.Min.Z;
+
+            // The bounding boxes intersect if they overlap in all three dimensions
+            return intersectX && intersectY && intersectZ;
+        }
+
         public static List<List<T>> ChunkList<T>(List<T> list, int chunkSize)
         {
             var chunks = new List<List<T>>();
