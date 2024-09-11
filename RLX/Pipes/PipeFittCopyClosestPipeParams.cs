@@ -89,17 +89,19 @@ namespace RLX
 
                     LocationPoint point = fitting.Location as LocationPoint;
 
-                    for (int i = 0; i < allPipes.Count(); i++)
+                    if (point != null)
                     {
-                        double currentDistance = pipeCurves[i].Distance(point.Point);
-                        if (currentDistance < distance)
+                        for (int i = 0; i < allPipes.Count(); i++)
                         {
+                            double currentDistance = pipeCurves[i].Distance(point.Point);
+                            if (currentDistance < distance)
+                            {
 
-                            distance = currentDistance;
-                            closestPipe = allPipes[i];
+                                distance = currentDistance;
+                                closestPipe = allPipes[i];
 
+                            }
                         }
-                    }
 
                     foreach (string paramName in paramsToSet)
                     {
@@ -114,6 +116,7 @@ namespace RLX
 
                     }
 
+                    }
 
                     closestPipe = null;
                     distance = 1000;

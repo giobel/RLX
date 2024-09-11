@@ -61,10 +61,12 @@ namespace RLX
 
                         BoundingBoxIntersectsFilter filter = new BoundingBoxIntersectsFilter(outline);
 
-                        //first element is the mech equipment itself
-                        IList<Element> intersectedPipe = new FilteredElementCollector(doc, doc.ActiveView.Id)
+                    ElementSlowFilter intersectElement = new ElementIntersectsElementFilter(mecEquip);
+
+                    //first element is the mech equipment itself
+                    IList<Element> intersectedPipe = new FilteredElementCollector(doc, doc.ActiveView.Id)
                                                             .OfCategory(BuiltInCategory.OST_PipeCurves)
-                                                            .WherePasses(filter).ToElements();
+                                                            .WherePasses(intersectElement).ToElements();
 
                         
 
