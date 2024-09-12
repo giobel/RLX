@@ -71,6 +71,8 @@ namespace RLX
             builtInCats.Add(BuiltInCategory.OST_MechanicalEquipment);
             builtInCats.Add(BuiltInCategory.OST_PipeFitting);
             builtInCats.Add (BuiltInCategory.OST_PipeCurves);
+            builtInCats.Add(BuiltInCategory.OST_Furniture);
+
 
 
             ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);
