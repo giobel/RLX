@@ -27,7 +27,7 @@ namespace RLX
 
                 RibbonPanel explodeFamilies = GetSetRibbonPanel(a, tabName, "Explode Families");
 
-                if (AddPushButton(explodeFamilies, "btnWallSplitter", "Hydrant Explode", "", "", "RLX.HydrantExplode", "Refer to documentation") == false)
+                if (AddPushButton(explodeFamilies, "hydrantExplode", "Hydrant Explode", "", "", "RLX.HydrantExplode", "Refer to documentation") == false)
                 {
                     MessageBox.Show("Failed to add button Split Wall", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }

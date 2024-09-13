@@ -59,6 +59,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColorByRLXid.cs" />
     <Compile Include="FillUniqueId.cs" />
     <Compile Include="CopyParamsMultipleObjs.cs" />
     <Compile Include="GenericModelsExplode\FamilyInstanceInspector.cs" />
