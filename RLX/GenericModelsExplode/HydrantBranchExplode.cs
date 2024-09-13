@@ -78,6 +78,8 @@ namespace RLX
                                 {
                                     DirectShape directShape = DirectShape.CreateElement(doc, fi.Category.Id);
                                     directShape.SetShape(solids);
+                                    directShape.Name = "Tunnel NB Hydrant branch";
+                                    directShape.LookupParameter("Comments").Set("Tunnel NB Hydrant branch");
                                     counter++;
                                 }
                                 catch { }
@@ -110,26 +112,17 @@ namespace RLX
 
 
                         List<GeometryObject> pipes = ge.Where(x =>
-    x.Id == 140 ||
-    x.Id == 96 ||
-    x.Id == 322 ||
-    x.Id == 311 ||
-    x.Id == 300 ||
-    x.Id == 289 ||
-    x.Id == 69 ||
-    x.Id == 53 ||
-    x.Id == 37 ||
-    x.Id == 21 ||
-    x.Id == 251 ||
-    x.Id == 235 ||
-    x.Id == 217 ||
-    x.Id == 201
+// tunnel south bound family
+//x.Id == 140 || x.Id == 118 || x.Id == 96 || x.Id == 85 || x.Id == 283 || x.Id == 272 || x.Id == 261 || x.Id == 250 || x.Id == 69 || x.Id == 53 || x.Id == 37 || x.Id == 21 || x.Id == 212 || x.Id == 196 || x.Id == 178 || x.Id == 162 ||
 
-    ).ToList();
+//tunnel north bound family
+x.Id == 140 || x.Id == 118 || x.Id == 96 || x.Id == 85 || x.Id == 283 || x.Id == 272 || x.Id == 261 || x.Id == 250 || x.Id == 69 || x.Id == 53 || x.Id == 37 || x.Id == 21 || x.Id == 212 || x.Id == 196 || x.Id == 178 || x.Id == 162
+).ToList();
 
                         DirectShape pipesShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeCurves));
                         pipesShape.SetShape(pipes);
-
+                        pipesShape.SetName("Tunnel NB");
+                        pipesShape.LookupParameter("Comments").Set("Tunnel NB Hydrant branch");
 
                     }
 

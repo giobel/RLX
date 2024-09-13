@@ -64,6 +64,7 @@
     <Compile Include="GenericModelsExplode\ExplodeSubComponents.cs" />
     <Compile Include="GenericModelsExplode\HydrantExplode.cs" />
     <Compile Include="GenericModelsExplode\HydrantBranchExplode.cs" />
+    <Compile Include="GenericModelsExplode\MecEqDelugeCabNB.cs" />
     <Compile Include="GenericModelsExplode\MecEqDelugeCabSB.cs" />
     <Compile Include="GenericModelsExplode\ObjectsToDSPipe.cs" />
     <Compile Include="Helpers.cs" />

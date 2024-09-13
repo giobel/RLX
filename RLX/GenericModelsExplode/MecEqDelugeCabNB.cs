@@ -14,7 +14,7 @@ using System.Linq;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class MecEqDelugeCabSB : IExternalCommand
+    public class MecEqDelugeCabNB : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -36,7 +36,7 @@ namespace RLX
 
             var subElements = familyInstance.GetSubComponentIds();
 
-            using (Transaction t = new Transaction(doc, "Explode family"))
+            using (Transaction t = new Transaction(doc, "Explode NB Cabinet family"))
             {
 
 
@@ -70,6 +70,7 @@ namespace RLX
 
                             DirectShape directShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeFitting));
                             directShape.SetShape(solids);
+                            directShape.LookupParameter("Comments").Set("Deluge Cabinet NB");
                             counter++;
 
                             
@@ -96,20 +97,21 @@ namespace RLX
                     GeometryElement ge = gi.GetInstanceGeometry();
 
                     List<GeometryObject> cabinet = ge.Where(x =>
-                    x.Id == 12983 ||
-                    x.Id == 12964 ||
-                    x.Id == 12952 ||
-                    x.Id == 12807 ||
-                    x.Id == 12791 ||
-                    x.Id == 12782 ||
-                    x.Id == 12772 ||
-                    x.Id == 12762 ||
-                    x.Id == 12752 ||
-                    x.Id == 12683 
+                    x.Id == 8319 ||
+                    x.Id == 8289 ||
+                    x.Id == 8270 ||
+                    x.Id == 8054 ||
+                    x.Id == 8019 ||
+                    x.Id == 8000 ||
+                    x.Id == 7981 ||
+                    x.Id == 7962 ||
+                    x.Id == 7943 ||
+                    x.Id == 7812
                                                                  ).ToList();
 
                     DirectShape directShapeCabinet = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_Furniture));
                     directShapeCabinet.SetShape(cabinet);
+                    directShapeCabinet.LookupParameter("Comments").Set("Deluge Cabinet NB");
 
                     List<Tuple<string, string>> data = new List<Tuple<string, string>>();
                     data.Add(new Tuple<string, string>("RLX_ClassificationUniclassPr_Description", "Fire equipment cabinets"));
@@ -126,18 +128,12 @@ namespace RLX
                     data.Add(new Tuple<string, string>("RLX_ClassificationUniclassPr_Number", "Pr_65_54_30_22"));
 
 
-                    List<GeometryObject> valve1 = ge.Where(x =>
-
-                    x.Id == 8606 ||
-x.Id == 8600 ||
-x.Id == 8592 ||
-x.Id == 8582 ||
-x.Id == 8536 ||
-x.Id == 8490 ||
-x.Id == 8483  ).ToList();
+                    List<GeometryObject> valve1 = ge.Where(x => x.Id == 8684 || x.Id == 8673 || x.Id == 8662 || x.Id == 8635 || x.Id == 8519 || x.Id == 8458 || x.Id == 8447).ToList();
 
                     DirectShape valveShape1 = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeAccessory));
                     valveShape1.SetShape(valve1);
+                    valveShape1.Name = "Valve 1";
+                    valveShape1.LookupParameter("Comments").Set("Deluge Cabinet NB");
 
                     foreach (var info in valvesData)
                     {
@@ -145,27 +141,12 @@ x.Id == 8483  ).ToList();
                         p.Set(info.Item2);
                     }
 
-                    List<GeometryObject> valve2 = ge.Where(x =>
-                    x.Id == 10314 ||
-x.Id == 10307 ||
-x.Id == 10275 ||
-x.Id == 10226 ||
-x.Id == 10199 ||
-x.Id == 10171 ||
-x.Id == 10154 ||
-x.Id == 10126 ||
-x.Id == 10113 ||
-x.Id == 10099 ||
-x.Id == 10085 ||
-x.Id == 10071 ||
-x.Id == 10057 ||
-x.Id == 10043 ||
-x.Id == 10029 ||
-x.Id == 10015 ||
-x.Id == 10007).ToList();
+                    List<GeometryObject> valve2 = ge.Where(x => x.Id == 3485 || x.Id == 3474 || x.Id == 3415 || x.Id == 3338 || x.Id == 3297 || x.Id == 3246 || x.Id == 3217 || x.Id == 3166 || x.Id == 3139 || x.Id == 3112 || x.Id == 3085 || x.Id == 3058 || x.Id == 3031 || x.Id == 3004 || x.Id == 2977 || x.Id == 2950 || x.Id == 2939).ToList();
 
                     DirectShape valveShape2 = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeAccessory));
                     valveShape2.SetShape(valve2);
+                    valveShape2.Name = "Valve 2";
+                    valveShape2.LookupParameter("Comments").Set("Deluge Cabinet NB");
 
                     foreach (var info in valvesData)
                     {
@@ -173,27 +154,12 @@ x.Id == 10007).ToList();
                         p.Set(info.Item2);
                     }
 
-                    List<GeometryObject> valve3 = ge.Where(x =>
-                    x.Id == 12238 ||
-x.Id == 12231 ||
-x.Id == 12199 ||
-x.Id == 12150 ||
-x.Id == 12123 ||
-x.Id == 12095 ||
-x.Id == 12078 ||
-x.Id == 12050 ||
-x.Id == 12037 ||
-x.Id == 12023 ||
-x.Id == 12009 ||
-x.Id == 11995 ||
-x.Id == 11981 ||
-x.Id == 11967 ||
-x.Id == 11953 ||
-x.Id == 11939 ||
-x.Id == 11931).ToList();
+                    List<GeometryObject> valve3 = ge.Where(x =>x.Id == 7001 || x.Id == 6990 || x.Id == 6931 || x.Id == 6854 || x.Id == 6813 || x.Id == 6762 || x.Id == 6733 || x.Id == 6682 || x.Id == 6655 || x.Id == 6628 || x.Id == 6601 || x.Id == 6574 || x.Id == 6547 || x.Id == 6520 || x.Id == 6493 || x.Id == 6466 || x.Id == 6455).ToList();
 
                     DirectShape valveShape3 = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeAccessory));
                     valveShape3.SetShape(valve3);
+                    valveShape3.Name = "Valve 3";
+                    valveShape3.LookupParameter("Comments").Set("Deluge Cabinet NB");
 
                     foreach (var info in valvesData)
                     {
@@ -201,84 +167,11 @@ x.Id == 11931).ToList();
                         p.Set(info.Item2);
                     }
 
-                    List<GeometryObject> delugeValve1 = ge.Where(x =>
-                    x.Id == 12656 ||
-x.Id == 12619 ||
-x.Id == 12610 ||
-x.Id == 12555 ||
-x.Id == 12527 ||
-x.Id == 12491 ||
-x.Id == 12453 ||
-x.Id == 12445 ||
-x.Id == 12432 ||
-x.Id == 12424 ||
-x.Id == 12411 ||
-x.Id == 12403 ||
-x.Id == 12390 ||
-x.Id == 12382 ||
-x.Id == 12369 ||
-x.Id == 12361 ||
-x.Id == 12348 ||
-x.Id == 12340 ||
-x.Id == 12327 ||
-x.Id == 12319 ||
-x.Id == 12306 ||
-x.Id == 12298 ||
-x.Id == 12266 ||
-x.Id == 11884 ||
-x.Id == 11875 ||
-x.Id == 11868 ||
-x.Id == 11816 ||
-x.Id == 11810 ||
-x.Id == 11773 ||
-x.Id == 11764 ||
-x.Id == 11756 ||
-x.Id == 11691 ||
-x.Id == 11680 ||
-x.Id == 11638 ||
-x.Id == 11545 ||
-x.Id == 11538 ||
-x.Id == 11470 ||
-x.Id == 11463 ||
-x.Id == 11434 ||
-x.Id == 11418 ||
-x.Id == 11410 ||
-x.Id == 11326 ||
-x.Id == 11320 ||
-x.Id == 11312 ||
-x.Id == 11304 ||
-x.Id == 11294 ||
-x.Id == 11279 ||
-x.Id == 11271 ||
-x.Id == 11175 ||
-x.Id == 11168 ||
-x.Id == 11150 ||
-x.Id == 11143 ||
-x.Id == 11099 ||
-x.Id == 11041 ||
-x.Id == 11026 ||
-x.Id == 11010 ||
-x.Id == 10974 ||
-x.Id == 10961 ||
-x.Id == 10932 ||
-x.Id == 10924 ||
-x.Id == 10908 ||
-x.Id == 10892 ||
-x.Id == 10876 ||
-x.Id == 10860 ||
-x.Id == 10844 ||
-x.Id == 10828 ||
-x.Id == 10812 ||
-x.Id == 10796 ||
-x.Id == 10781 ||
-x.Id == 10773 ||
-x.Id == 10765 ||
-x.Id == 10757 ||
-x.Id == 10721 ||
-x.Id == 8789).ToList();
-
+                    List<GeometryObject> delugeValve1 = ge.Where(x => x.Id == 7760 || x.Id == 7693 || x.Id == 7674 || x.Id == 7609 || x.Id == 7574 || x.Id == 7523 || x.Id == 7456 || x.Id == 7388 || x.Id == 7377 || x.Id == 7350 || x.Id == 7339 || x.Id == 7312 || x.Id == 7301 || x.Id == 7274 || x.Id == 7263 || x.Id == 7236 || x.Id == 7225 || x.Id == 7198 || x.Id == 7187 || x.Id == 7160 || x.Id == 7149 || x.Id == 7122 || x.Id == 7111 || x.Id == 7052 || x.Id == 6381 || x.Id == 6370 || x.Id == 6359 || x.Id == 6276 || x.Id == 6253 || x.Id == 6194 || x.Id == 6175 || x.Id == 6164 || x.Id == 6063 || x.Id == 6046 || x.Id == 5946 || x.Id == 5803 || x.Id == 5792 || x.Id == 5685 || x.Id == 5666 || x.Id == 5615 || x.Id == 5580 || x.Id == 5557 || x.Id == 5432 || x.Id == 5403 || x.Id == 5380 || x.Id == 5357 || x.Id == 5334 || x.Id == 5305 || x.Id == 5282 || x.Id == 5133 || x.Id == 5114 || x.Id == 5085 || x.Id == 5074 || x.Id == 5003 || x.Id == 4914 || x.Id == 4879 || x.Id == 4844 || x.Id == 4777 || x.Id == 4750 || x.Id == 4699 || x.Id == 4676 || x.Id == 4647 || x.Id == 4618 || x.Id == 4589 || x.Id == 4560 || x.Id == 4531 || x.Id == 4502 || x.Id == 4473 || x.Id == 4444 || x.Id == 4403 || x.Id == 4368 || x.Id == 4321 || x.Id == 4298 || x.Id == 4231 || x.Id == 676).ToList();
                     DirectShape delugeValveShape1 = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeAccessory));
                     delugeValveShape1.SetShape(delugeValve1);
+                    delugeValveShape1.Name = "Deluge Valve 1";
+                    delugeValveShape1.LookupParameter("Comments").Set("Deluge Cabinet NB");
 
                     foreach (var info in valvesData)
                     {
@@ -286,87 +179,12 @@ x.Id == 8789).ToList();
                         p.Set(info.Item2);
                     }
 
-                    List<GeometryObject> delugeValve2 = ge.Where(x =>
-                    x.Id == 10694 ||
-x.Id == 10657 ||
-x.Id == 10648 ||
-x.Id == 10631 ||
-x.Id == 10603 ||
-x.Id == 10567 ||
-x.Id == 10529 ||
-x.Id == 10521 ||
-x.Id == 10508 ||
-x.Id == 10500 ||
-x.Id == 10487 ||
-x.Id == 10479 ||
-x.Id == 10466 ||
-x.Id == 10458 ||
-x.Id == 10445 ||
-x.Id == 10437 ||
-x.Id == 10424 ||
-x.Id == 10416 ||
-x.Id == 10403 ||
-x.Id == 10395 ||
-x.Id == 10382 ||
-x.Id == 10374 ||
-x.Id == 10342 ||
-x.Id == 9999 ||
-x.Id == 9991 ||
-x.Id == 9984 ||
-x.Id == 9891 ||
-x.Id == 9884 ||
-x.Id == 9816 ||
-x.Id == 9809 ||
-x.Id == 9780 ||
-x.Id == 9764 ||
-x.Id == 9756 ||
-x.Id == 9691 ||
-x.Id == 9680 ||
-x.Id == 9672 ||
-x.Id == 9588 ||
-x.Id == 9582 ||
-x.Id == 9574 ||
-x.Id == 9566 ||
-x.Id == 9559 ||
-x.Id == 9552 ||
-x.Id == 9537 ||
-x.Id == 9529 ||
-x.Id == 9513 ||
-x.Id == 9477 ||
-x.Id == 9464 ||
-x.Id == 9435 ||
-x.Id == 9427 ||
-x.Id == 9380 ||
-x.Id == 9326 ||
-x.Id == 9320 ||
-x.Id == 9283 ||
-x.Id == 9274 ||
-x.Id == 9265 ||
-x.Id == 9250 ||
-x.Id == 9242 ||
-x.Id == 9146 ||
-x.Id == 9139 ||
-x.Id == 9121 ||
-x.Id == 9114 ||
-x.Id == 9070 ||
-x.Id == 9012 ||
-x.Id == 8997 ||
-x.Id == 8981 ||
-x.Id == 8965 ||
-x.Id == 8949 ||
-x.Id == 8933 ||
-x.Id == 8917 ||
-x.Id == 8901 ||
-x.Id == 8885 ||
-x.Id == 8869 ||
-x.Id == 8863 ||
-x.Id == 8855 ||
-x.Id == 8847 ||
-x.Id == 8839 ||
-x.Id == 8803).ToList();
+                    List<GeometryObject> delugeValve2 = ge.Where(x =>x.Id == 4179 || x.Id == 4112 || x.Id == 4093 || x.Id == 4058 || x.Id == 4007 || x.Id == 3940 || x.Id == 3872 || x.Id == 3861 || x.Id == 3834 || x.Id == 3823 || x.Id == 3796 || x.Id == 3785 || x.Id == 3758 || x.Id == 3747 || x.Id == 3720 || x.Id == 3709 || x.Id == 3682 || x.Id == 3671 || x.Id == 3644 || x.Id == 3633 || x.Id == 3606 || x.Id == 3595 || x.Id == 3536 || x.Id == 2916 || x.Id == 2893 || x.Id == 2882 || x.Id == 2739 || x.Id == 2728 || x.Id == 2621 || x.Id == 2602 || x.Id == 2551 || x.Id == 2516 || x.Id == 2493 || x.Id == 2392 || x.Id == 2375 || x.Id == 2352 || x.Id == 2227 || x.Id == 2198 || x.Id == 2175 || x.Id == 2152 || x.Id == 2141 || x.Id == 2130 || x.Id == 2095 || x.Id == 2072 || x.Id == 2037 || x.Id == 1970 || x.Id == 1943 || x.Id == 1892 || x.Id == 1869 || x.Id == 1795 || x.Id == 1712 || x.Id == 1689 || x.Id == 1630 || x.Id == 1611 || x.Id == 1588 || x.Id == 1559 || x.Id == 1536 || x.Id == 1387 || x.Id == 1368 || x.Id == 1339 || x.Id == 1328 || x.Id == 1257 || x.Id == 1168 || x.Id == 1127 || x.Id == 1098 || x.Id == 1069 || x.Id == 1040 || x.Id == 1011 || x.Id == 982 || x.Id == 953 || x.Id == 924 || x.Id == 895 || x.Id == 872 || x.Id == 837 || x.Id == 790 || x.Id == 767 || x.Id == 700).ToList();
 
                     DirectShape delugeValveShape2 = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeAccessory));
                     delugeValveShape2.SetShape(delugeValve2);
+                    delugeValveShape2.Name = "Deluge Valve 2";
+                    delugeValveShape2.LookupParameter("Comments").Set("Deluge Cabinet NB");
 
                     foreach (var info in valvesData)
                     {
@@ -376,53 +194,45 @@ x.Id == 8803).ToList();
 
 
                     List<GeometryObject> pipes1 = ge.Where(x =>
-                    x.Id == 12942 ||
-x.Id == 12933 ||
-x.Id == 12925 ||
-x.Id == 12917 ||
-x.Id == 12909 ||
-x.Id == 12901 ||
-x.Id == 12845 ||
-x.Id == 12828 ||
-x.Id == 8772 ||
-x.Id == 8758 ||
-x.Id == 8743 ||
-x.Id == 8663 ||
-x.Id == 8632 ||
-x.Id == 8408 ||
-x.Id == 8395 ||
-x.Id == 12669 ||
-x.Id == 12569
+x.Id == 8251 ||
+x.Id == 8232 ||
+x.Id == 8221 ||
+x.Id == 8188 ||
+x.Id == 8100 ||
+x.Id == 7787 ||
+x.Id == 658 ||
+x.Id == 637 ||
+x.Id == 85 ||
+x.Id == 69 ||
+x.Id == 6027 ||
+x.Id == 5992 ||
+x.Id == 5969
 ).ToList();
 
                     DirectShape pipesShape1 = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeCurves));
                     pipesShape1.SetShape(pipes1);
+                    pipesShape1.LookupParameter("Comments").Set("Deluge Cabinet NB");
 
                     List<Tuple<string, string>> pipesData = new List<Tuple<string, string>>();
                     data.Add(new Tuple<string, string>("RLX_ClassificationUniclassPr_Description", "Pipes and fittings"));
                     data.Add(new Tuple<string, string>("RLX_ClassificationUniclassPr_Number", "Pr_65_52_63"));
 
                     List<GeometryObject> pipes2 = ge.Where(x =>
-x.Id == 12893 ||
-x.Id == 12885 ||
-x.Id == 12877 ||
-x.Id == 12867 ||
-x.Id == 12856 ||
-x.Id == 12823 ||
-x.Id == 13010 ||
-x.Id == 13007 ||
-x.Id == 8728 ||
-x.Id == 8710 ||
-x.Id == 8695 ||
-x.Id == 8679 ||
-x.Id == 8647 ||
-x.Id == 8383 ||
-x.Id == 8370 ||
-x.Id == 10707 
+x.Id == 8177 ||
+x.Id == 8155 ||
+x.Id == 8089 ||
+x.Id == 8797 ||
+x.Id == 8786 ||
+x.Id == 4206 ||
+x.Id == 605 ||
+x.Id == 584 ||
+x.Id == 53 ||
+x.Id == 37
 ).ToList();
 
                     DirectShape pipesShape2 = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeCurves));
                     pipesShape2.SetShape(pipes2);
+                    pipesShape2.LookupParameter("Comments").Set("Deluge Cabinet NB");
 
                     foreach (var info in pipesData)
                     {
@@ -431,14 +241,17 @@ x.Id == 10707
                     }
 
                     List<GeometryObject> pipes3 = ge.Where(x =>
-                    x.Id == 12976 ||
-x.Id == 12836 ||
-x.Id == 8790 ||
-x.Id == 8617
+x.Id == 8166 ||
+x.Id == 8144 ||
+x.Id == 8133 ||
+x.Id == 568 ||
+x.Id == 552 ||
+x.Id == 520
 ).ToList();
 
                     DirectShape pipesShape3 = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeCurves));
                     pipesShape3.SetShape(pipes3);
+                    pipesShape3.LookupParameter("Comments").Set("Deluge Cabinet NB");
 
                     foreach (var info in pipesData)
                     {
@@ -449,11 +262,15 @@ x.Id == 8617
 
 
                     List<GeometryObject> pipes4 = ge.Where(x =>
-x.Id == 8417
+x.Id == 8767 ||
+x.Id == 8756 ||
+x.Id == 677 ||
+x.Id == 8719
 ).ToList();
 
                     DirectShape pipesShape4 = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeCurves));
                     pipesShape4.SetShape(pipes4);
+                    pipesShape4.LookupParameter("Comments").Set("Deluge Cabinet NB");
 
                     foreach (var info in pipesData)
                     {
@@ -461,32 +278,39 @@ x.Id == 8417
                         p.Set(info.Item2);
                     }
 
+                List<GeometryObject> pipes5 = ge.Where(x =>
+                x.Id == 8210 ||
+                x.Id == 8199 ||
+                x.Id == 8122 ||
+                x.Id == 621 ||
+                x.Id == 536 ||
+                x.Id == 504).ToList();
 
+                    DirectShape pipesShape5 = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeCurves));
+                    pipesShape5.SetShape(pipes5);
+                    pipesShape5.LookupParameter("Comments").Set("Deluge Cabinet NB");
 
-                    foreach (var item in ge)
+                    foreach (var info in pipesData)
                     {
-                        //if (counter < 2000)
-                        //{
-                            try
-                            {
-                            
-                            //DirectShape directShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeCurves));
-                            //directShape.Name = item.Id.ToString();
-                            //directShape.SetShape(new List<GeometryObject>() { item });
-                            //directShape.LookupParameter("Comments").Set(item.Id.ToString());
-                            //    counter++;
-                            }
-                            catch { }
-                        //}
+                        Parameter p = pipesShape5.LookupParameter(info.Item1);
+                        p.Set(info.Item2);
                     }
 
-                    geoObjects.Add(geoObj);
-                    // Set the geometry of the DirectShape
+                    List<GeometryObject> pipes6 = ge.Where(x =>
+    x.Id == 8735).ToList();
+
+                    DirectShape pipesShape6 = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeCurves));
+                    pipesShape6.SetShape(pipes6);
+                    pipesShape6.LookupParameter("Comments").Set("Deluge Cabinet NB");
+
+                    foreach (var info in pipesData)
+                    {
+                        Parameter p = pipesShape6.LookupParameter(info.Item1);
+                        p.Set(info.Item2);
+                    }
+
+
                 }
-
-
-                
-
                 t.Commit();
             }
 

@@ -115,16 +115,24 @@ namespace RLX
                         {
                             DirectShape dsCabinet = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_Furniture));
                             dsCabinet.SetShape(cabinet);
+                            dsCabinet.SetName("Cabinet");
+                            dsCabinet.LookupParameter("Comments").Set("Cabinet");
 
                             DirectShape dsPipeHose1 = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeAccessory));
                             dsPipeHose1.SetShape(pipeHose1);
+                            dsPipeHose1.SetName("Pipe Hose 1");
+                            dsPipeHose1.LookupParameter("Comments").Set("Pipe Hose 1");
 
                             DirectShape dsPipeHose2 = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeAccessory));
                             dsPipeHose2.SetShape(pipeHose2);
-
+                            dsPipeHose2.SetName("Pipe Hose 2");
+                            dsPipeHose2.LookupParameter("Comments").Set("Pipe Hose 2");
 
                             DirectShape dsValve = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeAccessory));
                             dsValve.SetShape(valve);
+                            dsValve.SetName("Valve");
+                            dsValve.LookupParameter("Comments").Set("Valve");
+
 
                             DirectShape dsPipe = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeCurves));
                             dsPipe.SetShape(pipes);
