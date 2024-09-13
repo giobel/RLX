@@ -124,8 +124,8 @@ namespace RLX
                     }
 
                     List<Tuple<string, string>> valvesData = new List<Tuple<string, string>>();
-                    data.Add(new Tuple<string, string>("RLX_ClassificationUniclassPr_Description", "Deluge valves"));
-                    data.Add(new Tuple<string, string>("RLX_ClassificationUniclassPr_Number", "Pr_65_54_30_22"));
+                    valvesData.Add(new Tuple<string, string>("RLX_ClassificationUniclassPr_Description", "Deluge valves"));
+                    valvesData.Add(new Tuple<string, string>("RLX_ClassificationUniclassPr_Number", "Pr_65_54_30_22"));
 
 
                     List<GeometryObject> valve1 = ge.Where(x => x.Id == 8684 || x.Id == 8673 || x.Id == 8662 || x.Id == 8635 || x.Id == 8519 || x.Id == 8458 || x.Id == 8447).ToList();
@@ -214,8 +214,16 @@ x.Id == 5969
                     pipesShape1.LookupParameter("Comments").Set("Deluge Cabinet NB");
 
                     List<Tuple<string, string>> pipesData = new List<Tuple<string, string>>();
-                    data.Add(new Tuple<string, string>("RLX_ClassificationUniclassPr_Description", "Pipes and fittings"));
-                    data.Add(new Tuple<string, string>("RLX_ClassificationUniclassPr_Number", "Pr_65_52_63"));
+                    pipesData.Add(new Tuple<string, string>("RLX_ClassificationUniclassPr_Description", "Pipes and fittings"));
+                    pipesData.Add(new Tuple<string, string>("RLX_ClassificationUniclassPr_Number", "Pr_65_52_63"));
+
+
+                    foreach (var info in pipesData)
+                    {
+                        Parameter p = pipesShape1.LookupParameter(info.Item1);
+                        p.Set(info.Item2);
+                    }
+
 
                     List<GeometryObject> pipes2 = ge.Where(x =>
 x.Id == 8177 ||
