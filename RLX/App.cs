@@ -29,11 +29,15 @@ namespace RLX
                 #region PIPES
                 RibbonPanel pipes = GetSetRibbonPanel(a, tabName, "Pipes+Fittings+Hangers");
 
-                if (AddPushButton(pipes, "btnFillParams", "Fitting Copy" + Environment.NewLine + "Closest Params", null, Resource1.copy, "RLX.PipeFittCopyClosestPipeParams", "Refer to documentation") == false)
+                if (AddPushButton(pipes, "btnCopyFittingsClosestParams", "Fitting Copy" + Environment.NewLine + "Closest Params", null, Resource1.copy, "RLX.PipeFittCopyClosestPipeParams", "Refer to documentation") == false)
                 {
                     MessageBox.Show("Failed to add button 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
+                if (AddPushButton(pipes, "btnCopyHangersClosestParams", "Hangers Copy" + Environment.NewLine + "Closest Params", null, Resource1.copy, "RLX.MechEquipCopyClosestPipeParams", "Refer to documentation") == false)
+                {
+                    MessageBox.Show("Failed to add button 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
                 if (AddPushButton(pipes, "bnnFindChainagesPipes", "Find Pipes\nChainages", null, Resource1.chainages, "RLX.FindChainagePipes", "Refer to documentation") == false)
                 {
@@ -103,7 +107,12 @@ namespace RLX
                     #region EXPLODE
                     RibbonPanel explodeFamilies = GetSetRibbonPanel(a, tabName, "Explode Families");
 
-                    if (AddPushButton(explodeFamilies, "hydrantExplode", "Hydrant", null, Resource1.hydrantExplode, "RLX.HydrantExplode", "Refer to documentation") == false)
+                if (AddPushButton(explodeFamilies, "familyInspector", "Inspector", null, Resource1.zoom, "RLX.FamilyInstanceInspector", "Refer to documentation") == false)
+                {
+                    MessageBox.Show("Failed to add button FamilyInstanceInspector", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                if (AddPushButton(explodeFamilies, "hydrantExplode", "Hydrant", null, Resource1.hydrantExplode, "RLX.HydrantExplode", "Refer to documentation") == false)
                     {
                         MessageBox.Show("Failed to add button 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
@@ -113,9 +122,13 @@ namespace RLX
 
                     RibbonPanel utilities = GetSetRibbonPanel(a, tabName, "Utilities");
 
+                if (AddPushButton(utilities, "btnFillXYZ", "Fill XYZ", null, Resource1.fill, "RLX.FillXYZ", "Refer to documentation") == false)
+                {
+                    MessageBox.Show("Failed to add button Fill XYZ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
 
-                    if (AddPushButton(utilities, "CopyOldIds", "Copy Old Ids", null, Resource1.copy, "RLX.CopyOLDids", "Refer to documentation") == false)
+                if (AddPushButton(utilities, "CopyOldIds", "Copy Old Ids", null, Resource1.copy, "RLX.CopyOLDids", "Refer to documentation") == false)
                     {
                         MessageBox.Show("Failed to add button 2", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }

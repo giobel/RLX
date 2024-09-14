@@ -68,7 +68,7 @@ namespace RLX
                                 solids.Add(item);
                             }
 
-                            DirectShape directShape = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeFitting));
+                            DirectShape directShape = DirectShape.CreateElement(doc, fi.Category.Id);
                             directShape.SetShape(solids);
                             counter++;
 
