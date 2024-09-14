@@ -39,12 +39,17 @@ namespace RLX
                 "RLX_ClassificationUniclassSs_Number","RLX_Component","RLX_CoordinatesX","RLX_CoordinatesY",
                 "RLX_CoordinatesZ","RLX_Facility","RLX_GridReferenceSystem","RLX_Location","RLX_MaintenanceCost",
                 "RLX_Space","RLX_Specification","RLX_System","RLX_Type","RLX_UniqueIdentifier","RLX_Zone",
-                                "DS_AssetID",
+                "DS_AssetID",
                 "DS_AssetType",
                 "DS_Axis",
                 "DS_Lane",
                 "DS_Chainage",
                 "DS_Location"};
+
+            //if (doc.GetElement(destinationPipesRef).Category.BuiltInCategory == BuiltInCategory.OST_PipeFitting)
+            //{
+            //    paramsToSet.Remove("RLX_Title");
+            //}
 
                 using (Transaction t = new Transaction(doc, "Copy pipe parameters"))
                 {

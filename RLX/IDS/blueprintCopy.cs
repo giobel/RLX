@@ -8,13 +8,15 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-
+using System.Security.Cryptography;
+using System.Text;
+using RG = Rhino.Geometry;
 #endregion
 
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class ColorByRLXid : IExternalCommand
+    public class blueprintCopy : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -26,8 +28,8 @@ namespace RLX
             Application app = uiapp.Application;
             Document doc = uidoc.Document;
 
-
             return Result.Succeeded;
+            
         }
     }
 }

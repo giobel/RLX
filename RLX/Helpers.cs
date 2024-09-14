@@ -12,6 +12,60 @@ namespace RLX
     internal class Helpers
     {
 
+        public static XYZ GetElementCentroid(Element element)
+        {
+            BoundingBoxXYZ bbox = element.get_BoundingBox(null);
+            if (bbox == null)
+                return null;
+
+            XYZ min = bbox.Min;
+            XYZ max = bbox.Max;
+
+            return new XYZ((min.X + max.X) / 2, (min.Y + max.Y) / 2, (min.Z + max.Z) / 2);
+        }
+
+
+        public static XYZ CalculateCentroidOfElements(IEnumerable<Element> elements)
+        {
+            if (elements == null || !elements.Any())
+                return null;
+
+            XYZ sumCentroid = new XYZ(0, 0, 0);
+            int count = 0;
+
+            foreach (Element element in elements)
+            {
+                XYZ centroid = GetElementCentroid(element);
+                if (centroid != null)
+                {
+                    sumCentroid = sumCentroid.Add(centroid);
+                    count++;
+                }
+            }
+
+            if (count == 0)
+                return null;
+
+            return new XYZ(sumCentroid.X / count, sumCentroid.Y / count, sumCentroid.Z / count);
+        }
+
+
+        public static void FillXYZParam(IEnumerable<Element> elements, double x, double y, double z)
+        {
+
+            foreach (Element element in elements)
+            {
+                Parameter _x = element.LookupParameter("RLX_CoordinatesX");
+                _x.Set(x.ToString());
+                Parameter _y = element.LookupParameter("RLX_CoordinatesY");
+                _y.Set(y.ToString());
+                Parameter _z = element.LookupParameter("RLX_CoordinatesZ");
+                _z.Set(z.ToString());
+            }
+
+
+        }
+
         public static bool DoBoundingBoxesIntersect(BoundingBoxXYZ box1, BoundingBoxXYZ box2)
         {
             // Check if the bounding boxes intersect along the X axis
@@ -50,18 +104,6 @@ namespace RLX
             plcurve[0].TryGetPolyline(out splitAlignment);
 
             return splitAlignment.Length * 0.3048 + startCh;
-        }
-
-        public static XYZ GetElementCentroid(Element element)
-        {
-            BoundingBoxXYZ bbox = element.get_BoundingBox(null);
-            if (bbox == null)
-                return null;
-
-            XYZ min = bbox.Min;
-            XYZ max = bbox.Max;
-
-            return new XYZ((min.X + max.X) / 2, (min.Y + max.Y) / 2, (min.Z + max.Z) / 2);
         }
 
         public static RG.Point3d RevitToRhinoPt (XYZ pt)

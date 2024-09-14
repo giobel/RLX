@@ -56,12 +56,29 @@
       <HintPath>..\packages\Rhino3dm.8.9.0\lib\net48\Rhino3dm.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ColorByRLXid.cs" />
-    <Compile Include="FillUniqueId.cs" />
-    <Compile Include="CopyParamsMultipleObjs.cs" />
+    <Compile Include="IDS\GenerateValvesIDS.cs" />
+    <Compile Include="IDS\GenerateSprinklersIDS.cs" />
+    <Compile Include="IDS\GenerateNozzlesIDS.cs" />
+    <Compile Include="IDS\GenerateFurnitureIDS.cs" />
+    <Compile Include="Pipes\FillHangersTitles.cs" />
+    <Compile Include="Pipes\FillPipeFittingsTitle.cs" />
+    <Compile Include="Pipes\FillPipesAndHangersUniclassParams.cs" />
+    <Compile Include="Pipes\FillPipesMaterial.cs" />
+    <Compile Include="Pipes\FillPipeTitles.cs" />
+    <Compile Include="IDS\blueprintCopy.cs" />
+    <Compile Include="Utilities\FillSpirnklerParams.cs" />
+    <Compile Include="Utilities\FillEmptyDescriptions.cs" />
+    <Compile Include="Utilities\FillCommonParams.cs" />
+    <Compile Include="Utilities\blueprint.cs" />
+    <Compile Include="Utilities\ZoomSelected.cs" />
+    <Compile Include="Utilities\FillXYZ.cs" />
+    <Compile Include="IDS\FillUniqueId.cs" />
+    <Compile Include="Utilities\CopyParamsMultipleObjs.cs" />
     <Compile Include="GenericModelsExplode\FamilyInstanceInspector.cs" />
     <Compile Include="GenericModelsExplode\ExplodePipes.cs" />
     <Compile Include="GenericModelsExplode\ExplodeSubComponents.cs" />
@@ -73,31 +90,42 @@
     <Compile Include="Helpers.cs" />
     <Compile Include="MechEquip\HangerFittingsCopyClosestPipeParamsBBox.cs" />
     <Compile Include="MechEquip\MechEquipFillTitle.cs" />
-    <Compile Include="Misc\CopyOLDids.cs" />
-    <Compile Include="Misc\FindChainagePipes.cs" />
-    <Compile Include="Misc\FindChainage.cs" />
-    <Compile Include="TEST\ZZ_FindChainage2.cs" />
-    <Compile Include="TEST\ZZ_FindChainage.cs" />
-    <Compile Include="TEST\ZZ_MergeCurves.cs" />
-    <Compile Include="TEST\ZZ_ProcessDWG.cs" />
+    <Compile Include="Utilities\ColorByRLXuid.cs" />
+    <Compile Include="Utilities\ColorByDSId.cs" />
+    <Compile Include="Utilities\CopyOLDids.cs" />
+    <Compile Include="Pipes\FindChainagePipes.cs" />
+    <Compile Include="Utilities\FindChainage.cs" />
+    <Compile Include="Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ZZ\ZZ_FindChainage2.cs" />
+    <Compile Include="ZZ\ZZ_FindChainage.cs" />
+    <Compile Include="ZZ\ZZ_MergeCurves.cs" />
+    <Compile Include="ZZ\ZZ_ProcessDWG.cs" />
     <Compile Include="App.cs" />
     <Compile Include="GenericModelsExplode\ObjectsToDSValve.cs" />
     <Compile Include="GenericModelsExplode\ObjectsToDSPipeFitt.cs" />
     <Compile Include="GenericModelsExplode\ObjectsToDS.cs" />
     <Compile Include="GenericModelsExplode\FamilyInstanceToDS.cs" />
     <Compile Include="MechEquip\MechEquipCopyClosestPipeParams.cs" />
-    <Compile Include="CopyParams.cs" />
+    <Compile Include="Utilities\CopyParams.cs" />
     <Compile Include="Pipes\PipeFittCopyClosestPipeParams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="RLX.addin" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Valves\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

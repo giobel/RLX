@@ -96,8 +96,6 @@ namespace RLX
 
                     GeometryElement ge = gi.GetInstanceGeometry();
 
-                    int counter = 0;
-
                     List<GeometryObject> cabinet = ge.Where(x => x.Id == 3638 || 
                                                                  x.Id == 3673 ||
                                                                  x.Id == 11288 ||
