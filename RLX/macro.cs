@@ -448,94 +448,6 @@ namespace DS
 
         }
 
-        public void ColorByDS_ID()
-        {
-
-            UIDocument uidoc = this.ActiveUIDocument;
-            Document doc = uidoc.Document;
-
-            FilteredElementCollector elementsInView = new FilteredElementCollector(doc);
-            FillPatternElement solidFillPattern = elementsInView.OfClass(typeof(FillPatternElement)).Cast<FillPatternElement>().First(a => a.GetFillPattern().IsSolidFill);
-
-
-            List<BuiltInCategory> builtInCats = new List<BuiltInCategory>();
-            builtInCats.Add(BuiltInCategory.OST_MechanicalEquipment);
-            builtInCats.Add(BuiltInCategory.OST_GenericModel);
-            builtInCats.Add(BuiltInCategory.OST_PipeCurves);
-            builtInCats.Add(BuiltInCategory.OST_PipeInsulations);
-            builtInCats.Add(BuiltInCategory.OST_PipeFitting);
-            builtInCats.Add(BuiltInCategory.OST_PipeAccessory);
-
-
-            ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);
-
-
-            IList<Element> elements = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(filter1).WhereElementIsNotElementType().ToElements();
-
-            var grouped = elements.GroupBy(x => x.LookupParameter("DS_AssetID").AsValueString());
-
-            Random pRand = new Random();
-            var md5 = MD5.Create();
-            OverrideGraphicSettings ogs = new OverrideGraphicSettings();
-            ogs.SetSurfaceForegroundPatternId(solidFillPattern.Id);
-
-            string error = "";
-            using (Transaction t = new Transaction(doc, "Override Colors"))
-            {
-                t.Start();
-                foreach (var element in grouped)
-                {
-
-
-                    var firstElement = element.First();
-                    string colorName = firstElement.LookupParameter("DS_AssetID").AsValueString();
-
-                    if (colorName == null)
-                    {
-                        colorName = "null";
-                    }
-                    var hash = md5.ComputeHash(Encoding.UTF8.GetBytes(colorName));
-
-                    byte iR, iG, iB;
-                    iR = Convert.ToByte(pRand.Next(0, 255));
-                    iG = Convert.ToByte(pRand.Next(0, 255));
-                    iB = Convert.ToByte(pRand.Next(0, 255));
-
-                    Autodesk.Revit.DB.Color pcolor = new Autodesk.Revit.DB.Color(hash[0], hash[1], hash[2]);
-
-
-
-                    ogs.SetSurfaceForegroundPatternColor(pcolor);
-
-                    try
-                    {
-                        //foreach (FamilyInstance item in element)
-                        foreach (var item in element)
-                        {
-                            doc.ActiveView.SetElementOverrides(item.Id, ogs);
-
-                        }
-
-                    }
-                    catch (Exception ex)
-                    {
-                        error = ex.Message;
-                    }
-                }
-
-                t.Commit();
-            }
-
-            if (error != "")
-            {
-                TaskDialog.Show("Error", error);
-            }
-
-
-
-
-
-        }
 
         public void ColorByZone()
         {
@@ -626,94 +538,6 @@ namespace DS
 
         }
 
-        public void ColorByRLX_ID()
-        {
-
-            UIDocument uidoc = this.ActiveUIDocument;
-            Document doc = uidoc.Document;
-
-            FilteredElementCollector elementsInView = new FilteredElementCollector(doc);
-            FillPatternElement solidFillPattern = elementsInView.OfClass(typeof(FillPatternElement)).Cast<FillPatternElement>().First(a => a.GetFillPattern().IsSolidFill);
-
-
-            List<BuiltInCategory> builtInCats = new List<BuiltInCategory>();
-            builtInCats.Add(BuiltInCategory.OST_MechanicalEquipment);
-            builtInCats.Add(BuiltInCategory.OST_GenericModel);
-            builtInCats.Add(BuiltInCategory.OST_PipeCurves);
-            builtInCats.Add(BuiltInCategory.OST_PipeInsulations);
-            builtInCats.Add(BuiltInCategory.OST_PipeFitting);
-            builtInCats.Add(BuiltInCategory.OST_PipeAccessory);
-
-
-            ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);
-
-
-            IList<Element> elements = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(filter1).WhereElementIsNotElementType().ToElements();
-
-            var grouped = elements.GroupBy(x => x.LookupParameter("RLX_UniqueIdentifier").AsValueString());
-
-            Random pRand = new Random();
-            var md5 = MD5.Create();
-            OverrideGraphicSettings ogs = new OverrideGraphicSettings();
-            ogs.SetSurfaceForegroundPatternId(solidFillPattern.Id);
-
-            string error = "";
-            using (Transaction t = new Transaction(doc, "Override Colors"))
-            {
-                t.Start();
-                foreach (var element in grouped)
-                {
-
-
-                    var firstElement = element.First();
-                    string colorName = firstElement.LookupParameter("RLX_UniqueIdentifier").AsValueString();
-
-                    if (colorName == null)
-                    {
-                        colorName = "null";
-                    }
-                    var hash = md5.ComputeHash(Encoding.UTF8.GetBytes(colorName));
-
-                    byte iR, iG, iB;
-                    iR = Convert.ToByte(pRand.Next(0, 255));
-                    iG = Convert.ToByte(pRand.Next(0, 255));
-                    iB = Convert.ToByte(pRand.Next(0, 255));
-
-                    Autodesk.Revit.DB.Color pcolor = new Autodesk.Revit.DB.Color(hash[0], hash[1], hash[2]);
-
-
-
-                    ogs.SetSurfaceForegroundPatternColor(pcolor);
-
-                    try
-                    {
-                        //foreach (FamilyInstance item in element)
-                        foreach (var item in element)
-                        {
-                            doc.ActiveView.SetElementOverrides(item.Id, ogs);
-
-                        }
-
-                    }
-                    catch (Exception ex)
-                    {
-                        error = ex.Message;
-                    }
-                }
-
-                t.Commit();
-            }
-
-            if (error != "")
-            {
-                TaskDialog.Show("Error", error);
-            }
-
-
-
-
-
-        }
 
         public void FillAllSpaceNA()
         {
@@ -756,209 +580,7 @@ namespace DS
         }
 
 
-        public void FillXYZ()
-        {
 
-            UIDocument uidoc = this.ActiveUIDocument;
-            Document doc = uidoc.Document;
-
-            List<BuiltInCategory> builtInCats = new List<BuiltInCategory>();
-            builtInCats.Add(BuiltInCategory.OST_PipeCurves);
-            builtInCats.Add(BuiltInCategory.OST_PipeAccessory);
-            builtInCats.Add(BuiltInCategory.OST_Sprinklers);
-            builtInCats.Add(BuiltInCategory.OST_GenericModel);
-            builtInCats.Add(BuiltInCategory.OST_MechanicalEquipment);
-            builtInCats.Add(BuiltInCategory.OST_Furniture);
-
-
-
-
-
-
-            ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);
-
-            IList<Element> elements = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(filter1).WhereElementIsNotElementType().ToElements();
-
-            var grouped = elements.GroupBy(x => x.LookupParameter("DS_AssetID").AsValueString());
-
-            XYZ pbp = BasePoint.GetProjectBasePoint(doc).Position;
-            XYZ sp = BasePoint.GetSurveyPoint(doc).Position;
-
-            // Calculate the offset from project base point to survey point
-            XYZ offset = sp - pbp;
-
-
-            Transform surveyTransf = doc.ActiveProjectLocation.GetTotalTransform();
-
-            ProjectLocation pl = doc.ActiveProjectLocation;
-            Transform ttr = pl.GetTotalTransform().Inverse;
-
-            using (Transaction t = new Transaction(doc, "Fill XYZ"))
-            {
-
-                t.Start();
-
-                foreach (var element in grouped)
-                {
-
-                    XYZ cen = GetElementCentroid(element.First());
-
-
-
-
-                    //XYZ newC = surveyTransf.OfPoint(cen);
-                    //					TaskDialog.Show("R", String.Format("{0} {1} {2}", newC.X, newC.Y, newC.Z));
-
-                    //					XYZ centroid = CalculateCentroidOfElements(element) - offset;
-
-                    XYZ centroid = ttr.OfPoint(CalculateCentroidOfElements(element));
-
-                    double metricX = UnitUtils.ConvertFromInternalUnits(centroid.X, UnitTypeId.Meters);
-                    double metricY = UnitUtils.ConvertFromInternalUnits(centroid.Y, UnitTypeId.Meters);
-                    double metricZ = UnitUtils.ConvertFromInternalUnits(centroid.Z, UnitTypeId.Meters);
-
-                    //TaskDialog.Show("R", String.Format("{0} {1} {2}", metricX, metricY, metricZ));
-
-                    FillXYZParam(element, metricX, metricY, metricZ);
-
-                }
-
-                t.Commit();
-            }
-
-        }
-
-        private XYZ GetElementCentroid(Element element)
-        {
-            BoundingBoxXYZ bbox = element.get_BoundingBox(null);
-            if (bbox == null)
-                return null;
-
-            XYZ min = bbox.Min;
-            XYZ max = bbox.Max;
-
-            return new XYZ((min.X + max.X) / 2, (min.Y + max.Y) / 2, (min.Z + max.Z) / 2);
-        }
-
-
-        private XYZ CalculateCentroidOfElements(IEnumerable<Element> elements)
-        {
-            if (elements == null || !elements.Any())
-                return null;
-
-            XYZ sumCentroid = new XYZ(0, 0, 0);
-            int count = 0;
-
-            foreach (Element element in elements)
-            {
-                XYZ centroid = GetElementCentroid(element);
-                if (centroid != null)
-                {
-                    sumCentroid = sumCentroid.Add(centroid);
-                    count++;
-                }
-            }
-
-            if (count == 0)
-                return null;
-
-            return new XYZ(sumCentroid.X / count, sumCentroid.Y / count, sumCentroid.Z / count);
-        }
-
-
-        private void FillXYZParam(IEnumerable<Element> elements, double x, double y, double z)
-        {
-
-            foreach (Element element in elements)
-            {
-                Parameter _x = element.LookupParameter("RLX_CoordinatesX");
-                _x.Set(x.ToString());
-                Parameter _y = element.LookupParameter("RLX_CoordinatesY");
-                _y.Set(y.ToString());
-                Parameter _z = element.LookupParameter("RLX_CoordinatesZ");
-                _z.Set(z.ToString());
-            }
-
-
-        }
-
-
-
-        public void ZZ_PipeFittingsCopyClosestPipeParams()
-        {
-
-            UIDocument uidoc = this.ActiveUIDocument;
-            Document doc = uidoc.Document;
-
-            IList<Element> allPipes = new FilteredElementCollector(doc, doc.ActiveView.Id).OfCategory(BuiltInCategory.OST_PipeCurves).WhereElementIsNotElementType().ToElements();
-
-            List<Curve> pipeCurves = new List<Curve>();
-
-            foreach (Element pipe in allPipes)
-            {
-
-
-                LocationCurve pipeCurve = pipe.Location as LocationCurve;
-                pipeCurves.Add(pipeCurve.Curve);
-            }
-
-            if (allPipes.Count() != pipeCurves.Count())
-            {
-
-                TaskDialog.Show("Error", "Cannot find a curve for some pipes");
-                return;
-            }
-
-            IList<Element> allPipeFittings = new FilteredElementCollector(doc, doc.ActiveView.Id).OfCategory(BuiltInCategory.OST_PipeFitting).WhereElementIsNotElementType().ToElements();
-
-            Element closestPipe = null;
-            double distance = 1000;
-
-            List<string> paramsToSet = new List<string>(){"RLX_ActualCost","RLX_ClassificationUniclassEF_Description",
-                "RLX_ClassificationUniclassEF_Number","RLX_ClassificationUniclassPr_Description",
-                "RLX_ClassificationUniclassPr_Number","RLX_ClassificationUniclassSs_Description",
-                "RLX_ClassificationUniclassSs_Number","RLX_Component","RLX_CoordinatesX","RLX_CoordinatesY",
-                "RLX_CoordinatesZ","RLX_Facility","RLX_GridReferenceSystem","RLX_Location","RLX_MaintenanceCost",
-                "RLX_Space","RLX_Specification","RLX_System","RLX_Type","RLX_UniqueIdentifier","RLX_Zone","DS_AssetID"};
-
-            using (Transaction t = new Transaction(doc, "Pipe fittings copy pipe parameters"))
-            {
-                t.Start();
-
-                foreach (Element fitting in allPipeFittings)
-                {
-
-                    LocationPoint point = fitting.Location as LocationPoint;
-
-                    for (int i = 0; i < allPipes.Count(); i++)
-                    {
-                        double currentDistance = pipeCurves[i].Distance(point.Point);
-                        if (currentDistance < distance)
-                        {
-
-                            distance = currentDistance;
-                            closestPipe = allPipes[i];
-
-                        }
-                    }
-
-                    foreach (string paramName in paramsToSet)
-                    {
-                        //					TaskDialog.Show("R", paramName);
-                        string p = closestPipe.LookupParameter(paramName).AsValueString();
-                        fitting.LookupParameter(paramName).Set(p);
-                    }
-
-
-                    closestPipe = null;
-                    distance = 1000;
-
-                }
-                t.Commit();
-            }//close transaction
-
-
-        }
 
 
 
@@ -1055,6 +677,7 @@ namespace DS
             }
 
         }
+
         public static double ComputePolylineLength(List<XYZ> points)
         {
             if (points == null || points.Count < 2)
@@ -1092,10 +715,7 @@ namespace DS
         }
 
 
-        DetailArc CreateCircle(
-  Document doc,
-  XYZ location,
-  double radius)
+        DetailArc CreateCircle(  Document doc,  XYZ location,  double radius)
         {
             XYZ norm = XYZ.BasisZ;
 
@@ -1112,6 +732,7 @@ namespace DS
             return doc.Create.NewDetailCurve(
               doc.ActiveView, arc) as DetailArc;
         }
+        
         public void CopyToClip()
         {
             UIDocument uidoc = this.ActiveUIDocument;
@@ -1128,7 +749,9 @@ namespace DS
             }
 
             Clipboard.SetText(results);
-        }
+        
+
+
         public void ExportSchedule()
         {
 
