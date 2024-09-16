@@ -145,7 +145,7 @@ namespace RLX
                     }
 
 
-                    if (AddPushButton(utilities, "FindChainages", "Find\nChainages", null, Resource1.chainages, "RLX.FindChainages", "Refer to documentation") == false)
+                    if (AddPushButton(utilities, "FindChainages", "Find\nChainages", null, Resource1.chainages, "RLX.FindChainage", "Refer to documentation") == false)
                     {
                         MessageBox.Show("Failed to add button 5", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
@@ -165,7 +165,7 @@ namespace RLX
                         MessageBox.Show("Failed to add button 8", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
-                    if (AddPushButton(utilities, "btnFillEmptyDescriptions", "Fill Empty\nDescriptions", null, Resource1.fill, "RLX.FillEmptyDescriptions", "Refer to documentation") == false)
+                    if (AddPushButton(utilities, "btnFillDescriptions", "Fill\nDescriptions", null, Resource1.fill, "RLX.FillDescriptions", "Refer to documentation") == false)
                     {
                         MessageBox.Show("Failed to add button 8", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }

@@ -77,6 +77,9 @@ namespace RLX
                     Parameter actualCost = element.LookupParameter("RLX_ActualCost");
                     actualCost.Set("N/A");
 
+                    Parameter system = element.LookupParameter("RLX_System");
+                    system.Set("Fire Fighting");
+
                     //					Parameter comp = element.LookupParameter("RLX_Component");
                     //					comp.Set("ST150030-COW-FRS-40-ZZ-REQ-FE-0006");
 

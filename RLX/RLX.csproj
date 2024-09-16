@@ -66,6 +66,7 @@
     <Compile Include="IDS\GenerateSprinklersIDS.cs" />
     <Compile Include="IDS\GenerateNozzlesIDS.cs" />
     <Compile Include="IDS\GenerateFurnitureIDS.cs" />
+    <Compile Include="MechEquip\CabinetsSupportsCopyParamsBBox.cs" />
     <Compile Include="Pipes\FillHangersTitles.cs" />
     <Compile Include="Pipes\FillPipeFittingsTitle.cs" />
     <Compile Include="Pipes\FillPipesAndHangersUniclassParams.cs" />
@@ -73,9 +74,10 @@
     <Compile Include="Pipes\FillPipeTitles.cs" />
     <Compile Include="IDS\blueprintCopy.cs" />
     <Compile Include="Utilities\FillSpirnklerParams.cs" />
-    <Compile Include="Utilities\FillEmptyDescriptions.cs" />
+    <Compile Include="Utilities\FillDescriptions.cs" />
     <Compile Include="Utilities\FillCommonParams.cs" />
     <Compile Include="Utilities\blueprint.cs" />
+    <Compile Include="Utilities\SelectFromExcel.cs" />
     <Compile Include="Utilities\ZoomSelected.cs" />
     <Compile Include="Utilities\FillXYZ.cs" />
     <Compile Include="IDS\FillUniqueId.cs" />

@@ -16,7 +16,7 @@ using RG = Rhino.Geometry;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class FillEmptyDescriptions : IExternalCommand
+    public class FillDescriptions : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -38,16 +38,14 @@ namespace RLX
             builtInCats.Add(BuiltInCategory.OST_Sprinklers);
             builtInCats.Add(BuiltInCategory.OST_PlaceHolderPipes);
             builtInCats.Add(BuiltInCategory.OST_GenericModel);
-
-
-
+            builtInCats.Add(BuiltInCategory.OST_Furniture);
 
 
             ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);
 
             IList<Element> velements = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(filter1).WhereElementIsNotElementType().ToElements();
 
-            using (Transaction t = new Transaction(doc, "Fill empty descriptions"))
+            using (Transaction t = new Transaction(doc, "Fill descriptions"))
             {
                 t.Start();
 
@@ -56,8 +54,7 @@ namespace RLX
 
                     string descr = element.LookupParameter("RLX_Description").AsValueString();
 
-                    if (descr == null || descr.Length < 3)
-                    {
+
 
                         string title = element.LookupParameter("RLX_Title").AsValueString();
                         string location = element.LookupParameter("RLX_Location").AsValueString();
@@ -65,7 +62,7 @@ namespace RLX
                         string space = element.LookupParameter("RLX_Space").AsValueString();
 
                         element.LookupParameter("RLX_Description").Set(String.Format("{0} {1} {2} {3}", title, location, zone, space));
-                    }
+                    
 
                 }
 

@@ -28,6 +28,58 @@ namespace RLX
             Application app = uiapp.Application;
             Document doc = uidoc.Document;
 
+
+            IList<Element> visibleElements = new FilteredElementCollector(doc, doc.ActiveView.Id).OfCategory(BuiltInCategory.OST_Sprinklers).WhereElementIsNotElementType().ToElements();
+
+            //			TaskDialog.Show("R", elements.Count().ToString());
+
+            int counter = 3000;
+
+            using (Transaction t = new Transaction(doc, "Fill sprinklers params"))
+            {
+
+                t.Start();
+
+                foreach (FamilyInstance fa in visibleElements)
+                {
+
+                    try
+                    {
+
+
+                        Element element = fa as Element;
+
+
+
+                        Parameter assetId = element.LookupParameter("DS_AssetID");
+
+                        string assetIdvalue = assetId.AsValueString();
+
+                        //					TaskDialog.Show("R", assetIdvalue.Length.ToString());
+
+                        if (assetIdvalue == null || assetIdvalue.Length < 3)
+                        {
+
+                            assetId.Set(counter.ToString());
+
+                            counter++;
+
+                        }
+
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        TaskDialog.Show("R", ex.Message);
+                    }
+
+                }
+
+
+                t.Commit();
+            }
+
             return Result.Succeeded;
             
         }

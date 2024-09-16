@@ -34,6 +34,7 @@ namespace RLX
             builtInCats.Add(BuiltInCategory.OST_Sprinklers);
             builtInCats.Add(BuiltInCategory.OST_GenericModel);
             builtInCats.Add(BuiltInCategory.OST_PipeFitting);
+            builtInCats.Add(BuiltInCategory.OST_Furniture);
 
 
             ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);
