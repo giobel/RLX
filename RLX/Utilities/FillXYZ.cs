@@ -61,10 +61,7 @@ namespace RLX
                 foreach (var element in grouped)
                 {
 
-                    XYZ cen = Helpers.GetElementCentroid(element.First());
-
-
-
+                    //XYZ cen = Helpers.GetElementCentroid(element.First());
 
                     //XYZ newC = surveyTransf.OfPoint(cen);
                     //					TaskDialog.Show("R", String.Format("{0} {1} {2}", newC.X, newC.Y, newC.Z));
