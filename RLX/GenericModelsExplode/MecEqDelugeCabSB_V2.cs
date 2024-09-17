@@ -14,7 +14,7 @@ using System.Linq;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class MecEqDelugeCabSB2 : IExternalCommand
+    public class MecEqDelugeCabSB_V2 : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
