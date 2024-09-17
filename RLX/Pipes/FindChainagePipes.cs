@@ -90,6 +90,13 @@ namespace RLX
                     {
 
                         LocationCurve locationCurve = element.Location as LocationCurve;
+
+                        if (locationCurve == null)
+                        {
+                            TaskDialog.Show("Error", "Some pipes do not have a location curve. Please hide them from the view");
+                            return Result.Failed;
+                        }
+
                         XYZ stPt = locationCurve.Curve.GetEndPoint(0);
                         XYZ endPt = locationCurve.Curve.GetEndPoint(1);
 
