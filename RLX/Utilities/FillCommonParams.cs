@@ -61,6 +61,20 @@ namespace RLX
 
                 foreach (Element element in velements)
                 {
+                    Parameter spec = element.LookupParameter("RLX_Specification");
+
+                    if (spec == null)
+                    {
+                        ICollection<ElementId> eids = new List<ElementId>() { element.Id };
+
+                        uidoc.ShowElements(eids);
+
+                        return Result.Failed;
+                    }
+                    else
+                    {
+                    spec.Set("ST150030-COW-FRS-40-ZZ-REQ-FE-0006");
+                    }
 
                     Parameter fac = element.LookupParameter("RLX_Facility");
                     fac.Set("Silvertown Tunnel");

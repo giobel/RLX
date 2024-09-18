@@ -64,7 +64,7 @@ namespace RLX
                     MessageBox.Show("Failed to add button FillPipesAndHangersUniclassParams", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                if (AddPushButton(pipes, "btnPipeMaterial", "Fill Pipes\nMaterial", null, Resource1.material, "RLX.FillPipesmaterials", "Refer to documentation") == false)
+                if (AddPushButton(pipes, "btnPipeMaterial", "Fill Pipes\nMaterial", null, Resource1.material, "RLX.FillPipesmaterial", "Refer to documentation") == false)
                 {
                     MessageBox.Show("Failed to add button Fill Pipes Material", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }

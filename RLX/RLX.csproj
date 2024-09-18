@@ -63,7 +63,9 @@
   <ItemGroup>
     <Compile Include="GenericModelsExplode\MecEqDelugeCabNB4.cs" />
     <Compile Include="GenericModelsExplode\MecEqDelugeCabSB_V1.cs" />
+    <Compile Include="GenericModelsExplode\CWDryRiserOutletExplode.cs" />
     <Compile Include="GenericModelsExplode\MecEqDelugeCabSB_V2.cs" />
+    <Compile Include="IDS\GenerateMechEquipmIDS.cs" />
     <Compile Include="IDS\GenerateValvesIDS.cs" />
     <Compile Include="IDS\GenerateSprinklersIDS.cs" />
     <Compile Include="IDS\GenerateNozzlesIDS.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="Utilities\FillDescriptions.cs" />
     <Compile Include="Utilities\FillCommonParams.cs" />
     <Compile Include="Utilities\blueprint.cs" />
+    <Compile Include="Utilities\FindChainageGroupById.cs" />
     <Compile Include="Utilities\SelectFromExcel.cs" />
     <Compile Include="Utilities\ZoomSelected.cs" />
     <Compile Include="Utilities\FillXYZ.cs" />

@@ -56,6 +56,8 @@ namespace RLX
 
                 uidoc.ShowElements(eids);
 
+                uidoc.Selection.SetElementIds(eids);
+
             }
 
             return Result.Succeeded;
