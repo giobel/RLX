@@ -48,8 +48,8 @@ namespace RLX
 
                     Parameter title = element.LookupParameter("RLX_Title");
 
-                    if (title.AsValueString() == null || title.AsValueString().Length < 3)
-                    {
+                    //if (title.AsValueString() == null || title.AsValueString().Length < 3)
+                    //{
 
                         Parameter typeNameParam = element.LookupParameter("Type");
                         if (typeNameParam != null && typeNameParam.AsValueString() != null)
@@ -60,7 +60,7 @@ namespace RLX
                         {
                             title.Set("705 Flexible Coupling Painted");
                         }
-                    }
+                    //}
 
 
 

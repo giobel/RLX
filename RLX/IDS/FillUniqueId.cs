@@ -61,10 +61,10 @@ namespace RLX
 
                     if (chainageParam == null)
                     {
-                        IList<ElementId> selection = new List<ElementId>();
-                        selection.Add(element.Id);
-                        uidoc.Selection.SetElementIds(selection);
-                        //TaskDialog.Show("R", element.Id.ToString());
+                        TaskDialog.Show("Error", $"{element.Id} does not have a chainage");
+                        IList<ElementId> failedElements = new List<ElementId>();
+                        failedElements.Add(element.Id);
+                        uidoc.Selection.SetElementIds(failedElements);
                         return Result.Failed;
                     }
 
