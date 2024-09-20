@@ -407,7 +407,8 @@ x.Id == 13007 ||
 x.Id == 10707 ||
 x.Id == 8728 ||
 x.Id == 8710 ||
-x.Id == 8383
+x.Id == 8383 ||
+x.Id == 8370
 ).ToList();
 
                     DirectShape pipesShape2 = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeCurves));
@@ -475,7 +476,8 @@ x.Id == 12885 ||
 x.Id == 12867 ||
 x.Id == 12856 ||
 x.Id == 8695 ||
-x.Id == 8679
+x.Id == 8679 ||
+x.Id == 8647
 ).ToList();
 
                     DirectShape pipesShape6 = DirectShape.CreateElement(doc, new ElementId(BuiltInCategory.OST_PipeCurves));

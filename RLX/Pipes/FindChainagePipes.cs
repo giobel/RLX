@@ -93,7 +93,7 @@ namespace RLX
 
                         if (locationCurve == null)
                         {
-                            TaskDialog.Show("Error", "Some pipes do not have a location curve. Please hide them from the view");
+                            TaskDialog.Show("Error", $"Some pipes do not have a location curve. Please hide them from the view. {element.Id}");
                             return Result.Failed;
                         }
 
