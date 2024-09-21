@@ -64,6 +64,7 @@
     <Compile Include="GenericModelsExplode\MecEqDelugeCabNB4.cs" />
     <Compile Include="GenericModelsExplode\MecEqDelugeCabSB_V1.cs" />
     <Compile Include="GenericModelsExplode\CWDryRiserOutletExplode.cs" />
+    <Compile Include="GenericModelsExplode\MecEqDelugeCabSB_V3.cs" />
     <Compile Include="GenericModelsExplode\MecEqDelugeCabSB_V2.cs" />
     <Compile Include="IDS\GenerateMechEquipmIDS.cs" />
     <Compile Include="IDS\GenerateValvesIDS.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Pipes\FillPipesMaterial.cs" />
     <Compile Include="Pipes\FillPipeTitles.cs" />
     <Compile Include="IDS\blueprintCopy.cs" />
+    <Compile Include="Utilities\CopyParamsToSubcomponents.cs" />
     <Compile Include="Utilities\FillSpirnklerParams.cs" />
     <Compile Include="Utilities\FillDescriptions.cs" />
     <Compile Include="Utilities\FillCommonParams.cs" />
