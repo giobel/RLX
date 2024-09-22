@@ -42,7 +42,7 @@ namespace RLX
             ICollection<ElementId> visibleElements = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(filter1).WhereElementIsNotElementType().ToElementIds();
 
                 List<string> paramsToSet = new List<string>(){"RLX_ActualCost",
-                    "RLX_ClassificationUniclassEF_Description","RLX_Title",
+                    "RLX_ClassificationUniclassEF_Description","RLX_Title","RLX_Description",
                 "RLX_ClassificationUniclassEF_Number","RLX_ClassificationUniclassPr_Description",
                 "RLX_ClassificationUniclassPr_Number","RLX_ClassificationUniclassSs_Description",
                 "RLX_ClassificationUniclassSs_Number","RLX_Component","RLX_CoordinatesX","RLX_CoordinatesY",

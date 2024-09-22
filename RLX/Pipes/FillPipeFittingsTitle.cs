@@ -52,13 +52,18 @@ namespace RLX
                     //{
 
                         Parameter typeNameParam = element.LookupParameter("Type");
-                        if (typeNameParam != null && typeNameParam.AsValueString() != null)
+                        if (typeNameParam != null && typeNameParam.AsValueString() != null && typeNameParam.AsValueString() != "Standard")
                         {
                             title.Set(typeNameParam.AsValueString());
                         }
                         else
                         {
-                            title.Set("705 Flexible Coupling Painted");
+                            Parameter familyName = element.LookupParameter("Family");
+                        if (familyName != null && familyName.AsValueString() != null)
+                        {
+                            title.Set(familyName.AsValueString());
+                        }
+
                         }
                     //}
 
