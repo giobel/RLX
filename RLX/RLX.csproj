@@ -78,6 +78,8 @@
     <Compile Include="Pipes\FillPipesMaterial.cs" />
     <Compile Include="Pipes\FillPipeTitles.cs" />
     <Compile Include="IDS\blueprintCopy.cs" />
+    <Compile Include="Utilities\CombineModelCurves.cs" />
+    <Compile Include="Utilities\AlignmentToModelCurve.cs" />
     <Compile Include="Utilities\CopyParamsToSubcomponents.cs" />
     <Compile Include="Utilities\FillSpirnklerParams.cs" />
     <Compile Include="Utilities\FillDescriptions.cs" />
