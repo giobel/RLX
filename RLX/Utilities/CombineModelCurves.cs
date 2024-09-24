@@ -40,7 +40,7 @@ namespace RLX
 
             Plane plane = Plane.CreateByNormalAndOrigin(XYZ.BasisZ, new XYZ(0, 0, level.Elevation));
 
-            IList<XYZ> knots = new List<XYZ>();
+            IList<double> knots = new List<double>();
             IList<XYZ> ctrlPts= new List<XYZ>();
             IList<double> weights = new List<double>();
 
@@ -63,26 +63,38 @@ namespace RLX
                     {
                         ca.Append(crv);
                         NurbSpline ns = crv as NurbSpline;
-                        foreach (var pt in ns.CtrlPoints)
+                        foreach (XYZ p in crv.Tessellate())
                         {
-                            ctrlPts.Add(pt);
-                        }
-                        foreach (double w in ns.Weights)
-                        {
-                            weights.Add(w);
+                            ctrlPts.Add(p);
                         } 
+
+
+                        //foreach (var pt in ns.CtrlPoints)
+                        //{
+                        //    ctrlPts.Add(pt);
+                        //}
+                        //foreach (double w in ns.Weights)
+                        //{
+                        //    weights.Add(w);
+                        //}
+                        //foreach (double knot in ns.Knots)
+                        //{
+                        //    knots.Add(knot);
+                        //}
                     }
 
 
                 }
 
-                Curve nas = NurbSpline.CreateCurve(ctrlPts, weights);
+                
 
-                //HermiteSpline hs = HermiteSpline.Create(ctrlPts, false);
+                //Curve nas = NurbSpline.CreateCurve(ctrlPts, knots);
+
+                HermiteSpline hs = HermiteSpline.Create(ctrlPts, false);
 
                 //doc.Create.NewModelCurveArray(ca, sketchPlane);
 
-                doc.Create.NewModelCurve(nas, sketchPlane);
+                doc.Create.NewModelCurve(hs, sketchPlane);
 
                 t.Commit();
             }
