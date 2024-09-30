@@ -40,6 +40,8 @@ namespace RLX
             builtInCats.Add(BuiltInCategory.OST_PipeInsulations);
             builtInCats.Add(BuiltInCategory.OST_PipeFitting);
             builtInCats.Add(BuiltInCategory.OST_PipeAccessory);
+            builtInCats.Add(BuiltInCategory.OST_Furniture);
+
 
 
             ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);

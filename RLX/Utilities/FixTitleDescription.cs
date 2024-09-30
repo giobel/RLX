@@ -10,13 +10,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Windows;
 using RG = Rhino.Geometry;
 #endregion
 
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class FillDescriptions : IExternalCommand
+    public class FixTitleDescription : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -31,40 +32,57 @@ namespace RLX
 
 
             List<BuiltInCategory> builtInCats = new List<BuiltInCategory>();
+            builtInCats.Add(BuiltInCategory.OST_MechanicalEquipment);
+            builtInCats.Add(BuiltInCategory.OST_GenericModel);
             builtInCats.Add(BuiltInCategory.OST_PipeCurves);
+            builtInCats.Add(BuiltInCategory.OST_PipeInsulations);
             builtInCats.Add(BuiltInCategory.OST_PipeFitting);
             builtInCats.Add(BuiltInCategory.OST_PipeAccessory);
-            builtInCats.Add(BuiltInCategory.OST_MechanicalEquipment);
             builtInCats.Add(BuiltInCategory.OST_Sprinklers);
-            builtInCats.Add(BuiltInCategory.OST_PlaceHolderPipes);
-            builtInCats.Add(BuiltInCategory.OST_GenericModel);
             builtInCats.Add(BuiltInCategory.OST_Furniture);
+
 
 
             ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);
 
+
             IList<Element> velements = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(filter1).WhereElementIsNotElementType().ToElements();
 
-            using (Transaction t = new Transaction(doc, "Fill descriptions"))
+
+            using (Transaction t = new Transaction(doc, "Fill params"))
             {
+
                 t.Start();
 
-                foreach (var element in velements)
+                foreach (Element element in velements)
                 {
 
-                    string descr = element.LookupParameter("RLX_Description").AsValueString();
+                    Parameter spec = element.LookupParameter("RLX_Component");
+
+                    spec.Set("");
+
+                    Parameter titleP = element.LookupParameter("RLX_Title");
+
+                    if (titleP.AsValueString() == null)
+                    {
+                        Clipboard.SetText(element.Id.ToString());
+                        TaskDialog.Show("R", element.Id.ToString());
+                        return Result.Failed;
+                    }
+                    string title = titleP.AsValueString().Replace("CW_","").Replace("Cw_","");
+                    titleP.Set(title);
 
 
-
-                        string title = element.LookupParameter("RLX_Title").AsValueString();
-                        string location = element.LookupParameter("RLX_Location").AsValueString();
-                        string zone = element.LookupParameter("RLX_Zone").AsValueString();
-                        string space = element.LookupParameter("RLX_Space").AsValueString().Replace("N/A","");
-
-                        element.LookupParameter("RLX_Description").Set(String.Format("{0} {1} {2} {3}", title, location, zone, space));
+                    Parameter descriptionP = element.LookupParameter("RLX_Description");
+                    string description = descriptionP.AsValueString().Replace("N/A", "").Replace("CW_","").Replace("Cw_", "");
+                    descriptionP.Set(description);
                     
 
+
+
+
                 }
+
 
                 t.Commit();
             }

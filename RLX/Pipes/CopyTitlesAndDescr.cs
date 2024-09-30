@@ -46,7 +46,7 @@ namespace RLX
             // [0] [UID1pipe1, UID1pipe2, UID1pipe3...]
             // [1] [UID2pipe1, UID2pipe2, UID2pipe3...]
             //  ...
-            var pipesGroupByUid = visiblePipes.GroupBy(x => x.LookupParameter("RLX_UniqueIdentifier"));
+            var pipesGroupByUid = visiblePipes.GroupBy(x => x.LookupParameter("RLX_UniqueIdentifier").AsValueString());
 
              
             //to modify the revit document we need to open and close a transaction
@@ -63,7 +63,8 @@ namespace RLX
                 string uid = pipes.First().LookupParameter("RLX_UniqueIdentifier").AsValueString();
 
                 //get the title and description of the first pipe in the list
-                string title = pipes.First().LookupParameter("RLX_Title").AsValueString();
+                string title = pipes.First().LookupParameter("RLX_Title").AsValueString().Replace("CW_","");
+                    
                 string description = pipes.First().LookupParameter("RLX_Description").AsValueString();
 
                 //assign the title and description to all the other pipes that have the same uid

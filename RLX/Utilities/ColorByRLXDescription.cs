@@ -16,7 +16,7 @@ using RG = Rhino.Geometry;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class ColorByDSId : IExternalCommand
+    public class ColorByRLXDescription : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -27,6 +27,7 @@ namespace RLX
             UIDocument uidoc = uiapp.ActiveUIDocument;
             Application app = uiapp.Application;
             Document doc = uidoc.Document;
+
 
             FilteredElementCollector elementsInView = new FilteredElementCollector(doc);
             FillPatternElement solidFillPattern = elementsInView.OfClass(typeof(FillPatternElement)).Cast<FillPatternElement>().First(a => a.GetFillPattern().IsSolidFill);
@@ -48,7 +49,7 @@ namespace RLX
 
             IList<Element> visibleElements = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(filter1).WhereElementIsNotElementType().ToElements();
 
-            var grouped = visibleElements.GroupBy(x => x.LookupParameter("DS_AssetID").AsValueString());
+            var grouped = visibleElements.GroupBy(x => x.LookupParameter("RLX_Description").AsValueString());
 
             Random pRand = new Random();
             var md5 = MD5.Create();
@@ -64,7 +65,7 @@ namespace RLX
 
 
                     var firstElement = element.First();
-                    string colorName = firstElement.LookupParameter("DS_AssetID").AsValueString();
+                    string colorName = firstElement.LookupParameter("RLX_Description").AsValueString();
 
                     if (colorName == null)
                     {
@@ -106,6 +107,7 @@ namespace RLX
             {
                 TaskDialog.Show("Error", error);
             }
+
 
             return Result.Succeeded;
             

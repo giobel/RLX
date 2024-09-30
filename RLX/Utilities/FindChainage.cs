@@ -79,6 +79,7 @@ namespace RLX
 
             IList<Element> mepObjects = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(filter1).WhereElementIsNotElementType().ToElements();
 
+
             using (Transaction t = new Transaction(doc, "Find closest chainage"))
             {
 

@@ -61,6 +61,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenericModelsExplode\DwgToDs.cs" />
     <Compile Include="GenericModelsExplode\MecEqDelugeCabNB4.cs" />
     <Compile Include="GenericModelsExplode\MecEqDelugeCabSB_V1.cs" />
     <Compile Include="GenericModelsExplode\CWDryRiserOutletExplode.cs" />
@@ -79,9 +80,13 @@
     <Compile Include="Pipes\CopyTitlesAndDescr.cs" />
     <Compile Include="Pipes\FillPipeTitles.cs" />
     <Compile Include="IDS\blueprintCopy.cs" />
+    <Compile Include="Utilities\ColorByRLXxyz.cs" />
+    <Compile Include="Utilities\ColorByRLXTititle.cs" />
+    <Compile Include="Utilities\ColorByRLXDescription.cs" />
     <Compile Include="Utilities\CombineModelCurves.cs" />
     <Compile Include="Utilities\AlignmentToModelCurve.cs" />
     <Compile Include="Utilities\CopyParamsToSubcomponents.cs" />
+    <Compile Include="Utilities\FixTitleDescription.cs" />
     <Compile Include="Utilities\FillSpirnklerParams.cs" />
     <Compile Include="Utilities\FillDescriptions.cs" />
     <Compile Include="Utilities\FillCommonParams.cs" />

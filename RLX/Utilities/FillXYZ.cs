@@ -34,7 +34,7 @@ namespace RLX
             builtInCats.Add(BuiltInCategory.OST_GenericModel);
             builtInCats.Add(BuiltInCategory.OST_MechanicalEquipment);
             builtInCats.Add(BuiltInCategory.OST_Furniture);
-            //builtInCats.Add(BuiltInCategory.OST_PipeFitting);//pipe fittings xyz should be copied from the pipes using other scripts
+            builtInCats.Add(BuiltInCategory.OST_PipeFitting);
 
 
             ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);
