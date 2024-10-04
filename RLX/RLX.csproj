@@ -80,6 +80,7 @@
     <Compile Include="Pipes\CopyTitlesAndDescr.cs" />
     <Compile Include="Pipes\FillPipeTitles.cs" />
     <Compile Include="IDS\blueprintCopy.cs" />
+    <Compile Include="Util.cs" />
     <Compile Include="Utilities\ColorByRLXxyz.cs" />
     <Compile Include="Utilities\ColorByRLXTititle.cs" />
     <Compile Include="Utilities\ColorByRLXDescription.cs" />

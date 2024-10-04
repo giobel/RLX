@@ -77,7 +77,7 @@ namespace RLX
                                 else if (geom is NurbSpline)
                                 {
                                     NurbSpline crv = geom as NurbSpline;
-                                    
+
                                     doc.Create.NewModelCurve(crv, sketchPlane);
                                 }
                                 else if (geom is Arc)

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows;
 using RG = Rhino.Geometry;
 #endregion
 
@@ -81,6 +82,9 @@ namespace RLX
 
 
             var grouped = mepObjects.GroupBy(x => x.LookupParameter("DS_AssetID").AsValueString());
+            
+            ProjectLocation pl = doc.ActiveProjectLocation;
+            Transform ttr = pl.GetTotalTransform().Inverse;
 
             using (Transaction t = new Transaction(doc, "Find closest chainage"))
             {
@@ -90,77 +94,65 @@ namespace RLX
                 foreach (var group in grouped)
                 {
 
-                    Element element = group.First();
+                    List<double> chainages = new List<double>();
 
-                    XYZ MEPprojectedPt = null;
+                    foreach (var element in group)
+                    {
 
-                    //if (element.Category.Name == "Pipes")
-                    //{
-                    //    LocationCurve locationCurve = element.Location as LocationCurve;
-                    //    MEPprojectedPt = locationCurve.Curve.Evaluate(0.5, true);
-                    //}
-                    
-                    LocationPoint MEPLp = element.Location as LocationPoint;
-                    
-                    if (MEPLp != null)
-                    {
-                        MEPprojectedPt = new XYZ(MEPLp.Point.X, MEPLp.Point.Y, 0);
-                    }
-                    else
-                    {
-                        //exclude the pipes with a location curve. use the other script
-                        LocationCurve lc = element.Location as LocationCurve;
-                        if (lc == null)
+                        XYZ MEPprojectedPt = null;
+
+
+                        LocationPoint MEPLp = element.Location as LocationPoint;
+
+                        if (MEPLp != null)
                         {
-                        //these are the directshape elements -> location is null
-                        XYZ centroid = Helpers.GetElementCentroid(element);
-                        MEPprojectedPt = new XYZ(centroid.X, centroid.Y, 0);
+                            MEPprojectedPt = new XYZ(MEPLp.Point.X, MEPLp.Point.Y, 0);
                         }
-                    }
-
-                    if (MEPprojectedPt != null)
-                    {
-
-
-                        IntersectionResult intersection = alignmentCrv.Project(MEPprojectedPt);
-
-                        XYZ pointOnAlign = intersection.XYZPoint;
-
-                        //Helpers.CreateCircle(doc, pointOnAlign, 2);
-
-                        //RHINO
-                        RG.Point3d closestPt = rhinoAlignment.ClosestPoint(Helpers.RevitToRhinoPt(MEPprojectedPt));
-
-                        double rhinoPar = rhinoAlignment.ClosestParameter(closestPt);
-                        RG.Curve[] plcurve = rhinoAlignment.ToPolylineCurve().Split(rhinoPar);
-
-                        RG.Polyline splitAlignment = null;
-
-                        plcurve[0].TryGetPolyline(out splitAlignment);
-
-                        double chainage = splitAlignment.Length * 0.3048 + chainageStart;
-
-
-                        foreach (Element ele in group)
+                        else
                         {
-                            ele.LookupParameter("DS_Chainage").Set(chainage.ToString());
+                            //exclude the pipes with a location curve. use the other script
+                            LocationCurve lc = element.Location as LocationCurve;
+                            if (lc == null)
+                            {
+                                //these are the directshape elements -> location is null
+                                XYZ centroid = Helpers.GetElementCentroid(element);
+                                MEPprojectedPt = new XYZ(centroid.X, centroid.Y, 0);
+                            }
                         }
+
+                        if (MEPprojectedPt != null)
+                        {
+
+
+                            IntersectionResult intersection = alignmentCrv.Project(MEPprojectedPt);
+
+                            XYZ pointOnAlign = intersection.XYZPoint;
+
+                            //Helpers.CreateCircle(doc, pointOnAlign, 2);
+
+                            //RHINO
+                            RG.Point3d closestPt = rhinoAlignment.ClosestPoint(Helpers.RevitToRhinoPt(MEPprojectedPt));
+
+                            double rhinoPar = rhinoAlignment.ClosestParameter(closestPt);
+                            RG.Curve[] plcurve = rhinoAlignment.ToPolylineCurve().Split(rhinoPar);
+
+                            RG.Polyline splitAlignment = null;
+
+                            plcurve[0].TryGetPolyline(out splitAlignment);
+
+                            double chainage = splitAlignment.Length * 0.3048 + chainageStart;
+
+                            chainages.Add(chainage);
+                            
+                        }
+
                     }
-                    //TaskDialog.Show("Length", chainage.ToString());
 
 
-                    //TaskDialog.Show("Rhino", $"{closestPt.X * 304.8} {closestPt.Y * 304.8} ");
-
-                    //
-
-
-                    //TaskDialog.Show("R", $"{pointOnAlign.X * 304.8} {pointOnAlign.Y * 304.8} ");
-                    //TaskDialog.Show("R", parameter.ToString());
-
-                    //foreach (var item in tessellation)
-                    //{
-                    //    Helpers.CreateCircle(doc, item, 2);
-                    //}
+                    foreach (var element in group)
+                    {
+                        element.LookupParameter("DS_Chainage").Set(chainages.Average().ToString());
+                    }
                 }
 
                 t.Commit();

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows;
 
 #endregion
 
@@ -61,10 +62,8 @@ namespace RLX
 
                     if (chainageParam == null)
                     {
+                        Clipboard.SetText(element.Id.ToString());
                         TaskDialog.Show("Error", $"{element.Id} does not have a chainage");
-                        IList<ElementId> failedElements = new List<ElementId>();
-                        failedElements.Add(element.Id);
-                        uidoc.Selection.SetElementIds(failedElements);
                         return Result.Failed;
                     }
 

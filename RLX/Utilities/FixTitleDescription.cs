@@ -40,6 +40,8 @@ namespace RLX
             builtInCats.Add(BuiltInCategory.OST_PipeAccessory);
             builtInCats.Add(BuiltInCategory.OST_Sprinklers);
             builtInCats.Add(BuiltInCategory.OST_Furniture);
+            builtInCats.Add(BuiltInCategory.OST_FlexPipeCurves);
+
 
 
 
