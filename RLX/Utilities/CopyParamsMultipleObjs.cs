@@ -39,7 +39,8 @@ namespace RLX
                 "RLX_ClassificationUniclassSs_Number","RLX_Component","RLX_CoordinatesX","RLX_CoordinatesY",
                 "RLX_CoordinatesZ","RLX_Facility","RLX_GridReferenceSystem","RLX_Location","RLX_MaintenanceCost",
                 "RLX_Space","RLX_Specification","RLX_System","RLX_Type","RLX_UniqueIdentifier","RLX_Zone",
-                                "DS_AssetID",
+                "RLX_MainMaterial",
+                    "DS_AssetID",
                 "DS_AssetType",
                 "DS_Axis",
                 "DS_Lane",
@@ -56,10 +57,14 @@ namespace RLX
                            Element pipe = doc.GetElement(pipeRef);
                             foreach (string paramName in paramsToSet)
                             {
-                                //					TaskDialog.Show("R", paramName);
-                                string p = sourcePipe.LookupParameter(paramName).AsValueString();
-                                pipe.LookupParameter(paramName).Set(p);
-                            }
+                        //					TaskDialog.Show("R", paramName);
+                        try
+                        {
+                            string p = sourcePipe.LookupParameter(paramName).AsValueString();
+                            pipe.LookupParameter(paramName).Set(p);
+                        }
+                        catch { }
+                        }
 
                 }
                     t.Commit();
