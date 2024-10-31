@@ -9,7 +9,7 @@ using System.Linq;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Complex;
 using System.Numerics;
-
+using Autodesk.Revit.DB.Structure;
 #endregion
 
 namespace RLX
@@ -26,6 +26,12 @@ namespace RLX
             UIDocument uidoc = uiapp.ActiveUIDocument;
             Application app = uiapp.Application;
             Document doc = uidoc.Document;
+
+
+            FamilySymbol fs = new FilteredElementCollector(doc).OfClass(typeof(FamilySymbol)).First(q => q.Name.Equals("(BR01a) CHS114.3x4")) as FamilySymbol;
+
+            Level level = new FilteredElementCollector(doc).OfClass(typeof(Level)).ToElements().First() as Level;
+
 
             Options opt = new Options();
 
@@ -129,7 +135,12 @@ namespace RLX
 
 
                     Line line = Line.CreateBound(start, end);
-                    doc.Create.NewModelCurve(line, SketchPlane.Create(doc, Autodesk.Revit.DB.Plane.CreateByNormalAndOrigin(XYZ.BasisZ, XYZ.Zero)));
+                    //doc.Create.NewModelCurve(line, SketchPlane.Create(doc, Autodesk.Revit.DB.Plane.CreateByNormalAndOrigin(XYZ.BasisZ, XYZ.Zero)));
+                    
+
+                    FamilyInstance fa = doc.Create.NewFamilyInstance(line, fs,level, StructuralType.Beam);
+
+                    
 
                     // Define start and end points of the line
                     //XYZ startPoint = centroid - directionVector * 10; // Extend backward
