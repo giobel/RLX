@@ -122,6 +122,13 @@ namespace RLX
 
                     RibbonPanel utilities = GetSetRibbonPanel(a, tabName, "Utilities");
 
+                if (AddPushButton(utilities, "btnMoveBeam", "Move Beam", null, Resource1.copy, "RLX.FindCenterlines", "Move beam to linked beam") == false)
+                {
+                    MessageBox.Show("Failed to add button move beam", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+
+
                 if (AddPushButton(utilities, "btnFillXYZ", "Fill XYZ", null, Resource1.fill, "RLX.FillXYZ", "Refer to documentation") == false)
                 {
                     MessageBox.Show("Failed to add button Fill XYZ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

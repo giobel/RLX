@@ -11,8 +11,6 @@ using MathNet.Numerics.LinearAlgebra.Complex;
 using System.Numerics;
 using Autodesk.Revit.DB.Structure;
 using MathNet.Numerics.Distributions;
-using System;
-using MathNet.Numerics;
 #endregion
 
 namespace RLX
@@ -31,9 +29,6 @@ namespace RLX
             Document doc = uidoc.Document;
 
 
-            Reference sourceBeam = uidoc.Selection.PickObject(ObjectType.Element, "Select Beam");
-            Element ele = doc.GetElement(sourceBeam.ElementId);
-
             FamilySymbol fs = new FilteredElementCollector(doc).OfClass(typeof(FamilySymbol)).First(q => q.Name.Equals("(BR01a) CHS114.3x4")) as FamilySymbol;
 
             Level level = new FilteredElementCollector(doc).OfClass(typeof(Level)).ToElements().First() as Level;
@@ -41,15 +36,15 @@ namespace RLX
 
             Options opt = new Options();
 
-            Reference linkModelRef = uidoc.Selection.PickObject(ObjectType.LinkedElement, "Select Linked Beam");
+            IList<Reference> linkModelRefs = uidoc.Selection.PickObjects(ObjectType.LinkedElement, "Select Elements");
 
-            using (Transaction t = new Transaction(doc, "Move beam"))
+            using (Transaction t = new Transaction(doc, "Copy Linked Elements"))
             {
 
                 t.Start();
 
-                //foreach (var linkModelRef in linkModelRefs)
-                //{
+                foreach (var linkModelRef in linkModelRefs)
+                {
 
                     var e = doc.GetElement(linkModelRef.ElementId);
                     RevitLinkInstance revitLinkInst = e as RevitLinkInstance;
@@ -68,48 +63,67 @@ namespace RLX
                         {
                             //TaskDialog.Show("R", geoObj.ToString());
 
-                            List<Face> planarFaces = new List<Face>();
+                            List<Face> allFaces = new List<Face>();
 
                             Solid solid = geoObj as Solid;
-
                             foreach (Face face in solid.Faces)
                             {
-                                if (face.GetType().ToString().Contains("Planar"))
-                                {
-                                    planarFaces.Add(face);
+                                allFaces.Add(face);
 
+                                foreach (var v in face.Triangulate().Vertices)
+                                {
+                                    vertexes.Add(v);
                                 }
 
                             }
 
-                            var facesByArea = planarFaces
-                                .GroupBy(x => Math.Round(x.Area, 3));
-
-                            var smallestArea = facesByArea
-                                .OrderBy(item => item.Key)
-                                .FirstOrDefault().ToList();
-
-                            PlanarFace face1 = smallestArea[0] as PlanarFace;
-                            XYZ stPt = transf.OfPoint( face1.Origin );
-
-                            PlanarFace face2 = smallestArea[1] as PlanarFace;
-                            XYZ endPt = transf.OfPoint( face2.Origin );
-
-                            Line line = Line.CreateBound(stPt, endPt);
-
-
-                            FamilyInstance fa = doc.Create.NewFamilyInstance(line, fs, level, StructuralType.Beam);
-                            //(ele.Location as LocationCurve).Curve = line;
-
-                            //ele.LookupParameter("z Justification").Set(2);
-
                             //TaskDialog.Show("R", vertexes.Count.ToString());
                         }
 
+                    XYZ direction = new XYZ(0, 0, 0);
+
+                    direction.Normalize();
+
+                    direction = vertexes[1] - vertexes[0];
+
+                    XYZ origin = new XYZ(0, 0, 0);
+
+                    for (int i = 2; i < vertexes.Count; i++)
+                    {
+                        origin += vertexes[i];
+                    }
+                    
+                    origin /= vertexes.Count;
+
+
+                    for (int iter = 0; iter < 100; iter++)
+                    {
+                        XYZ newDirection = new XYZ(0,0,0);
+                        foreach (XYZ v in vertexes)
+                        {
+                            XYZ point = v - origin;
+                            newDirection += direction.DotProduct(v) * v;
+                        }
+                        direction = newDirection.Normalize();
+                    }
+
+                    XYZ startPoint = origin + direction*3;
+                    XYZ endPoint= origin - direction * 3;
 
 
 
-                //}//close foreach
+                    Line line = Line.CreateBound(transf.OfPoint(startPoint), transf.OfPoint(endPoint));
+
+                    XYZ dir = new XYZ(0, 0, 1);
+                    XYZ cross = direction.CrossProduct(dir);
+                    // Ensure you have a valid sketch plane; for example:
+                    SketchPlane sketchPlane = SketchPlane.Create(doc, Autodesk.Revit.DB.Plane.CreateByNormalAndOrigin(cross, transf.OfPoint(origin)));
+
+                    //Create the model curve
+                    doc.Create.NewModelCurve(line, sketchPlane);
+
+
+                }
 
                 t.Commit();
 
