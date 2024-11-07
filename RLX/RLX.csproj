@@ -85,6 +85,7 @@
     <Compile Include="Pipes\FillPipeTitles.cs" />
     <Compile Include="IDS\blueprintCopy.cs" />
     <Compile Include="Util.cs" />
+    <Compile Include="Utilities\ReloadLinks.cs" />
     <Compile Include="Utilities\FindCenterlines2.cs" />
     <Compile Include="Utilities\FindCenterlines.cs" />
     <Compile Include="Utilities\ColorByRLXxyz.cs" />
