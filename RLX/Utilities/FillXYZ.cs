@@ -41,7 +41,7 @@ namespace RLX
 
             IList<Element> visibleElements = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(filter1).WhereElementIsNotElementType().ToElements();
 
-            var grouped = visibleElements.GroupBy(x => x.LookupParameter("DS_AssetID").AsValueString());
+            var grouped = visibleElements.GroupBy(x => x.LookupParameter("RLX_UniqueIdentifier").AsValueString());
 
             XYZ pbp = BasePoint.GetProjectBasePoint(doc).Position;
             XYZ sp = BasePoint.GetSurveyPoint(doc).Position;
