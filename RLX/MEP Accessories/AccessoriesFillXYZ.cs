@@ -14,7 +14,7 @@ using System.Linq;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class FillXYZAccessories : IExternalCommand
+    public class AccessoriesFillXYZ : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -27,7 +27,7 @@ namespace RLX
             Document doc = uidoc.Document;
 
 
-            IList<Element> visibleElements = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(Helpers.RLXcatFilter()).WhereElementIsNotElementType().ToElements();
+            IList<Element> visibleElements = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(Helpers.RLXcatFilterAccessories()).WhereElementIsNotElementType().ToElements();
 
             int countElements = visibleElements.Count;
             int counterModified = 0;

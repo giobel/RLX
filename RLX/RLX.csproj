@@ -77,6 +77,7 @@
     <Compile Include="IDS\GenerateNozzlesIDS.cs" />
     <Compile Include="IDS\GenerateFurnitureIDS.cs" />
     <Compile Include="MechEquip\CabinetsSupportsCopyParamsBBox.cs" />
+    <Compile Include="MEP Accessories\AccessoriesFillDescription.cs" />
     <Compile Include="Pipes\FillHangersTitles.cs" />
     <Compile Include="Pipes\FillPipeFittingsTitle.cs" />
     <Compile Include="Pipes\FillPipesAndHangersUniclassParams.cs" />
@@ -106,7 +107,7 @@
     <Compile Include="Utilities\FindChainageGroupById.cs" />
     <Compile Include="Utilities\SelectFromExcel.cs" />
     <Compile Include="Utilities\ZoomSelected.cs" />
-    <Compile Include="Utilities\FillXYZAccessories.cs" />
+    <Compile Include="MEP Accessories\AccessoriesFillXYZ.cs" />
     <Compile Include="IDS\FillUniqueId.cs" />
     <Compile Include="Utilities\CopyParamsMultipleObjs.cs" />
     <Compile Include="GenericModelsExplode\FamilyInstanceInspector.cs" />
@@ -119,7 +120,7 @@
     <Compile Include="GenericModelsExplode\ObjectsToDSPipe.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="MechEquip\HangerFittingsCopyClosestPipeParamsBBox.cs" />
-    <Compile Include="MechEquip\MechEquipFillTitle.cs" />
+    <Compile Include="MEP Accessories\AccessoriesFillTitle.cs" />
     <Compile Include="Utilities\ColorByRLXuid.cs" />
     <Compile Include="Utilities\ColorByDSId.cs" />
     <Compile Include="Utilities\CopyOLDids.cs" />

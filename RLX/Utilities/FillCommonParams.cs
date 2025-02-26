@@ -38,6 +38,7 @@ namespace RLX
             List<Tuple<string, string>> data = new List<Tuple<string, string>>();
             data.Add(new Tuple<string, string>("RLX_System", "TunnelServiceBuildings_MEP"));
             data.Add(new Tuple<string, string>("RLX_Facility", "Silvertown Tunnel"));
+            data.Add(new Tuple<string, string>("RLX_Type", "Project Facilities"));
             data.Add(new Tuple<string, string>("RLX_Zone", "Compound North"));
             data.Add(new Tuple<string, string>("RLX_Location", "Silvertown"));
             data.Add(new Tuple<string, string>("RLX_Space", "n/a"));
@@ -65,6 +66,8 @@ namespace RLX
 
                         p.Set(info.Item2);
                     }
+
+                    counterModified++;
 
                 }
 

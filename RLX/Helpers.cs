@@ -32,6 +32,21 @@ namespace RLX
             return filter1 ;
         }
 
+        public static ElementMulticategoryFilter RLXcatFilterAccessories()
+        {
+
+            List<BuiltInCategory> builtInCats = new List<BuiltInCategory>();
+            builtInCats.Add(BuiltInCategory.OST_Sprinklers);
+            builtInCats.Add(BuiltInCategory.OST_MechanicalEquipment);
+            builtInCats.Add(BuiltInCategory.OST_DuctAccessory);
+            builtInCats.Add(BuiltInCategory.OST_PipeAccessory);
+
+
+            ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);
+
+            return filter1;
+        }
+
         /// <summary>
         /// Return a string for a real number
         /// formatted to two decimal places.
