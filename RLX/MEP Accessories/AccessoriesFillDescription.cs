@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using static Autodesk.Revit.DB.SpecTypeId;
 
 #endregion
 
@@ -46,14 +47,16 @@ namespace RLX
 
                         Level level = doc.GetElement(element.LevelId) as Level;
 
-                        Parameter descriptionParam = et.LookupParameter("Description");
-                        Parameter location = element.LookupParameter("Location");
-
-                        string titleString = "";
 
                         
-                        
-                            titleString += $"{descriptionParam.AsValueString()} {location.AsValueString()} {level.Name}";
+                        Parameter descriptionParam = et.get_Parameter(BuiltInParameter.ALL_MODEL_DESCRIPTION);
+                        Parameter location = element.LookupParameter("RLX_Location");
+                    string titleString = "";
+
+
+                    string levelSentenceCase = char.ToUpper(level.Name[0]) + level.Name.Substring(1).ToLower();
+
+                    titleString += $"{descriptionParam.AsValueString()} {location.AsValueString()} {levelSentenceCase}";
                         
 
                             title.Set(titleString);
