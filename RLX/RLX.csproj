@@ -86,6 +86,9 @@
     <Compile Include="IDS\blueprintCopy.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Utilities\CheckXYZ.cs" />
+    <Compile Include="Utilities\CopyUniclassFromType.cs" />
+    <Compile Include="Utilities\CopyOLDidsMEP.cs" />
+    <Compile Include="Utilities\DeleteProjParameters.cs" />
     <Compile Include="Utilities\ReloadLinks.cs" />
     <Compile Include="Utilities\FindCenterlines2.cs" />
     <Compile Include="Utilities\FindCenterlines.cs" />
@@ -103,7 +106,7 @@
     <Compile Include="Utilities\FindChainageGroupById.cs" />
     <Compile Include="Utilities\SelectFromExcel.cs" />
     <Compile Include="Utilities\ZoomSelected.cs" />
-    <Compile Include="Utilities\FillXYZ.cs" />
+    <Compile Include="Utilities\FillXYZAccessories.cs" />
     <Compile Include="IDS\FillUniqueId.cs" />
     <Compile Include="Utilities\CopyParamsMultipleObjs.cs" />
     <Compile Include="GenericModelsExplode\FamilyInstanceInspector.cs" />

@@ -29,29 +29,24 @@ namespace RLX
             Document doc = uidoc.Document;
 
 
+            IList<Element> velements = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(Helpers.RLXcatFilter()).WhereElementIsNotElementType().ToElements();
+           
+            int countElements = velements.Count;
+            int counterModified = 0;
 
-            List<BuiltInCategory> builtInCats = new List<BuiltInCategory>();
-            builtInCats.Add(BuiltInCategory.OST_MechanicalEquipment);
-            builtInCats.Add(BuiltInCategory.OST_GenericModel);
-            builtInCats.Add(BuiltInCategory.OST_PipeCurves);
-            builtInCats.Add(BuiltInCategory.OST_PipeInsulations);
-            builtInCats.Add(BuiltInCategory.OST_PipeFitting);
-            builtInCats.Add(BuiltInCategory.OST_PipeAccessory);
-            builtInCats.Add(BuiltInCategory.OST_Sprinklers);
-            builtInCats.Add(BuiltInCategory.OST_Furniture);
-
-
-
-            ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);
-
-
-            IList<Element> velements = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(filter1).WhereElementIsNotElementType().ToElements();
 
             List<Tuple<string, string>> data = new List<Tuple<string, string>>();
-            data.Add(new Tuple<string, string>("RLX_ClassificationUniclassEF_Description", "Fire-extinguishing supply"));
-            data.Add(new Tuple<string, string>("RLX_ClassificationUniclassEF_Number", "EF_55_30"));
-            data.Add(new Tuple<string, string>("RLX_ClassificationUniclassSs_Description", "Fire-stopping systems"));
-            data.Add(new Tuple<string, string>("RLX_ClassificationUniclassSs_Number", "Ss_25_60_30"));
+            data.Add(new Tuple<string, string>("RLX_System", "TunnelServiceBuildings_MEP"));
+            data.Add(new Tuple<string, string>("RLX_Facility", "Silvertown Tunnel"));
+            data.Add(new Tuple<string, string>("RLX_Zone", "Compound North"));
+            data.Add(new Tuple<string, string>("RLX_Location", "Silvertown"));
+            data.Add(new Tuple<string, string>("RLX_Space", "n/a"));
+            data.Add(new Tuple<string, string>("RLX_ActualCost", "n/a"));
+            data.Add(new Tuple<string, string>("RLX_MaintenanceCost", "n/a"));
+
+
+            //Silvertown Bld:
+
 
 
             using (Transaction t = new Transaction(doc, "Fill params"))
@@ -61,45 +56,7 @@ namespace RLX
 
                 foreach (Element element in velements)
                 {
-                    Parameter spec = element.LookupParameter("RLX_Specification");
 
-                    if (spec == null)
-                    {
-                        ICollection<ElementId> eids = new List<ElementId>() { element.Id };
-
-                        uidoc.ShowElements(eids);
-
-                        return Result.Failed;
-                    }
-                    else
-                    {
-                    spec.Set("ST150030-COW-FRS-40-ZZ-REQ-FE-0006");
-                    }
-
-                    Parameter fac = element.LookupParameter("RLX_Facility");
-                    fac.Set("Silvertown Tunnel");
-
-                    Parameter typ = element.LookupParameter("RLX_Type");
-                    typ.Set("Project Facilites");
-
-                    Parameter grid = element.LookupParameter("RLX_GridReferenceSystem");
-                    grid.Set("BNG");
-
-                    Parameter cost = element.LookupParameter("RLX_MaintenanceCost");
-                    cost.Set("N/A");
-
-                    Parameter actualCost = element.LookupParameter("RLX_ActualCost");
-                    actualCost.Set("N/A");
-
-                    Parameter system = element.LookupParameter("RLX_System");
-                    system.Set("Fire Fighting");
-
-                    //					Parameter comp = element.LookupParameter("RLX_Component");
-                    //					comp.Set("ST150030-COW-FRS-40-ZZ-REQ-FE-0006");
-
-
-                    //					Parameter sys = element.LookupParameter("RLX_System");
-                    //					sys.Set("Fire System_Fixed fire-fighting system");
 
                     foreach (var info in data)
                     {
@@ -114,6 +71,8 @@ namespace RLX
 
                 t.Commit();
             }
+
+            TaskDialog.Show("R", $"{counterModified} modified of {countElements}");
 
             return Result.Succeeded;
             

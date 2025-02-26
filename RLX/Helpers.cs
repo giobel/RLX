@@ -13,6 +13,25 @@ namespace RLX
     internal class Helpers
     {
 
+        public static ElementMulticategoryFilter RLXcatFilter()
+        {
+
+            List<BuiltInCategory> builtInCats = new List<BuiltInCategory>();
+            builtInCats.Add(BuiltInCategory.OST_PipeCurves);
+            builtInCats.Add(BuiltInCategory.OST_PipeAccessory);
+            builtInCats.Add(BuiltInCategory.OST_Sprinklers);
+            builtInCats.Add(BuiltInCategory.OST_GenericModel);
+            builtInCats.Add(BuiltInCategory.OST_MechanicalEquipment);
+            builtInCats.Add(BuiltInCategory.OST_PipeFitting);
+            builtInCats.Add(BuiltInCategory.OST_DuctCurves);
+            builtInCats.Add(BuiltInCategory.OST_DuctFitting);
+            builtInCats.Add(BuiltInCategory.OST_DuctAccessory);
+
+            ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);
+
+            return filter1 ;
+        }
+
         /// <summary>
         /// Return a string for a real number
         /// formatted to two decimal places.
@@ -248,14 +267,25 @@ namespace RLX
             foreach (Element element in elements)
             {
                 Parameter _x = element.LookupParameter("RLX_CoordinatesX");
-                _x.Set(x.ToString());
+                _x.Set(Math.Round(x,3).ToString());
                 Parameter _y = element.LookupParameter("RLX_CoordinatesY");
-                _y.Set(y.ToString());
+                _y.Set(Math.Round(y, 3).ToString());
                 Parameter _z = element.LookupParameter("RLX_CoordinatesZ");
-                _z.Set(z.ToString());
+                _z.Set(Math.Round(z, 3).ToString());
             }
 
 
+        }
+
+        public static void FillXYZParam(Element element, double x, double y, double z)
+        {
+
+                Parameter _x = element.LookupParameter("RLX_CoordinatesX");
+                _x.Set(Math.Round(x, 3).ToString());
+                Parameter _y = element.LookupParameter("RLX_CoordinatesY");
+                _y.Set(Math.Round(y, 3).ToString());
+                Parameter _z = element.LookupParameter("RLX_CoordinatesZ");
+                _z.Set(Math.Round(z, 3).ToString());
         }
 
         public static bool DoBoundingBoxesIntersect(BoundingBoxXYZ box1, BoundingBoxXYZ box2)

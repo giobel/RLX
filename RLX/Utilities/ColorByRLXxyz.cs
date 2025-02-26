@@ -33,21 +33,8 @@ namespace RLX
             FillPatternElement solidFillPattern = elementsInView.OfClass(typeof(FillPatternElement)).Cast<FillPatternElement>().First(a => a.GetFillPattern().IsSolidFill);
 
 
-            List<BuiltInCategory> builtInCats = new List<BuiltInCategory>();
-            builtInCats.Add(BuiltInCategory.OST_MechanicalEquipment);
-            builtInCats.Add(BuiltInCategory.OST_GenericModel);
-            builtInCats.Add(BuiltInCategory.OST_PipeCurves);
-            builtInCats.Add(BuiltInCategory.OST_PipeInsulations);
-            builtInCats.Add(BuiltInCategory.OST_PipeFitting);
-            builtInCats.Add(BuiltInCategory.OST_PipeAccessory);
-            builtInCats.Add(BuiltInCategory.OST_Furniture);
 
-
-
-            ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);
-
-
-            IList<Element> visibleElements = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(filter1).WhereElementIsNotElementType().ToElements();
+            IList<Element> visibleElements = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(Helpers.RLXcatFilter()).WhereElementIsNotElementType().ToElements();
 
             var grouped = visibleElements.GroupBy(x => x.LookupParameter("RLX_CoordinatesX").AsValueString());
 
