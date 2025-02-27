@@ -2,16 +2,46 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Autodesk.Revit.DB;
+using Autodesk.Revit.DB.Mechanical;
 using Autodesk.Revit.UI;
+using MathNet.Numerics.Providers.LinearAlgebra;
+using static Autodesk.Revit.DB.SpecTypeId;
 using RG = Rhino.Geometry;
 
 namespace RLX
 {
+
+    class XyzProximityComparer : IComparer<XYZ>
+    {
+        XYZ _p;
+
+        public XyzProximityComparer(XYZ p)
+        {
+            _p = p;
+        }
+
+        public int Compare(XYZ x, XYZ y)
+        {
+            double dx = x.DistanceTo(_p);
+            double dy = y.DistanceTo(_p);
+            return Util.IsEqual(dx, dy) ? 0
+              : (dx < dy ? -1 : 1);
+        }
+    }
+
     internal class Helpers
     {
+
+        public static string LocationforDescription()
+        {
+            //Silvertown Bld:
+            return "Newham Portal Building";
+        }
+
 
         public static ElementMulticategoryFilter RLXcatFilter()
         {
@@ -45,6 +75,43 @@ namespace RLX
             ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);
 
             return filter1;
+        }
+
+
+        public static XYZ GetStartPoint(Document doc, List<XYZ> points)
+        {
+            // Check if there are enough points to form a curve (at least 3 points for a basic NURBS curve)
+            if (points.Count < 3)
+            {
+                throw new ArgumentException("At least three points are required to create a NURBS curve.");
+            }
+
+            // Convert the points from XYZ (Revit) to Point3d (Rhino)
+            List<RG.Point3d> rhinoPoints = new List<RG.Point3d>();
+            foreach (var pt in points)
+            {
+                rhinoPoints.Add(new RG.Point3d(pt.X, pt.Y, pt.Z));
+            }
+
+            //RG.Point3d startingPoint = rhinoPoints.First();
+
+            //var sortedPoints = rhinoPoints.OrderBy(p => p.DistanceTo(startingPoint)).ToList();
+
+            RG.Curve crv = RG.Curve.CreateControlPointCurve(rhinoPoints);
+
+            
+
+            RG.Point3d minPoint = crv.PointAtStart;
+            //// Create a NURBS curve through the points using RhinoCommon
+            //var nurbsCurve = RG.NurbsCurve.CreateControlPointCurve(rhinoPoints, 1);
+
+            //List<RG.Point3d> pts = new List<RG.Point3d>() { nurbsCurve.PointAtStart , nurbsCurve.PointAtEnd };
+
+            //RG.Point3d minPoint = pts.OrderBy(p => p.X).ThenBy(p => p.Y).ThenBy(p => p.Z).First();
+
+            //RG.Point3d minPoint = sortedPoints.First();
+
+            return new XYZ(minPoint.X, minPoint.Y, minPoint.Z);
         }
 
         /// <summary>
@@ -278,7 +345,7 @@ namespace RLX
 
         public static void FillXYZParam(IEnumerable<Element> elements, double x, double y, double z)
         {
-
+            
             foreach (Element element in elements)
             {
                 Parameter _x = element.LookupParameter("RLX_CoordinatesX");
