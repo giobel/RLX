@@ -8,13 +8,14 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using static Autodesk.Revit.DB.SpecTypeId;
 
 #endregion
 
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class DuctAccessoriesFillTitle: IExternalCommand
+    public class DuctAccessories_FillDescription: IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -30,11 +31,12 @@ namespace RLX
             List<BuiltInCategory> builtInCats = new List<BuiltInCategory>();
             builtInCats.Add(BuiltInCategory.OST_DuctAccessory);
             
+
             ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);
 
 
             IList<Element> visibleElements= new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(filter1).WhereElementIsNotElementType().ToElements();
-                   int countVisible = visibleElements.Count();
+            int countVisible = visibleElements.Count();
             int counterModified = 0;
 
                 using (Transaction t = new Transaction(doc, "Fill params"))
@@ -46,20 +48,21 @@ namespace RLX
                     {
 
                         Element et = doc.GetElement(element.GetTypeId());
-                        Parameter title = element.LookupParameter("RLX_Title");
+                        Parameter title = element.LookupParameter("RLX_Description");
+
+                        Level level = doc.GetElement(element.LevelId) as Level;
 
 
-                        //better to use the element Pr Title. Parameter is empyt in some element types
-                        Parameter prTitle = et.LookupParameter("Identity_Classification_Uniclass 2015_Pr_Title");
-                        Parameter size = element.LookupParameter("Size");
-                        Parameter material = element.LookupParameter("RLX_MainMaterial");
+                        
+                        Parameter descriptionParam = et.get_Parameter(BuiltInParameter.ALL_MODEL_DESCRIPTION);
+                        Parameter location = element.LookupParameter("RLX_Location");
+                    string titleString = "";
 
-                        string titleString = "";
 
-                        if (prTitle != null && prTitle.AsValueString() != null && size != null && size.AsValueString() != null && material != null && material.AsValueString() != null)
-                        {
-                            titleString += $"{prTitle.AsValueString()} {size.AsValueString()} {material.AsValueString()}";
-                        }
+                    string levelSentenceCase = char.ToUpper(level.Name[0]) + level.Name.Substring(1).ToLower();
+
+                    titleString += $"{descriptionParam.AsValueString()} {location.AsValueString()} {levelSentenceCase}";
+                        
 
                             title.Set(titleString);
                             counterModified++;

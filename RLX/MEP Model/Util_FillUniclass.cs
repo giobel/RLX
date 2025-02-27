@@ -16,7 +16,7 @@ using System.Windows;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class FillUniqueID : IExternalCommand
+    public class Util_FillUniclass : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -29,13 +29,13 @@ namespace RLX
             Document doc = uidoc.Document;
 
 
-            IList<Element> visibleElements = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(Helpers.RLXcatFilterAccessories()).WhereElementIsNotElementType().ToElements();
+            IList<Element> visibleElements = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(Helpers.RLXcatFilter()).WhereElementIsNotElementType().ToElements();
 
             int countElements = visibleElements.Count;
             int counterModified = 0;
 
 
-            using (Transaction t = new Transaction(doc, "Fill Unique Ids"))
+            using (Transaction t = new Transaction(doc, "Fill Uniclass"))
             {
 
                 t.Start();
@@ -43,23 +43,7 @@ namespace RLX
                 foreach (var e in visibleElements)
                     {
 
-                    //Silvertown Bld
-                    string code = "L252013B0";
-
-                    //Silvertown Service:
-                    //string code = "X013013S0";
-
-                    //Greenwich Bld
-                    //string code = "L114014B0";
-
-
-
-                    string assetType = e.LookupParameter("DS_AssetType").AsValueString();
-                    string id = e.LookupParameter("DS_AssetID").AsValueString();
-
-
-                    Parameter p = e.LookupParameter("RLX_UniqueIdentifier");
-                    p.Set(code + assetType + id);
+                    Helpers.CopyUniclassFromType(doc, e);
 
                     counterModified++;
 

@@ -53,7 +53,7 @@ namespace RLX
             ProjectLocation pl = doc.ActiveProjectLocation;
             Transform ttr = pl.GetTotalTransform().Inverse;
 
-            var grouped = visibleElements.GroupBy(x => x.LookupParameter("DS_AssetID").AsValueString());
+            var grouped = visibleElements.GroupBy(x => x.LookupParameter("RLX_UniqueIdentifier").AsValueString());
 
             FamilySymbol positionFamily = new FilteredElementCollector(doc).OfClass(typeof(FamilySymbol)).OfType<FamilySymbol>().Where(x => x.FamilyName == "Position").First();
 
@@ -71,6 +71,8 @@ namespace RLX
 
                 foreach (var group in grouped)
                 {
+                    if (group.First().LookupParameter("RLX_UniqueIdentifier").AsValueString() != null)
+                    { 
 
                     List<XYZ> points = new List<XYZ>();
 
@@ -178,7 +180,7 @@ namespace RLX
                     Helpers.FillXYZParam(group, metricX, metricY, metricZ);
 
                     counterModified++;
-
+                    }
 
                 }//close foreach group
 

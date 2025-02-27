@@ -9,6 +9,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Mechanical;
 using Autodesk.Revit.UI;
 using MathNet.Numerics.Providers.LinearAlgebra;
+using Rhino.UI;
 using static Autodesk.Revit.DB.SpecTypeId;
 using RG = Rhino.Geometry;
 
@@ -36,6 +37,32 @@ namespace RLX
     internal class Helpers
     {
 
+        public static void CopyUniclassFromType(Document doc, Element element)
+        {
+            Element eleType = doc.GetElement(element.GetTypeId());
+
+            Parameter prTitle = eleType.LookupParameter("Identity_Classification_Uniclass 2015_Pr_Title");
+
+            Parameter typeEF = eleType.LookupParameter("Identity_Classification_Uniclass 2015_Ef");
+            Parameter typeEFcode = eleType.LookupParameter("Identity_Classification_Uniclass 2015_Ef_Code");
+
+            Parameter typePr = eleType.LookupParameter("Identity_Classification_Uniclass 2015_Pr");
+            Parameter typePrcode = eleType.LookupParameter("Identity_Classification_Uniclass 2015_Pr_Code");
+
+            Parameter eleEf = element.LookupParameter("RLX_ClassificationUniclassEF_Description");
+            Parameter eleEfcode = element.LookupParameter("RLX_ClassificationUniclassEF_Number");
+
+            Parameter elePr = element.LookupParameter("RLX_ClassificationUniclassPr_Description");
+            Parameter elePrcode = element.LookupParameter("RLX_ClassificationUniclassPr_Number");
+
+            eleEf.Set(typeEF?.AsValueString().Split(':')[1].Trim());
+            eleEfcode.Set(typeEFcode?.AsValueString());
+
+            elePr.Set(typePr?.AsValueString().Split(':')[1].Trim());
+            elePrcode.Set(typePrcode?.AsValueString());
+        }
+
+
         public static string LocationforDescription()
         {
             //Silvertown Bld:
@@ -46,16 +73,41 @@ namespace RLX
         public static ElementMulticategoryFilter RLXcatFilter()
         {
 
-            List<BuiltInCategory> builtInCats = new List<BuiltInCategory>();
-            builtInCats.Add(BuiltInCategory.OST_PipeCurves);
-            builtInCats.Add(BuiltInCategory.OST_PipeAccessory);
-            builtInCats.Add(BuiltInCategory.OST_Sprinklers);
-            builtInCats.Add(BuiltInCategory.OST_GenericModel);
-            builtInCats.Add(BuiltInCategory.OST_MechanicalEquipment);
-            builtInCats.Add(BuiltInCategory.OST_PipeFitting);
-            builtInCats.Add(BuiltInCategory.OST_DuctCurves);
-            builtInCats.Add(BuiltInCategory.OST_DuctFitting);
-            builtInCats.Add(BuiltInCategory.OST_DuctAccessory);
+            List<BuiltInCategory> builtInCats = new List<BuiltInCategory>
+            {
+                BuiltInCategory.OST_CableTray,
+                BuiltInCategory.OST_CableTrayFitting,
+                BuiltInCategory.OST_Conduit,
+                BuiltInCategory.OST_ConduitFitting,
+                BuiltInCategory.OST_DataDevices,
+                BuiltInCategory.OST_DuctAccessory,
+                BuiltInCategory.OST_DuctCurves,
+                BuiltInCategory.OST_DuctFitting,
+                BuiltInCategory.OST_DuctTerminal,
+                BuiltInCategory.OST_ElectricalEquipment,
+                BuiltInCategory.OST_ElectricalFixtures,
+                BuiltInCategory.OST_FireAlarmDevices,
+                BuiltInCategory.OST_GenericModel,
+                BuiltInCategory.OST_LightingDevices,
+                BuiltInCategory.OST_LightingFixtures,
+                BuiltInCategory.OST_MechanicalEquipment,
+                BuiltInCategory.OST_PipeAccessory,
+                BuiltInCategory.OST_PipeCurves,
+                BuiltInCategory.OST_PipeFitting,
+                BuiltInCategory.OST_PlumbingFixtures,
+                BuiltInCategory.OST_SecurityDevices,
+                BuiltInCategory.OST_Sprinklers,
+                BuiltInCategory.OST_TelephoneDevices
+            };
+
+
+
+
+
+
+
+
+
 
             ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);
 
@@ -65,12 +117,15 @@ namespace RLX
         public static ElementMulticategoryFilter RLXcatFilterAccessories()
         {
 
-            List<BuiltInCategory> builtInCats = new List<BuiltInCategory>();
-            builtInCats.Add(BuiltInCategory.OST_Sprinklers);
-            builtInCats.Add(BuiltInCategory.OST_MechanicalEquipment);
-            builtInCats.Add(BuiltInCategory.OST_DuctAccessory);
-            builtInCats.Add(BuiltInCategory.OST_PipeAccessory);
+            List<BuiltInCategory> builtInCats = new List<BuiltInCategory>
+            {
+            BuiltInCategory.OST_Sprinklers,
+            BuiltInCategory.OST_MechanicalEquipment,
+            BuiltInCategory.OST_DuctAccessory,
+            BuiltInCategory.OST_PipeAccessory,
+            BuiltInCategory.OST_FireAlarmDevices,
 
+            };
 
             ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);
 

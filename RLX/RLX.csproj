@@ -66,16 +66,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CirclePointsGenerator.cs" />
-    <Compile Include="MEP Model\FillUniqueID.cs" />
-    <Compile Include="MEP Model\FillCommonParam.cs" />
+    <Compile Include="MEP Model\Util_ColorByDSId.cs" />
+    <Compile Include="MEP Model\Util_Copy_Old_ID.cs" />
+    <Compile Include="MEP Model\Util_AccessoriesFillDSids.cs" />
+    <Compile Include="MEP Model\Util_FillUniclass.cs" />
+    <Compile Include="MEP Model\Util_FillUniqueID.cs" />
+    <Compile Include="MEP Model\Util_FillCommonParam.cs" />
     <Compile Include="MEP Model\BeginningOfChain.cs" />
-    <Compile Include="MEP Model\DuctAccessoriesFillDescription.cs" />
     <Compile Include="MEP Model\Duct_Fill_Title_Description.cs" />
     <Compile Include="SmallestEnclosingCircle.cs" />
     <Compile Include="Util.cs" />
-    <Compile Include="MEP Model\AccessoriesFillXYZ.cs" />
+    <Compile Include="MEP Model\Util_AccessoriesFillXYZ.cs" />
     <Compile Include="Helpers.cs" />
-    <Compile Include="MEP Model\DuctAccessoriesFillTitle.cs" />
+    <Compile Include="MEP Model\DuctAccessories_Fill_Title_Description.cs" />
     <Compile Include="Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
