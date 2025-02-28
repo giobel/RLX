@@ -14,7 +14,7 @@ using System.Linq;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class DuctAccessories_Fill_Title_Description: IExternalCommand
+    public class Duct_Accessories_Fill_Title_Description: IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -27,8 +27,13 @@ namespace RLX
             Document doc = uidoc.Document;
 
 
-            List<BuiltInCategory> builtInCats = new List<BuiltInCategory>();
-            builtInCats.Add(BuiltInCategory.OST_DuctAccessory);
+            List<BuiltInCategory> builtInCats = new List<BuiltInCategory>
+            {
+                BuiltInCategory.OST_DuctAccessory,
+                BuiltInCategory.OST_MechanicalEquipment
+
+            };
+
             
             ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(builtInCats);
 
@@ -70,11 +75,11 @@ namespace RLX
                         Level level = doc.GetElement(element.LevelId) as Level;
 
                         Parameter descriptionParam = et.get_Parameter(BuiltInParameter.ALL_MODEL_DESCRIPTION);
-                        Parameter location = element.LookupParameter("RLX_Location");
+                        //Parameter location = element.LookupParameter("RLX_Location");
                         
                         string levelSentenceCase = char.ToUpper(level.Name[0]) + level.Name.Substring(1).ToLower();
 
-                        string descriptionString = $"{descriptionParam.AsValueString()} {location.AsValueString()} {levelSentenceCase}";
+                        string descriptionString = $"{descriptionParam.AsValueString()} {Helpers.LocationforDescription()} {levelSentenceCase}";
 
 
                         description.Set(descriptionString);

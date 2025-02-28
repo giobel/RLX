@@ -66,19 +66,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CirclePointsGenerator.cs" />
+    <Compile Include="MEP Model\BeginningOfChain1.cs" />
+    <Compile Include="MEP Model\Mech_Accessories_Fill_Title_Description.cs" />
+    <Compile Include="MEP Model\Util_AccessoriesFillXYZtop.cs" />
+    <Compile Include="MEP Model\Util_CheckLocation.cs" />
+    <Compile Include="MEP Model\Util_ColorByUID.cs" />
     <Compile Include="MEP Model\Util_ColorByDSId.cs" />
     <Compile Include="MEP Model\Util_Copy_Old_ID.cs" />
     <Compile Include="MEP Model\Util_AccessoriesFillDSids.cs" />
-    <Compile Include="MEP Model\Util_FillUniclass.cs" />
+    <Compile Include="MEP Model\Util_Fittings_CopyAllParameters.cs" />
+    <Compile Include="MEP Model\Util_FillUniclassFromType.cs" />
     <Compile Include="MEP Model\Util_FillUniqueID.cs" />
     <Compile Include="MEP Model\Util_FillCommonParam.cs" />
-    <Compile Include="MEP Model\BeginningOfChain.cs" />
+    <Compile Include="MEP Model\BeginningOfChain2.cs" />
     <Compile Include="MEP Model\Duct_Fill_Title_Description.cs" />
     <Compile Include="SmallestEnclosingCircle.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="MEP Model\Util_AccessoriesFillXYZ.cs" />
     <Compile Include="Helpers.cs" />
-    <Compile Include="MEP Model\DuctAccessories_Fill_Title_Description.cs" />
+    <Compile Include="MEP Model\Duct_Accessories_Fill_Title_Description.cs" />
     <Compile Include="Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -86,11 +92,15 @@
     </Compile>
     <Compile Include="App.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MEP Model\Util_CopyParams.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="RLX.addin" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="MEP Backup\" />
+    <Folder Include="Utilities\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

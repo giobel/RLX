@@ -14,7 +14,7 @@ using System.Linq;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class CopyParams : IExternalCommand
+    public class Util_CopyParams : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -36,22 +36,18 @@ namespace RLX
                     "RLX_ClassificationUniclassEF_Description","RLX_Title",
                 "RLX_ClassificationUniclassEF_Number","RLX_ClassificationUniclassPr_Description",
                 "RLX_ClassificationUniclassPr_Number","RLX_ClassificationUniclassSs_Description",
-                "RLX_ClassificationUniclassSs_Number","RLX_Component","RLX_CoordinatesX","RLX_CoordinatesY",
+                "RLX_ClassificationUniclassSs_Number","RLX_CoordinatesX","RLX_CoordinatesY",
                 "RLX_CoordinatesZ","RLX_Facility","RLX_GridReferenceSystem","RLX_Location","RLX_MaintenanceCost",
                 "RLX_Space","RLX_Specification","RLX_System","RLX_Type","RLX_UniqueIdentifier","RLX_Zone",
                 "DS_AssetID",
-                "DS_AssetType",
-                "DS_Axis",
-                "DS_Lane",
-                "DS_Chainage",
-                "DS_Location"};
+                "DS_AssetType"};
 
             //if (doc.GetElement(destinationPipesRef).Category.BuiltInCategory == BuiltInCategory.OST_PipeFitting)
             //{
             //    paramsToSet.Remove("RLX_Title");
             //}
 
-                using (Transaction t = new Transaction(doc, "Copy pipe parameters"))
+                using (Transaction t = new Transaction(doc, "Copy parameters"))
                 {
                     t.Start();
 

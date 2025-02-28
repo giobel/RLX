@@ -16,7 +16,7 @@ using System.Windows;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class Util_FillUniclass : IExternalCommand
+    public class Util_FillUniclassFromType : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,

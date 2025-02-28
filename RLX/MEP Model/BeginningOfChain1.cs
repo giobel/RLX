@@ -17,7 +17,7 @@ using Rhino;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class BeginningOfChain : IExternalCommand
+    public class BeginningOfChain1 : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -136,15 +136,10 @@ namespace RLX
                     //XYZ minPoint = endPoints.OrderBy(p => p.X).ThenBy(p=>p.Y).ThenBy(p => p.Z).First();
 
 
-                    //List<XYZ> ordered = points.OrderBy(p => p.X).ThenBy(p => p.Y).ToList();
+                    List<XYZ> ordered = points.OrderBy(p => p.X).ThenBy(p => p.Y).ToList();
 
-                    List<XYZ> ordered = points;
 
-                    XyzProximityComparer comparer = new XyzProximityComparer(new XYZ());
-
-                    points.Sort(comparer);
-
-                    FamilyInstance instance = doc.Create.NewFamilyInstance(points.First(), positionFamily, StructuralType.NonStructural);
+                    FamilyInstance instance = doc.Create.NewFamilyInstance(ordered.First(), positionFamily, StructuralType.NonStructural);
 
 
                     XYZ startPt = null;

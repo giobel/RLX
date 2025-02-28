@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Mechanical;
@@ -37,11 +39,12 @@ namespace RLX
     internal class Helpers
     {
 
+
         public static void CopyUniclassFromType(Document doc, Element element)
         {
             Element eleType = doc.GetElement(element.GetTypeId());
 
-            Parameter prTitle = eleType.LookupParameter("Identity_Classification_Uniclass 2015_Pr_Title");
+            //Parameter prTitle = eleType.LookupParameter("Identity_Classification_Uniclass 2015_Pr_Title");
 
             Parameter typeEF = eleType.LookupParameter("Identity_Classification_Uniclass 2015_Ef");
             Parameter typeEFcode = eleType.LookupParameter("Identity_Classification_Uniclass 2015_Ef_Code");
@@ -60,6 +63,89 @@ namespace RLX
 
             elePr.Set(typePr?.AsValueString().Split(':')[1].Trim());
             elePrcode.Set(typePrcode?.AsValueString());
+
+            //If Uniclass System is Empty, fill it with the type value or instance value:
+            Parameter eleSsDescr = element.LookupParameter("RLX_ClassificationUniclassSs_Description");
+            Parameter eleSsCode = element.LookupParameter("RLX_ClassificationUniclassSs_Number");
+
+            if (eleSsDescr.AsString() == string.Empty)
+            {
+                Parameter instanceSsDescr = element.LookupParameter("Identity_Classification_Uniclass 2015_Ss");
+
+                if (instanceSsDescr.HasValue)
+                {
+                    eleSsDescr.Set(instanceSsDescr.AsValueString().Split(':')[1].Trim());
+                }
+
+            }
+            
+            if (eleSsCode.AsString() == string.Empty)
+            {
+                Parameter instanceSsCode = element.LookupParameter("Identity_Classification_Uniclass 2015_Ss_Code");
+                if (instanceSsCode.HasValue)
+                {
+                eleSsCode.Set(instanceSsCode?.AsValueString());
+
+                }
+
+            }
+        }
+
+
+        public static string ConvertToSentenceCase(string text)
+        {
+            // Use regex to split sentences by ., !, ?
+            string pattern = @"([.!?]\s*)";
+            string[] sentences = Regex.Split(text, pattern);
+
+            TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
+
+            for (int i = 0; i < sentences.Length; i++)
+            {
+                if (!string.IsNullOrWhiteSpace(sentences[i]))
+                {
+                    sentences[i] = textInfo.ToTitleCase(sentences[i].Trim().ToLower());
+                }
+            }
+
+            return string.Join("", sentences).Trim();
+        }
+
+
+        public static XYZ ComputeCentroid(List<XYZ> points)
+        {
+            if (points == null || points.Count == 0)
+                throw new ArgumentException("Point list is empty!");
+
+            double xSum = 0, ySum = 0, zSum = 0;
+            int count = points.Count;
+
+            foreach (XYZ pt in points)
+            {
+                xSum += pt.X;
+                ySum += pt.Y;
+                zSum += pt.Z;
+            }
+
+            return new XYZ(xSum / count, ySum / count, zSum / count);
+        }
+
+        public static int ClosestIndex(List<XYZ> points, XYZ target)
+        {
+            double minDistance = double.MaxValue;
+            int closestIndex = -1;
+
+            for (int i = 0; i < points.Count; i++)
+            {
+                double distance = points[i].DistanceTo(target);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    closestIndex = i;
+                }
+            }
+
+            return closestIndex;
         }
 
 
@@ -372,6 +458,17 @@ namespace RLX
             return new XYZ((min.X + max.X) / 2, (min.Y + max.Y) / 2, (min.Z + max.Z) / 2);
         }
 
+        public static XYZ GetElementCentroidTopZ(Element element)
+        {
+            BoundingBoxXYZ bbox = element.get_BoundingBox(null);
+            if (bbox == null)
+                return null;
+
+            XYZ min = bbox.Min;
+            XYZ max = bbox.Max;
+
+            return new XYZ((min.X + max.X) / 2, (min.Y + max.Y) / 2, max.Z);
+        }
 
         public static XYZ CalculateCentroidOfElements(IEnumerable<Element> elements)
         {
