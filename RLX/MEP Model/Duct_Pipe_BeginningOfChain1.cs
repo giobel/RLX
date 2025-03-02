@@ -11,13 +11,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Rhino;
+using Autodesk.Revit.DB.Plumbing;
 
 #endregion
 
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class BeginningOfChain1 : IExternalCommand
+    public class Duct_Pipe_BeginningOfChain1 : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -30,9 +31,13 @@ namespace RLX
             Document doc = uidoc.Document;
 
 
-            List<BuiltInCategory> cats = new List<BuiltInCategory>();
-            cats.Add(BuiltInCategory.OST_DuctCurves);
-            cats.Add(BuiltInCategory.OST_DuctFitting);
+            List<BuiltInCategory> cats = new List<BuiltInCategory>
+            {
+                BuiltInCategory.OST_DuctCurves,
+                BuiltInCategory.OST_DuctFitting,
+                BuiltInCategory.OST_PipeCurves,
+                BuiltInCategory.OST_PipeFitting
+            };
 
 
             ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(cats);
@@ -76,12 +81,12 @@ namespace RLX
 
                     List<XYZ> points = new List<XYZ>();
 
-                    foreach (Element ductRef in group)
+                    foreach (Element eleRef in group)
                     {
-                        if (ductRef is Duct)
+                        if (eleRef is Duct)
                         {
 
-                            Duct duct = ductRef as Duct;
+                            Duct duct = eleRef as Duct;
                             LocationCurve locCurve = duct.Location as LocationCurve;
 
                             Curve curve = locCurve.Curve;
@@ -94,52 +99,27 @@ namespace RLX
 
                             
                         }
-                    }
+                        else if(eleRef is Pipe)
+                            {
+                                Pipe pipe = eleRef as Pipe;
+                                LocationCurve locCurve = pipe.Location as LocationCurve;
+
+                                Curve curve = locCurve.Curve;
+                                XYZ startPoint = curve.GetEndPoint(0);
+                                XYZ endPoint = curve.GetEndPoint(1);
+
+                                points.Add(startPoint);
+                                points.Add(endPoint);
+                            }
+                        }
 
 
                     List<XYZ> endPoints = new List<XYZ>();
 
-                    //if there are only 2 points, pick one
-                    //if (points.Count == 2)
-                    //{
-
-                    //    endPoints.Add(points[0]);
-                    //}
-                    //else
-                    //{
-                    //    foreach (XYZ p1 in points)
-                    //    {
-
-                    //        double minDist = 100;
-
-                    //        foreach (XYZ p2 in points)
-                    //        {
-                    //            if (!p1.IsAlmostEqualTo(p2) && p1.DistanceTo(p2) < minDist)
-                    //                minDist = p1.DistanceTo(p2);
-                    //        }
-
-                    //        if (minDist > 500 / 304.8)
-                    //        {
-                    //            endPoints.Add(p1);
-
-                    //        }
-
-                    //    }
-
-                    //}
-
-                    //foreach (var item in points)
-                    //{
-                    //    FamilyInstance instanced = doc.Create.NewFamilyInstance(item, positionFamily, StructuralType.NonStructural);
-                    //}
-
-                    //XYZ minPoint = endPoints.OrderBy(p => p.X).ThenBy(p=>p.Y).ThenBy(p => p.Z).First();
-
-
                     List<XYZ> ordered = points.OrderBy(p => p.X).ThenBy(p => p.Y).ToList();
 
 
-                    FamilyInstance instance = doc.Create.NewFamilyInstance(ordered.First(), positionFamily, StructuralType.NonStructural);
+                    //FamilyInstance instance = doc.Create.NewFamilyInstance(ordered.First(), positionFamily, StructuralType.NonStructural);
 
 
                     XYZ startPt = null;

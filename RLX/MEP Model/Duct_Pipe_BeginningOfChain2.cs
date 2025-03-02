@@ -18,7 +18,7 @@ using System.Collections;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class BeginningOfChain2 : IExternalCommand
+    public class Duct_Pipe_BeginningOfChain2 : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,

@@ -14,7 +14,7 @@ using System.Linq;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class PipeFittCopyClosestPipeParams : IExternalCommand
+    public class PipeFitt_CopyClosestParams : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -53,12 +53,6 @@ namespace RLX
                 allPipes.Remove(item);
             }
 
-            //if (allPipes.Count() != pipeCurves.Count())
-            //{
-
-            //    TaskDialog.Show("Error", "Cannot find a curve for some pipes");
-            //    return Result.Failed;
-            //}
 
             IList<Element> allPipeFittings = new FilteredElementCollector(doc, doc.ActiveView.Id).OfCategory(BuiltInCategory.OST_PipeFitting).WhereElementIsNotElementType().ToElements();
 
@@ -68,16 +62,14 @@ namespace RLX
             List<string> paramsToSet = new List<string>(){"RLX_ActualCost","RLX_ClassificationUniclassEF_Description",
                 "RLX_ClassificationUniclassEF_Number","RLX_ClassificationUniclassPr_Description",
                 "RLX_ClassificationUniclassPr_Number","RLX_ClassificationUniclassSs_Description",
-                "RLX_ClassificationUniclassSs_Number","RLX_Component","RLX_CoordinatesX","RLX_CoordinatesY",
+                "RLX_ClassificationUniclassSs_Number","RLX_CoordinatesX","RLX_CoordinatesY",
                 "RLX_CoordinatesZ","RLX_Facility","RLX_GridReferenceSystem","RLX_Location","RLX_MaintenanceCost",
-                "RLX_Space","RLX_Specification","RLX_System","RLX_Type","RLX_UniqueIdentifier","RLX_Zone","RLX_MainMaterial",
+                "RLX_Space","RLX_Specification","RLX_System","RLX_Type","RLX_UniqueIdentifier","RLX_Zone",
+                "RLX_MainMaterial",
+                "RLX_Title",
+                "RLX_Description",
                 "DS_AssetID",
-                "DS_AssetType",
-                "DS_Axis",
-                "DS_Lane",
-                "DS_Chainage",
-                "DS_Location"
-
+                "DS_AssetType"
             };
 
             using (Transaction t = new Transaction(doc, "Pipe fittings copy pipe parameters"))

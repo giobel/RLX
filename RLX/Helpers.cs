@@ -58,10 +58,16 @@ namespace RLX
             Parameter elePr = element.LookupParameter("RLX_ClassificationUniclassPr_Description");
             Parameter elePrcode = element.LookupParameter("RLX_ClassificationUniclassPr_Number");
 
-            eleEf.Set(typeEF?.AsValueString().Split(':')[1].Trim());
+            if (typeEF.HasValue)
+                eleEf.Set(typeEF?.AsValueString().Split(':')[1].Trim());
+
+            if (typeEFcode.HasValue)
             eleEfcode.Set(typeEFcode?.AsValueString());
 
+            if (typePr.HasValue)
             elePr.Set(typePr?.AsValueString().Split(':')[1].Trim());
+
+            if (typePrcode.HasValue)
             elePrcode.Set(typePrcode?.AsValueString());
 
             //If Uniclass System is Empty, fill it with the type value or instance value:

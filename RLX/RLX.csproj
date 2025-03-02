@@ -66,10 +66,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CirclePointsGenerator.cs" />
-    <Compile Include="MEP Model\BeginningOfChain1.cs" />
+    <Compile Include="MEP Model\Duct_Pipe_BeginningOfChain1.cs" />
     <Compile Include="MEP Model\Mech_Accessories_Fill_Title_Description.cs" />
     <Compile Include="MEP Model\Util_AccessoriesFillXYZtop.cs" />
     <Compile Include="MEP Model\Util_CheckLocation.cs" />
+    <Compile Include="MEP Model\Util_ColorBySize.cs" />
     <Compile Include="MEP Model\Util_ColorByUID.cs" />
     <Compile Include="MEP Model\Util_ColorByDSId.cs" />
     <Compile Include="MEP Model\Util_Copy_Old_ID.cs" />
@@ -78,8 +79,9 @@
     <Compile Include="MEP Model\Util_FillUniclassFromType.cs" />
     <Compile Include="MEP Model\Util_FillUniqueID.cs" />
     <Compile Include="MEP Model\Util_FillCommonParam.cs" />
-    <Compile Include="MEP Model\BeginningOfChain2.cs" />
-    <Compile Include="MEP Model\Duct_Fill_Title_Description.cs" />
+    <Compile Include="MEP Model\Duct_Pipe_BeginningOfChain2.cs" />
+    <Compile Include="MEP Model\Duct_Pipe_Fill_Title_Description.cs" />
+    <Compile Include="MEP Model\PipeFitt_CopyClosestParams.cs" />
     <Compile Include="SmallestEnclosingCircle.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="MEP Model\Util_AccessoriesFillXYZ.cs" />
@@ -99,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MEP Backup\" />
+    <Folder Include="Pipes\" />
     <Folder Include="Utilities\" />
   </ItemGroup>
   <ItemGroup>

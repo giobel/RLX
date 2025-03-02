@@ -44,7 +44,7 @@ namespace RLX
 
 
             string error = "";
-            using (Transaction t = new Transaction(doc, "Override Colors"))
+            using (Transaction t = new Transaction(doc, "Check Location"))
             {
                 t.Start();
                 foreach (var group in grouped)

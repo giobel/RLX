@@ -15,7 +15,7 @@ using System.Linq;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class Duct_Fill_Title_Description: IExternalCommand
+    public class Duct_Pipe_Fill_Title_Description: IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -31,6 +31,7 @@ namespace RLX
             List<BuiltInCategory> builtInCats = new List<BuiltInCategory>();
             builtInCats.Add(BuiltInCategory.OST_DuctAccessory);
             builtInCats.Add(BuiltInCategory.OST_DuctCurves);
+            builtInCats.Add(BuiltInCategory.OST_PipeCurves);
 
 
 
@@ -52,6 +53,7 @@ namespace RLX
                         Element et = doc.GetElement(element.GetTypeId());
                         Parameter title = element.LookupParameter("RLX_Title");
 
+                        string categoryName = element.Category.Name;    
 
                         //better to use the element Pr Title. Parameter is empyt in some element types
                         //Parameter prTitle = et.LookupParameter("Identity_Classification_Uniclass 2015_Pr_Title");
@@ -62,7 +64,7 @@ namespace RLX
 
                         if (size != null && size.AsValueString() != null && material != null && material.AsValueString() != null)
                         {
-                            titleString += $"Duct {size.AsValueString()} {material.AsValueString()}";
+                            titleString += $"{categoryName} {size.AsValueString()} {material.AsValueString()}";
                         }
 
                             title.Set(titleString);
@@ -72,11 +74,24 @@ namespace RLX
 
                         Level level = doc.GetElement(element.LevelId) as Level;
                         Parameter descriptionParam = et.get_Parameter(BuiltInParameter.ALL_MODEL_DESCRIPTION);
-                        //Parameter location = element.LookupParameter("RLX_Location");
 
-                        string levelSentenceCase = char.ToUpper(level.Name[0]) + level.Name.Substring(1).ToLower();
+                    string descriptionValue = descriptionParam.AsValueString();
 
-                        string descrString = $"{descriptionParam.AsValueString()} {Helpers.LocationforDescription()} { levelSentenceCase}";
+                        if (!descriptionParam.HasValue)
+                        {
+                            Parameter elePr = et.LookupParameter("Identity_Classification_Uniclass 2015_Pr_Title");
+                            if (elePr != null && elePr.HasValue)
+                        {
+                            descriptionValue = elePr.AsString();
+                        }
+                        }
+
+
+                    //Parameter location = element.LookupParameter("RLX_Location");
+
+                    string levelSentenceCase = char.ToUpper(level.Name[0]) + level.Name.Substring(1).ToLower();
+
+                        string descrString = $"{descriptionValue} {Helpers.LocationforDescription()} { levelSentenceCase}";
                         
                             description.Set(descrString);
 
