@@ -31,7 +31,12 @@ namespace RLX
             FilteredElementCollector elementsInView = new FilteredElementCollector(doc);
             FillPatternElement solidFillPattern = elementsInView.OfClass(typeof(FillPatternElement)).Cast<FillPatternElement>().First(a => a.GetFillPattern().IsSolidFill);
 
-            ElementMulticategoryFilter filter = new ElementMulticategoryFilter(new List<BuiltInCategory> { BuiltInCategory.OST_PipeCurves, BuiltInCategory.OST_DuctCurves, BuiltInCategory.OST_CableTray, BuiltInCategory.OST_Conduit });
+            ElementMulticategoryFilter filter = new ElementMulticategoryFilter(new List<BuiltInCategory> { 
+                BuiltInCategory.OST_PipeCurves, 
+                
+                BuiltInCategory.OST_DuctCurves, 
+                BuiltInCategory.OST_CableTray, 
+                BuiltInCategory.OST_Conduit });
 
             IList<Element> visibleElements = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(filter).WhereElementIsNotElementType().ToElements();
 

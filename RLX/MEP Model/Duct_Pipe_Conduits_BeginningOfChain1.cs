@@ -12,13 +12,14 @@ using System.Diagnostics;
 using System.Linq;
 using Rhino;
 using Autodesk.Revit.DB.Plumbing;
+using Autodesk.Revit.DB.Electrical;
 
 #endregion
 
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class Duct_Pipe_BeginningOfChain1 : IExternalCommand
+    public class Duct_Pipe_Conduits_BeginningOfChain1 : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -36,7 +37,12 @@ namespace RLX
                 BuiltInCategory.OST_DuctCurves,
                 BuiltInCategory.OST_DuctFitting,
                 BuiltInCategory.OST_PipeCurves,
-                BuiltInCategory.OST_PipeFitting
+                BuiltInCategory.OST_PipeFitting,
+                BuiltInCategory.OST_Conduit,
+                BuiltInCategory.OST_ConduitFitting,
+                BuiltInCategory.OST_CableTray,
+                BuiltInCategory.OST_CableTrayFitting
+
             };
 
 
@@ -83,11 +89,36 @@ namespace RLX
 
                     foreach (Element eleRef in group)
                     {
-                        if (eleRef is Duct)
+                        if (eleRef is Duct || eleRef is Pipe || eleRef is Conduit || eleRef is CableTray)
                         {
 
-                            Duct duct = eleRef as Duct;
-                            LocationCurve locCurve = duct.Location as LocationCurve;
+                                LocationCurve locCurve = null;
+
+                                switch (eleRef.Category.Name)
+                                {
+                                    case "Ducts":
+                                        Duct duct = eleRef as Duct;
+                                        locCurve = duct.Location as LocationCurve;
+                                        break;
+                                    case "Pipes":
+                                        Pipe pipe = eleRef as Pipe;
+                                        locCurve = pipe.Location as LocationCurve;
+                                        break;
+                                    case "Conduits":
+                                        Conduit conduit = eleRef as Conduit;
+                                        locCurve = conduit.Location as LocationCurve;
+                                        break;
+                                    case "Cable Trays":
+                                        CableTray cableTray = eleRef as CableTray;
+                                        locCurve = cableTray.Location as LocationCurve;
+                                        break;
+
+                                }
+
+                                
+
+
+                            
 
                             Curve curve = locCurve.Curve;
                             XYZ startPoint = curve.GetEndPoint(0);
@@ -99,18 +130,7 @@ namespace RLX
 
                             
                         }
-                        else if(eleRef is Pipe)
-                            {
-                                Pipe pipe = eleRef as Pipe;
-                                LocationCurve locCurve = pipe.Location as LocationCurve;
 
-                                Curve curve = locCurve.Curve;
-                                XYZ startPoint = curve.GetEndPoint(0);
-                                XYZ endPoint = curve.GetEndPoint(1);
-
-                                points.Add(startPoint);
-                                points.Add(endPoint);
-                            }
                         }
 
 
@@ -130,7 +150,8 @@ namespace RLX
                     }
                     else { 
                     
-                        startPt = ordered.First();
+                            if (ordered.Count > 0)
+                                startPt = ordered.First();
                     }
 
 
@@ -138,13 +159,9 @@ namespace RLX
                     if (startPt != null)
                     {
                         startPt = ttr.OfPoint(startPt);
-                    }
-                    else
-                    {
 
-                        TaskDialog.Show("R", "Failed");
-                        return Result.Failed;
-                    }
+
+
 
                     double metricX = UnitUtils.ConvertFromInternalUnits(startPt.X, UnitTypeId.Meters);
                     double metricY = UnitUtils.ConvertFromInternalUnits(startPt.Y, UnitTypeId.Meters);
@@ -155,6 +172,7 @@ namespace RLX
                     Helpers.FillXYZParam(group, metricX, metricY, metricZ);
 
                     counterModified++;
+                        }
                     }
 
                 }//close foreach group

@@ -15,7 +15,7 @@ using System.Linq;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class Duct_Pipe_Fill_Title_Description: IExternalCommand
+    public class CableTrays_Fill_Title_Description: IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -30,10 +30,8 @@ namespace RLX
 
             List<BuiltInCategory> builtInCats = new List<BuiltInCategory>
             {
-                BuiltInCategory.OST_DuctAccessory,
-                BuiltInCategory.OST_DuctCurves,
-                BuiltInCategory.OST_PipeCurves,
-                BuiltInCategory.OST_Conduit
+                BuiltInCategory.OST_CableTray,
+                BuiltInCategory.OST_CableTrayFitting
             };
 
 

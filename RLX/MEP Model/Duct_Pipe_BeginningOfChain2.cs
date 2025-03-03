@@ -34,6 +34,9 @@ namespace RLX
             List<BuiltInCategory> cats = new List<BuiltInCategory>();
             cats.Add(BuiltInCategory.OST_DuctCurves);
             cats.Add(BuiltInCategory.OST_DuctFitting);
+            cats.Add(BuiltInCategory.OST_PipeCurves);
+            cats.Add(BuiltInCategory.OST_PipeFitting);
+            cats.Add(BuiltInCategory.OST_Conduit);
 
 
             ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(cats);

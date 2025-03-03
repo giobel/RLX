@@ -16,7 +16,7 @@ using RG = Rhino.Geometry;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class GenerateMechEquipmIDS : IExternalCommand
+    public class Mech_EquipmAssign_IDS : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -39,7 +39,7 @@ namespace RLX
 
             //			TaskDialog.Show("R", elements.Count().ToString());
 
-            int counter = 3900;
+            int counter = 7001;
 
             using (Transaction t = new Transaction(doc, "Fill mech equipment ids"))
             {
@@ -63,14 +63,11 @@ namespace RLX
 
                         //					TaskDialog.Show("R", assetIdvalue.Length.ToString());
 
-                        if (assetIdvalue == null || assetIdvalue.Length < 3)
-                        {
-
                             assetId.Set(counter.ToString());
 
                             counter++;
 
-                        }
+                        
 
 
 
@@ -81,6 +78,8 @@ namespace RLX
                     }
 
                 }
+
+                TaskDialog.Show("R", counter.ToString() + "modified");
 
 
                 t.Commit();
