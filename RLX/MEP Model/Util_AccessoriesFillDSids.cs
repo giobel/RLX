@@ -41,16 +41,19 @@ namespace RLX
             int electrFixturesModified = 0;
             int datadevicesModified = 0;
             int lightinDevicesModified = 0;
+            int electrEquipModified = 0;
+            int telephonesModified = 0;
 
             int ligtinDevicesCounter = 1001;
             int datadevicesCounter = 2001;
             int electrFixturesCounter = 3001;
+            int electrEquipCounter = 3501;
             int airtTerminalsCounter = 4001;
             int lightingFixturesCounter = 5001;
             int ductAccessoriesCounter = 6001;
             int mecAccessoriesCounter = 7001;
             int fireAlarmCounter = 8001;
-
+            int telephonesCounter = 8501;
 
             using (Transaction t = new Transaction(doc, "Fill DS Ids"))
             {
@@ -114,6 +117,18 @@ namespace RLX
                             lightinDevicesModified++;
                             break;
 
+                            case "Electrical Equipment":
+                            assetId.Set(electrEquipCounter.ToString());
+                            electrEquipCounter++;
+                            electrEquipModified++;
+                            break;
+
+                        case "Telephone Devices":
+                            assetId.Set(telephonesCounter.ToString());
+                            telephonesCounter++;
+                            telephonesModified++;
+                            break;
+
                     }
 
 
@@ -128,7 +143,7 @@ namespace RLX
             TaskDialog.Show("R", $"{ductModified} ducts {mecModified} mech " +
                 $"fire alarm {fireAlarmModified} lighting fixtures { lightinModified} air terminals {airTerminalsModified} electr fixtures {electrFixturesModified}" +
             
-                $"data devices {datadevicesModified} lighting dev {lightinDevicesModified} \nof {countElements}");
+                $"data devices {datadevicesModified} lighting dev {lightinDevicesModified} elect equip {electrEquipModified} telephone {telephonesModified} \nof {countElements}");
 
             return Result.Succeeded;
         }

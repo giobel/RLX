@@ -16,7 +16,7 @@ using static Autodesk.Revit.DB.SpecTypeId;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class ElecFixtures_Fill_Title_Description : IExternalCommand
+    public class Telephone_Fill_Title_Description : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -31,7 +31,7 @@ namespace RLX
 
             List<BuiltInCategory> builtInCats = new List<BuiltInCategory>
             {
-                BuiltInCategory.OST_ElectricalFixtures
+                BuiltInCategory.OST_TelephoneDevices
 
             };
 

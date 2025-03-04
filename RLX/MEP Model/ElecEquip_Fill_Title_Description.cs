@@ -16,7 +16,7 @@ using static Autodesk.Revit.DB.SpecTypeId;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class ElecFixtures_Fill_Title_Description : IExternalCommand
+    public class ElecEquip_Fill_Title_Description : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -31,7 +31,7 @@ namespace RLX
 
             List<BuiltInCategory> builtInCats = new List<BuiltInCategory>
             {
-                BuiltInCategory.OST_ElectricalFixtures
+                BuiltInCategory.OST_ElectricalEquipment
 
             };
 
@@ -67,7 +67,12 @@ namespace RLX
                     
                     if (length == null || length == "")
                     {
-                        length = et.LookupParameter("Dimensions_Depth_Faceplate")?.AsValueString() + "thk";
+                        length = et.LookupParameter("Dimensions_Depth_Faceplate")?.AsValueString();
+
+                        if (length != null && length != "")
+                        {
+                            length = length + "thk";
+                        }
                     }
                     else
                     {
@@ -87,7 +92,7 @@ namespace RLX
 
                     if (diam == null || diam == "")
                     {
-                        size = $"{width}W x {length} x {height}H";
+                        size = length != null ? $"{width}W x {length} x {height}H" : $"{width}W x {height}H";
                     }
                     else
                     {
@@ -111,7 +116,7 @@ namespace RLX
 
                         Parameter descriptionParam = et.get_Parameter(BuiltInParameter.ALL_MODEL_DESCRIPTION);
 
-                    string name = Helpers.ConvertToSentenceCase(descriptionParam.AsValueString());
+                    string name = Helpers.ConvertToSentenceCase(descriptionParam.AsValueString()).Replace("X","x");
 
 
 
