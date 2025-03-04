@@ -12,6 +12,8 @@ using System.Diagnostics;
 using System.Linq;
 using Rhino;
 using System.Collections;
+using Autodesk.Revit.DB.Electrical;
+using Autodesk.Revit.DB.Plumbing;
 
 #endregion
 
@@ -31,13 +33,17 @@ namespace RLX
             Document doc = uidoc.Document;
 
 
-            List<BuiltInCategory> cats = new List<BuiltInCategory>();
-            cats.Add(BuiltInCategory.OST_DuctCurves);
-            cats.Add(BuiltInCategory.OST_DuctFitting);
-            cats.Add(BuiltInCategory.OST_PipeCurves);
-            cats.Add(BuiltInCategory.OST_PipeFitting);
-            cats.Add(BuiltInCategory.OST_Conduit);
-
+            List<BuiltInCategory> cats = new List<BuiltInCategory>()
+            {
+                BuiltInCategory.OST_DuctCurves,
+                BuiltInCategory.OST_DuctFitting,
+                BuiltInCategory.OST_PipeCurves,
+                BuiltInCategory.OST_PipeFitting,
+                BuiltInCategory.OST_Conduit,
+                BuiltInCategory.OST_ConduitFitting,
+                BuiltInCategory.OST_CableTray,
+                BuiltInCategory.OST_CableTrayFitting
+            };
 
             ElementMulticategoryFilter filter1 = new ElementMulticategoryFilter(cats);
 
@@ -80,13 +86,34 @@ namespace RLX
 
                         List<XYZ> pts = new List<XYZ>();
 
-                        foreach (Element ductRef in group)
+                        foreach (Element eleRef in group)
                         {
-                            if (ductRef is Duct)
+                            if (eleRef is Duct || eleRef is Pipe || eleRef is Conduit || eleRef is CableTray)
                             {
 
-                                Duct duct = ductRef as Duct;
-                                LocationCurve locCurve = duct.Location as LocationCurve;
+                                LocationCurve locCurve = null;
+
+                                switch (eleRef.Category.Name)
+                                {
+                                    case "Ducts":
+                                        Duct duct = eleRef as Duct;
+                                        locCurve = duct.Location as LocationCurve;
+                                        break;
+                                    case "Pipes":
+                                        Pipe pipe = eleRef as Pipe;
+                                        locCurve = pipe.Location as LocationCurve;
+                                        break;
+                                    case "Conduits":
+                                        Conduit conduit = eleRef as Conduit;
+                                        locCurve = conduit.Location as LocationCurve;
+                                        break;
+                                    case "Cable Trays":
+                                        CableTray cableTray = eleRef as CableTray;
+                                        locCurve = cableTray.Location as LocationCurve;
+                                        break;
+
+                                }
+
 
                                 Curve curve = locCurve.Curve;
                                 XYZ startPoint = curve.GetEndPoint(0);

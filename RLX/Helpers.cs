@@ -58,16 +58,16 @@ namespace RLX
             Parameter elePr = element.LookupParameter("RLX_ClassificationUniclassPr_Description");
             Parameter elePrcode = element.LookupParameter("RLX_ClassificationUniclassPr_Number");
 
-            if (typeEF.HasValue)
-                eleEf.Set(typeEF?.AsValueString().Split(':')[1].Trim());
+            if (typeEF != null && typeEF.HasValue)
+                eleEf?.Set(typeEF?.AsValueString().Split(':')[1].Trim());
 
-            if (typeEFcode.HasValue)
-            eleEfcode.Set(typeEFcode?.AsValueString());
+            if (typeEFcode != null && typeEFcode.HasValue)
+            eleEfcode?.Set(typeEFcode?.AsValueString());
 
-            if (typePr.HasValue)
+            if (typePr != null && typePr.HasValue)
             elePr.Set(typePr?.AsValueString().Split(':')[1].Trim());
 
-            if (typePrcode.HasValue)
+            if (typePrcode != null && typePrcode.HasValue)
             elePrcode.Set(typePrcode?.AsValueString());
 
             //If Uniclass System is Empty, fill it with the type value or instance value:
@@ -78,7 +78,7 @@ namespace RLX
             {
                 Parameter instanceSsDescr = element.LookupParameter("Identity_Classification_Uniclass 2015_Ss");
 
-                if (instanceSsDescr.HasValue)
+                if (instanceSsDescr != null && instanceSsDescr.HasValue)
                 {
                     eleSsDescr.Set(instanceSsDescr.AsValueString().Split(':')[1].Trim());
                 }
@@ -88,7 +88,7 @@ namespace RLX
             if (eleSsCode.AsString() == string.Empty)
             {
                 Parameter instanceSsCode = element.LookupParameter("Identity_Classification_Uniclass 2015_Ss_Code");
-                if (instanceSsCode.HasValue)
+                if (instanceSsCode != null && instanceSsCode.HasValue)
                 {
                 eleSsCode.Set(instanceSsCode?.AsValueString());
 
@@ -216,6 +216,7 @@ namespace RLX
             BuiltInCategory.OST_DuctAccessory,
             BuiltInCategory.OST_PipeAccessory,
             BuiltInCategory.OST_FireAlarmDevices,
+            BuiltInCategory.OST_LightingFixtures
 
             };
 

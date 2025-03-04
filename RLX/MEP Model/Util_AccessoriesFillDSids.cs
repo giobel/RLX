@@ -36,8 +36,9 @@ namespace RLX
             int ductModified = 0;
             int mecModified = 0;
             int fireAlarmModified= 0;
+            int lightinModified = 0;
 
-
+            int lightingFixturesCounter = 5001;
             int ductAccessoriesCounter = 6001;
             int mecAccessoriesCounter = 7001;
             int fireAlarmCounter = 8001;
@@ -74,6 +75,12 @@ namespace RLX
                             fireAlarmModified++;
                             break;
 
+                            case "Lighting Fixtures":
+                            assetId.Set(lightingFixturesCounter.ToString());
+                            lightingFixturesCounter++;
+                            lightinModified++;
+                            break;
+
 
 
                     }
@@ -88,7 +95,8 @@ namespace RLX
             }
 
             TaskDialog.Show("R", $"{ductModified} ducts {mecModified} mech " +
-                $"fire alarm {fireAlarmModified} modified" +
+                $"fire alarm {fireAlarmModified} modified lighting fixtures { lightinModified}" +
+            
                 $"\nof {countElements}");
 
             return Result.Succeeded;
