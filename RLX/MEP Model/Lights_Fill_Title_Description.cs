@@ -62,10 +62,25 @@ namespace RLX
 
                     
                     
+                        string width = et.LookupParameter("Dimensions_Width")?.AsValueString();
+                    string length = et.LookupParameter("Dimensions_Length")?.AsValueString();
+                    string height = et.LookupParameter("Dimensions_Height")?.AsValueString();
+                    string diam = et.LookupParameter("Dimensions_Diameter")?.AsValueString();
+
+                    string size = "";
+
+                    if (diam == null || diam == "")
+                    {
+                        size = $"{width}W x {length}L x {height}H";
+                    }
+                    else
+                    {
+                        size = $"{diam}Dia";
+                    }
 
 
 
-                        string titleString = $"{element.Category.Name} {material.AsValueString()}";
+                    string titleString = $"{element.Category.Name} {size} {material.AsValueString()}";
 
                         string cleanedTitle = Regex.Replace(titleString, @"\s{2,}", " "); // Replaces 2+ spaces with 1
 
@@ -79,18 +94,41 @@ namespace RLX
                         Level level = doc.GetElement(element.LevelId) as Level;
 
                         Parameter descriptionParam = et.get_Parameter(BuiltInParameter.ALL_MODEL_DESCRIPTION);
-                        //Parameter location = element.LookupParameter("RLX_Location");
+
+                    string name = descriptionParam.AsValueString();
+
+
+
+                    if (name == "")
+                    {
+                        string famName = element.LookupParameter("Family").AsValueString();
+                        name = famName.Replace("Arup", "").Replace("_", " ").Replace("GB", "");
+
+
+                    }
+                    else
+                    {
+                        try
+                        {
+                            name = name.Split(new string[] { "mm " }, StringSplitOptions.None)[1].Replace("diameter", "");
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+                    }
+
                         
                         string levelSentenceCase = char.ToUpper(level.Name[0]) + level.Name.Substring(1).ToLower();
 
-                        string descriptionString = $"{descriptionParam.AsValueString()} {Helpers.LocationforDescription()} {levelSentenceCase}";
+                        string descriptionString = $"{name} {Helpers.LocationforDescription()} {levelSentenceCase}";
 
-                    string cleanedDescr = Regex.Replace(descriptionString, @"\s{2,}", " "); // Replaces 2+ spaces with 1
+                    //string cleanedDescr = Regex.Replace(descriptionString, @"\s{2,}", " "); // Replaces 2+ spaces with 1
 
 
-                    cleanedDescr = Helpers.ConvertToSentenceCase(cleanedDescr);
+                    //cleanedDescr = Helpers.ConvertToSentenceCase(cleanedDescr);
                         
-                      description.Set(cleanedDescr);
+                      description.Set(descriptionString);
 
 
                 }
