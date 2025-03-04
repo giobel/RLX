@@ -16,7 +16,7 @@ using static Autodesk.Revit.DB.SpecTypeId;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class Lights_Fill_Title_Description : IExternalCommand
+    public class LightsFixtures_Fill_Title_Description : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -114,7 +114,7 @@ namespace RLX
                         }
                         catch
                         {
-                            continue;
+                            //do nothing;
                         }
                     }
 

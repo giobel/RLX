@@ -68,7 +68,11 @@
     <Compile Include="CirclePointsGenerator.cs" />
     <Compile Include="MEP Model\Duct_Pipe_Conduits_BeginningOfChain1.cs" />
     <Compile Include="MEP Model\CableTrays_Fill_Title_Description.cs" />
-    <Compile Include="MEP Model\Lights_Fill_Title_Description.cs" />
+    <Compile Include="MEP Model\AirTerminals_Fill_Title_Description.cs" />
+    <Compile Include="MEP Model\DataDevices_Fill_Title_Description.cs" />
+    <Compile Include="MEP Model\ElecFixtures_Fill_Title_Description.cs" />
+    <Compile Include="MEP Model\LightDevices_Fill_Title_Description.cs" />
+    <Compile Include="MEP Model\LightsFixtures_Fill_Title_Description.cs" />
     <Compile Include="MEP Model\Mech_EquipmAssign_IDS.cs" />
     <Compile Include="MEP Model\Mech_Accessories_Fill_Title_Description.cs" />
     <Compile Include="MEP Model\Util_AccessoriesFillXYZtop.cs" />

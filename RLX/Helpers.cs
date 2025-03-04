@@ -211,12 +211,16 @@ namespace RLX
 
             List<BuiltInCategory> builtInCats = new List<BuiltInCategory>
             {
+                BuiltInCategory.OST_DuctTerminal,
+                BuiltInCategory.OST_DataDevices,
             BuiltInCategory.OST_Sprinklers,
             BuiltInCategory.OST_MechanicalEquipment,
             BuiltInCategory.OST_DuctAccessory,
             BuiltInCategory.OST_PipeAccessory,
             BuiltInCategory.OST_FireAlarmDevices,
-            BuiltInCategory.OST_LightingFixtures
+            BuiltInCategory.OST_LightingFixtures,
+            BuiltInCategory.OST_LightingDevices,
+            BuiltInCategory.OST_ElectricalFixtures
 
             };
 

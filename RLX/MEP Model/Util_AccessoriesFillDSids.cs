@@ -37,11 +37,20 @@ namespace RLX
             int mecModified = 0;
             int fireAlarmModified= 0;
             int lightinModified = 0;
+            int airTerminalsModified = 0;
+            int electrFixturesModified = 0;
+            int datadevicesModified = 0;
+            int lightinDevicesModified = 0;
 
+            int ligtinDevicesCounter = 1001;
+            int datadevicesCounter = 2001;
+            int electrFixturesCounter = 3001;
+            int airtTerminalsCounter = 4001;
             int lightingFixturesCounter = 5001;
             int ductAccessoriesCounter = 6001;
             int mecAccessoriesCounter = 7001;
             int fireAlarmCounter = 8001;
+
 
             using (Transaction t = new Transaction(doc, "Fill DS Ids"))
             {
@@ -81,7 +90,29 @@ namespace RLX
                             lightinModified++;
                             break;
 
+                        case "Air Terminals":
+                            assetId.Set(airtTerminalsCounter.ToString());
+                            airtTerminalsCounter++;
+                            airtTerminalsCounter++;
+                            break;
 
+                        case "Electrical Fixtures":
+                            assetId.Set(electrFixturesCounter.ToString());
+                            electrFixturesCounter++;
+                            electrFixturesModified++;
+                            break;
+
+                        case "Data Devices":
+                        assetId.Set(datadevicesCounter.ToString());
+                        datadevicesCounter++;
+                        datadevicesModified++;
+                        break;
+
+                        case "Lighting Devices":
+                            assetId.Set(ligtinDevicesCounter.ToString());
+                            ligtinDevicesCounter++;
+                            lightinDevicesModified++;
+                            break;
 
                     }
 
@@ -95,9 +126,9 @@ namespace RLX
             }
 
             TaskDialog.Show("R", $"{ductModified} ducts {mecModified} mech " +
-                $"fire alarm {fireAlarmModified} modified lighting fixtures { lightinModified}" +
+                $"fire alarm {fireAlarmModified} lighting fixtures { lightinModified} air terminals {airTerminalsModified} electr fixtures {electrFixturesModified}" +
             
-                $"\nof {countElements}");
+                $"data devices {datadevicesModified} lighting dev {lightinDevicesModified} \nof {countElements}");
 
             return Result.Succeeded;
         }
