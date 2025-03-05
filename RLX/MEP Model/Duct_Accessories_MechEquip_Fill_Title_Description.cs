@@ -14,7 +14,7 @@ using System.Linq;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class Duct_Accessories_Fill_Title_Description: IExternalCommand
+    public class Duct_Accessories_MechEquip_Fill_Title_Description: IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,

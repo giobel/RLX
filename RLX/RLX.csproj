@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CirclePointsGenerator.cs" />
+    <Compile Include="MEP Model\ElectricalEquip_Dependant_FixParam.cs" />
     <Compile Include="MEP Model\Duct_Pipe_Conduits_BeginningOfChain1.cs" />
     <Compile Include="MEP Model\CableTrays_Fill_Title_Description.cs" />
     <Compile Include="MEP Model\AirTerminals_Fill_Title_Description.cs" />
@@ -92,13 +93,13 @@
     <Compile Include="MEP Model\Util_FillUniqueID.cs" />
     <Compile Include="MEP Model\Util_FillCommonParam.cs" />
     <Compile Include="MEP Model\Duct_Pipe_BeginningOfChain2.cs" />
-    <Compile Include="MEP Model\Duct_Pipe_Fill_Title_Description.cs" />
+    <Compile Include="MEP Model\Duct_DuctFittings_Pipe_Conduit_Fill_Title_Description.cs" />
     <Compile Include="MEP Model\PipeFitt_CopyClosestParams.cs" />
     <Compile Include="SmallestEnclosingCircle.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="MEP Model\Util_AccessoriesFillXYZ.cs" />
     <Compile Include="Helpers.cs" />
-    <Compile Include="MEP Model\Duct_Accessories_Fill_Title_Description.cs" />
+    <Compile Include="MEP Model\Duct_Accessories_MechEquip_Fill_Title_Description.cs" />
     <Compile Include="Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
