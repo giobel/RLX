@@ -43,6 +43,9 @@ namespace RLX
             int lightinDevicesModified = 0;
             int electrEquipModified = 0;
             int telephonesModified = 0;
+            int securityDevicesModified = 0;
+            int pipeaccessoriesModified = 0;
+            int plumbingFixturesModified = 0;
 
             int ligtinDevicesCounter = 1001;
             int datadevicesCounter = 2001;
@@ -54,6 +57,9 @@ namespace RLX
             int mecAccessoriesCounter = 7001;
             int fireAlarmCounter = 8001;
             int telephonesCounter = 8501;
+            int securityDevicesCounter = 8701;
+            int pipeaccessoriesCounter = 8801;
+            int plumbingFixturesCounter = 8901;
 
             using (Transaction t = new Transaction(doc, "Fill DS Ids"))
             {
@@ -129,6 +135,25 @@ namespace RLX
                             telephonesModified++;
                             break;
 
+                        case "Security Devices":
+                            assetId.Set(securityDevicesCounter.ToString());
+                            securityDevicesCounter++;
+                            securityDevicesModified++;
+                            break;
+                    
+                    
+                        case "Plumbing Fixtures":
+                            assetId.Set(plumbingFixturesCounter.ToString());
+                            plumbingFixturesCounter++;
+                            plumbingFixturesModified++;
+                            break;
+
+                            case "Pipe Accessories":
+                            assetId.Set(pipeaccessoriesCounter.ToString());
+                            pipeaccessoriesCounter++;
+                            pipeaccessoriesModified++;
+                            break;
+
                     }
 
 
@@ -143,7 +168,9 @@ namespace RLX
             TaskDialog.Show("R", $"{ductModified} ducts {mecModified} mech " +
                 $"fire alarm {fireAlarmModified} lighting fixtures { lightinModified} air terminals {airTerminalsModified} electr fixtures {electrFixturesModified}" +
             
-                $"data devices {datadevicesModified} lighting dev {lightinDevicesModified} elect equip {electrEquipModified} telephone {telephonesModified} \nof {countElements}");
+                $"data devices {datadevicesModified} lighting dev {lightinDevicesModified} elect equip {electrEquipModified} telephone {telephonesModified} " +
+                $"security devices {securityDevicesModified} plumbing fix {plumbingFixturesModified} " +
+                $"pipe access {pipeaccessoriesModified} \nof {countElements}");
 
             return Result.Succeeded;
         }

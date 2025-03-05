@@ -222,7 +222,9 @@ namespace RLX
             BuiltInCategory.OST_LightingDevices,
             BuiltInCategory.OST_ElectricalFixtures,
             BuiltInCategory.OST_ElectricalEquipment,
-            BuiltInCategory.OST_TelephoneDevices
+            BuiltInCategory.OST_TelephoneDevices,
+            BuiltInCategory.OST_SecurityDevices,
+            BuiltInCategory.OST_PlumbingFixtures,
 
             };
 
