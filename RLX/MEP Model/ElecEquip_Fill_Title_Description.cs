@@ -63,6 +63,18 @@ namespace RLX
                     
                     
                         string width = et.LookupParameter("Dimensions_Width")?.AsValueString();
+
+                    if (width == null || width == "")
+                    {
+                        width = et.LookupParameter("Asset_DImensions_Overall_Width")?.AsValueString();
+
+                    }
+                    else
+                    {
+                        width = width + "W";
+                    }
+
+
                     string length = et.LookupParameter("Dimensions_Length")?.AsValueString();
                     
                     if (length == null || length == "")
@@ -72,6 +84,11 @@ namespace RLX
                         if (length != null && length != "")
                         {
                             length = length + "thk";
+                        }
+                        else
+                        {
+                            length = et.LookupParameter("Asset_Dimensions_Overall_Depth")?.AsValueString();
+                            
                         }
                     }
                     else
@@ -83,6 +100,11 @@ namespace RLX
                     if (height == null || height == "")
                     {
                         height = et.LookupParameter("Dimensions_Height_Nominal")?.AsValueString();
+
+                        if (height == null || height == "")
+                        {
+                            height = et.LookupParameter("Asset_Dimensions_Overall_Height")?.AsValueString();
+                        }
                     }
                     et.LookupParameter("Dimensions_Height_Nominal")?.AsValueString();
 

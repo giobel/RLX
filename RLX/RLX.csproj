@@ -66,7 +66,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CirclePointsGenerator.cs" />
-    <Compile Include="MEP Model\ElectricalEquip_Dependant_FixParam.cs" />
+    <Compile Include="MEP Model\Pipe_andFittings_Fill_Description.cs" />
+    <Compile Include="MEP Model\Electrical_Equip_Fixtures_LightDevices_Dependant_FixParam.cs" />
+    <Compile Include="MEP Model\Electrical_Equip_Fixtures_FixDescriptions.cs" />
     <Compile Include="MEP Model\Duct_Pipe_Conduits_BeginningOfChain1.cs" />
     <Compile Include="MEP Model\CableTrays_Fill_Title_Description.cs" />
     <Compile Include="MEP Model\AirTerminals_Fill_Title_Description.cs" />

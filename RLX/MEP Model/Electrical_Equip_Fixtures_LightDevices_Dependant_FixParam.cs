@@ -16,7 +16,7 @@ using static Autodesk.Revit.DB.SpecTypeId;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class ElectricalEquip_Dependant_FixParam : IExternalCommand
+    public class Electrical_Equip_Fixtures_LightDevices_Dependant_FixParam : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -31,7 +31,9 @@ namespace RLX
 
             List<BuiltInCategory> builtInCats = new List<BuiltInCategory>
             {
-                BuiltInCategory.OST_ElectricalEquipment
+                BuiltInCategory.OST_ElectricalEquipment,
+                BuiltInCategory.OST_ElectricalFixtures,
+                BuiltInCategory.OST_LightingDevices,
 
             };
 
@@ -43,7 +45,7 @@ namespace RLX
                    int countVisible = visibleElements.Count();
             int counterModified = 0;
 
-                using (Transaction t = new Transaction(doc, "Fill air terminals params"))
+                using (Transaction t = new Transaction(doc, "Fix Dependants"))
                 {
 
                     t.Start();
@@ -52,7 +54,7 @@ namespace RLX
                     {
 
                     List<string> paramsToSet = new List<string>(){"RLX_ActualCost",
-                    "RLX_ClassificationUniclassEF_Description","RLX_Title",
+                    "RLX_ClassificationUniclassEF_Description","RLX_Title", "RLX_Description",
                 "RLX_ClassificationUniclassEF_Number","RLX_ClassificationUniclassPr_Description",
                 "RLX_ClassificationUniclassPr_Number","RLX_ClassificationUniclassSs_Description",
                 "RLX_ClassificationUniclassSs_Number","RLX_CoordinatesX","RLX_CoordinatesY",
@@ -66,6 +68,9 @@ namespace RLX
 
                     IList<ElementId> dependents =   element.GetDependentElements(null);
 
+                    if (dependents.Count() > 0){
+
+
                     foreach (var item in dependents)
                     {
                         Element dep = doc.GetElement(item);
@@ -73,9 +78,13 @@ namespace RLX
 
                         foreach (string paramName in paramsToSet)
                         {
-                            //					TaskDialog.Show("R", paramName);
-                            string p = element.LookupParameter(paramName).AsValueString();
-                            dep.LookupParameter(paramName).Set(p);
+                                try
+                                {
+
+                                    string p = element.LookupParameter(paramName).AsValueString();
+                                    dep.LookupParameter(paramName).Set(p);
+                                }
+                                catch { }
 
 
                         }
@@ -83,6 +92,7 @@ namespace RLX
 
                     }
 
+                    }
                 }
 
 

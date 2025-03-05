@@ -147,7 +147,7 @@ namespace RLX
 
 
                             counterModified++;
-                        }//close if
+                     }//close if
 
 
                     }//close foreach
