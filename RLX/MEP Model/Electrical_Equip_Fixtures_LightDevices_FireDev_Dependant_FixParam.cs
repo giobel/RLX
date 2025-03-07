@@ -16,7 +16,7 @@ using static Autodesk.Revit.DB.SpecTypeId;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class Electrical_Equip_Fixtures_LightDevices_Dependant_FixParam : IExternalCommand
+    public class Electrical_Equip_Fixtures_LightDevices_FireDev_Dependant_FixParam : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -34,6 +34,7 @@ namespace RLX
                 BuiltInCategory.OST_ElectricalEquipment,
                 BuiltInCategory.OST_ElectricalFixtures,
                 BuiltInCategory.OST_LightingDevices,
+                BuiltInCategory.OST_FireAlarmDevices,
 
             };
 

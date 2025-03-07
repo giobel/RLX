@@ -211,6 +211,7 @@ namespace RLX
 
             List<BuiltInCategory> builtInCats = new List<BuiltInCategory>
             {
+                BuiltInCategory.OST_GenericModel,
                 BuiltInCategory.OST_DuctTerminal,
                 BuiltInCategory.OST_DataDevices,
             BuiltInCategory.OST_Sprinklers,

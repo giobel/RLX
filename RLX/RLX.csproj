@@ -66,8 +66,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CirclePointsGenerator.cs" />
+    <Compile Include="MEP Model\FireAlarmDev_Fill_Title_Description.cs" />
     <Compile Include="MEP Model\Pipe_andFittings_Fill_Description.cs" />
-    <Compile Include="MEP Model\Electrical_Equip_Fixtures_LightDevices_Dependant_FixParam.cs" />
+    <Compile Include="MEP Model\Electrical_Equip_Fixtures_LightDevices_FireDev_Dependant_FixParam.cs" />
     <Compile Include="MEP Model\Electrical_Equip_Fixtures_FixDescriptions.cs" />
     <Compile Include="MEP Model\Duct_Pipe_Conduits_BeginningOfChain1.cs" />
     <Compile Include="MEP Model\CableTrays_Fill_Title_Description.cs" />
@@ -90,6 +91,8 @@
     <Compile Include="MEP Model\Util_CopyParamsMultiple.cs" />
     <Compile Include="MEP Model\Util_Copy_Old_ID.cs" />
     <Compile Include="MEP Model\Util_AccessoriesFillDSids.cs" />
+    <Compile Include="MEP Model\Util_ExportToExcelIds.cs" />
+    <Compile Include="MEP Model\Util_ExportToExcel.cs" />
     <Compile Include="MEP Model\Util_Fittings_CopyAllParameters.cs" />
     <Compile Include="MEP Model\Util_FillUniclassFromType.cs" />
     <Compile Include="MEP Model\Util_FillUniqueID.cs" />
