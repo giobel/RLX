@@ -63,14 +63,11 @@ namespace RLX
                 foreach (Element e in elementsToExport)
             {
 
-                string csvLine = $"{e.Id}\t{e.Category?.Name}\t";
 
-
-                FamilyInstance fi = e as FamilyInstance;
-
-                if (e.Category != null && e.Category.HasMaterialQuantities && fi?.SuperComponent == null)
+                if (e.Category != null)
                     {
-                        foreach (string s in paramsToExport)
+                    string csvLine = $"{e.Id}\t{e.Category?.Name}\t";
+                    foreach (string s in paramsToExport)
                         {
 
                         Parameter p = e.LookupParameter(s);
@@ -95,8 +92,8 @@ namespace RLX
                         }
 
                         }
-                    }
                         sb.AppendLine(csvLine);
+                    }
                 }
 
             string outputFile = folderName + '\\' + "Z13_0001_CMD_All_Visible_Elements.csv";
