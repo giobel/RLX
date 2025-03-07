@@ -54,13 +54,20 @@ namespace RLX
             StringBuilder sb = new StringBuilder();
 
             string headers = "ElementId\tCategory\t";
+
             foreach (string s in paramsToExport)
             {
                 headers += s + "\t";
 
             }
 
-                foreach (Element e in elementsToExport)
+
+
+
+
+
+
+            foreach (Element e in elementsToExport)
             {
 
 

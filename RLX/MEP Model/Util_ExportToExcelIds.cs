@@ -53,41 +53,21 @@ namespace RLX
 
             StringBuilder sb = new StringBuilder();
 
-            string headers = "ElementId\tCategory;";
 
-            List<string> valuses = new List<string>();
 
-            foreach (Element e in elementsToExport)
+            var grouped = elementsToExport.GroupBy(x => x.LookupParameter("RLX_UniqueIdentifier").AsValueString());
+
+
+            foreach (var group in grouped)
             {
-
-                string csvLine = $"{e.Id}\t{e.Category?.Name};";
-
-                foreach (string s in paramsToExport)
-                {
-                    Parameter p = e.LookupParameter(s);
-                    if (p == null)
-                    {
-                        csvLine += ";";
-                        valuses.Add("empty");
-                    }
-                    else
-                    {
-                        csvLine += p.AsString() + ";";
-                        valuses.Add(p.AsString()); 
-                    }
-
-
-                }
-
-
-                sb.AppendLine(csvLine);
-                }
+                Helpers.DoElementsHaveSameParameterValues(group.ToList(), paramsToExport);
+                sb.AppendLine(group.Key + "\t" + group.First().Id + "\t" + Helpers.DoElementsHaveSameParameterValues(group.ToList(), paramsToExport));
+            }
 
             string outputFile = folderName + '\\' + "Z13_0001_CMD_All_Visible_Elements.csv";
 
-            File.WriteAllText(outputFile, headers + "\n");
 
-            File.AppendAllText(outputFile, sb.ToString());
+            File.WriteAllText(outputFile, sb.ToString());
 
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             process.StartInfo.FileName = outputFile;

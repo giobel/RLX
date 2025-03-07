@@ -162,6 +162,50 @@ namespace RLX
         }
 
 
+
+        public static bool DoElementsHaveSameParameterValues(List<Element> elements, List<string> paramsToExport)
+        {
+            if (elements == null || elements.Count == 0) return false;
+
+            // Get the first element as the reference
+            Element firstElement = elements[0];
+
+            // Dictionary to store the parameter values of the first element
+            Dictionary<string, string> referenceValues = new Dictionary<string, string>();
+
+            foreach (string paramName in paramsToExport)
+            {
+                Parameter param = firstElement.LookupParameter(paramName);
+                if (param != null)
+                {
+                    referenceValues[paramName] = param.AsString() ?? param.AsValueString() ?? "";
+                }
+                else
+                {
+                    referenceValues[paramName] = ""; // Treat missing parameters as empty
+                }
+            }
+
+            // Compare other elements against the first one
+            foreach (Element element in elements.Skip(1))
+            {
+                foreach (string paramName in paramsToExport)
+                {
+                    Parameter param = element.LookupParameter(paramName);
+                    string currentValue = param != null ? param.AsString() ?? param.AsValueString() ?? "" : "";
+
+                    // Compare values
+                    if (referenceValues[paramName] != currentValue)
+                    {
+                        return false; // Mismatch found
+                    }
+                }
+            }
+
+            return true; // All elements have the same parameter values
+        }
+
+
         public static ElementMulticategoryFilter RLXcatFilter()
         {
 
