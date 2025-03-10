@@ -158,7 +158,9 @@ namespace RLX
         public static string LocationforDescription()
         {
             //Silvertown Bld:
-            return "Newham Portal Building";
+            //return "Newham Portal Building";
+            //Silvertown Services:
+            return "Newham Services Building";
         }
 
 

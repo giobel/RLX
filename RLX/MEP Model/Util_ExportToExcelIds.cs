@@ -61,7 +61,7 @@ namespace RLX
             foreach (var group in grouped)
             {
                 Helpers.DoElementsHaveSameParameterValues(group.ToList(), paramsToExport);
-                sb.AppendLine(group.Key + "\t" + group.First().Id + "\t" + Helpers.DoElementsHaveSameParameterValues(group.ToList(), paramsToExport));
+                sb.AppendLine(group.Key + "\t" + group.First().Id + "\t" + group.First().Category.Name + "\t" + Helpers.DoElementsHaveSameParameterValues(group.ToList(), paramsToExport));
             }
 
             string outputFile = folderName + '\\' + "Z13_0001_CMD_All_Visible_Elements.csv";

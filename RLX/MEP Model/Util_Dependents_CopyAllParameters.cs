@@ -15,7 +15,7 @@ using System.Linq;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class Util_Fittings_CopyAllParameters : IExternalCommand
+    public class Util_Dependents_CopyAllParameters : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -26,6 +26,8 @@ namespace RLX
             UIDocument uidoc = uiapp.ActiveUIDocument;
             Application app = uiapp.Application;
             Document doc = uidoc.Document;
+
+
 
 
             IList<Element> visibleElements = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(Helpers.RLXcatFilter()).WhereElementIsNotElementType().ToElements();
@@ -48,46 +50,43 @@ namespace RLX
                 "DS_AssetType"};
 
 
-            using (Transaction t = new Transaction(doc, "Copy all parameters"))
+            using (Transaction t = new Transaction(doc, "Dependents copy all parameters"))
             {
 
                 t.Start();
 
                 foreach (var group in grouped)
                 {
-                    Element source = group.FirstOrDefault(e=>!e.Category.Name.Contains("Fitting"));
+                    Element source = group.FirstOrDefault(e=>e.Category.Id.IntegerValue == (int)BuiltInCategory.OST_PipeCurves || e.Category.Id.IntegerValue == (int)BuiltInCategory.OST_DuctCurves);
 
                     foreach (Element e in group)
-                    {
 
-                        foreach (string paramName in paramsToSet)
+                        foreach (ElementId subElementId in e.GetDependentElements(null))
                         {
-                        
-                                Parameter p = source.LookupParameter(paramName);
+                            Element subElement = doc.GetElement(subElementId);
+                            foreach (string paramName in paramsToSet)
+                            {
+                                try
+                                {
+                                    string p = source.LookupParameter(paramName).AsValueString();
+                                    subElement.LookupParameter(paramName).Set(p);
+                                }
+                                catch { }
+                            }
 
-                            if (p.StorageType == StorageType.String)
-                                e.LookupParameter(paramName).Set(p.AsValueString());
-
-                            if (p.StorageType == StorageType.ElementId)
-                                e.LookupParameter(paramName).Set(p.AsElementId());
-
+                            counterModified++;
                         }
 
-                        counterModified++;
-                    }
+
 
                 }
-                {
-
-
-
-
 
                     t.Commit();
                 }
                 TaskDialog.Show("R", $"{counterModified} modified of {countElements}");
                 return Result.Succeeded;
-            }
+            
+            
         }
     }
 }

@@ -93,6 +93,7 @@
     <Compile Include="MEP Model\Util_AccessoriesFillDSids.cs" />
     <Compile Include="MEP Model\Util_ExportToExcelIds.cs" />
     <Compile Include="MEP Model\Util_ExportToExcel.cs" />
+    <Compile Include="MEP Model\Util_Dependents_CopyAllParameters.cs" />
     <Compile Include="MEP Model\Util_Fittings_CopyAllParameters.cs" />
     <Compile Include="MEP Model\Util_FillUniclassFromType.cs" />
     <Compile Include="MEP Model\Util_FillUniqueID.cs" />

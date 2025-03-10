@@ -40,7 +40,7 @@ namespace RLX
                 "RLX_CoordinatesZ","RLX_Facility","RLX_GridReferenceSystem","RLX_Location","RLX_MaintenanceCost",
                 "RLX_Space","RLX_Specification","RLX_System","RLX_Type","RLX_UniqueIdentifier","RLX_Zone",
                 "DS_AssetID",
-                "DS_AssetType"};
+                "DS_AssetType","RLX_MainMaterial"};
 
             //if (doc.GetElement(destinationPipesRef).Category.BuiltInCategory == BuiltInCategory.OST_PipeFitting)
             //{
@@ -55,10 +55,14 @@ namespace RLX
                     Element pipe = doc.GetElement(destinationPipesRef);
                     foreach (string paramName in paramsToSet)
                     {
-                        //					TaskDialog.Show("R", paramName);
-                        string p = sourcePipe.LookupParameter(paramName).AsValueString();
-                        pipe.LookupParameter(paramName).Set(p);
-                    }
+                        Parameter p = sourcePipe.LookupParameter(paramName);
+
+                    if (p.StorageType == StorageType.String)
+                        pipe.LookupParameter(paramName).Set(p.AsValueString());
+
+                    if (p.StorageType == StorageType.ElementId)
+                        pipe.LookupParameter(paramName).Set(p.AsElementId());
+                }
 
                 
                     t.Commit();

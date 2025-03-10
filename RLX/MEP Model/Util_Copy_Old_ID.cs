@@ -41,11 +41,14 @@ namespace RLX
                 t.Start();
 
                 foreach (var element in visibleElements)
-                {
+                {  
+               Debug.WriteLine(element.Category.Name);
 
-                    Parameter p = element.LookupParameter("RLX_UniqueIdentifier");
+                Parameter p = element.LookupParameter("RLX_UniqueIdentifier");
 
                     //Silvertown Bld
+                    //string old_code = "M260013B0";
+                    //Silvertown Services
                     string old_code = "M260013B0";
 
                     if (p != null && p.AsValueString() != null && p.AsValueString().Contains(old_code))
