@@ -101,7 +101,7 @@ namespace RLX
                         
 
 
-                        string titleString = $"{nameString} x {lengthString} x {widthString} x {heightString} {material.AsValueString()}";
+                        string titleString = $"{element.Category.Name} {lengthString} x {widthString} x {heightString} {material.AsValueString()}";
 
                         string cleanedTitle = Regex.Replace(titleString, @"\s{2,}", " "); // Replaces 2+ spaces with 1
 

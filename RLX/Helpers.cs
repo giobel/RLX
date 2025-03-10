@@ -65,7 +65,8 @@ namespace RLX
             eleEfcode?.Set(typeEFcode?.AsValueString());
 
             if (typePr != null && typePr.HasValue)
-            elePr.Set(typePr?.AsValueString().Split(':')[1].Trim());
+                    elePr.Set(typePr?.AsValueString()?.Split(':')[1]?.Trim());
+
 
             if (typePrcode != null && typePrcode.HasValue)
             elePrcode.Set(typePrcode?.AsValueString());

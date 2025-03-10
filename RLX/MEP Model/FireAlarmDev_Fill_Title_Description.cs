@@ -147,7 +147,7 @@ namespace RLX
 
                     //cleanedDescr = Helpers.ConvertToSentenceCase(cleanedDescr);
 
-
+                    description.Set(descriptionString);
 
 
                 }
