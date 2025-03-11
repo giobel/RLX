@@ -19,7 +19,7 @@ using Autodesk.Revit.DB.Electrical;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class Duct_Pipe_Conduits_BeginningOfChain1 : IExternalCommand
+    public class Duct_Pipe_Conduits_CableTrays_BeginningOfChain1 : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,

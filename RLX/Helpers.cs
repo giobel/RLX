@@ -273,6 +273,8 @@ namespace RLX
             BuiltInCategory.OST_TelephoneDevices,
             BuiltInCategory.OST_SecurityDevices,
             BuiltInCategory.OST_PlumbingFixtures,
+            BuiltInCategory.OST_CableTrayFitting,
+
 
             };
 

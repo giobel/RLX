@@ -29,17 +29,25 @@ namespace RLX
 
                     #region UTILITIES
 
-                RibbonPanel utilities = GetSetRibbonPanel(a, tabName, "Utilities");
-
-
+                    RibbonPanel utilities = GetSetRibbonPanel(a, tabName, "Utilities");
 
                     if (AddPushButton(utilities, "btnZoom", "Zoom\nSelected", null, Resource1.zoom, "RLX.ZoomSelected", "Refer to documentation") == false)
                     {
                         MessageBox.Show("Failed to add button 9", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
-                    #endregion
-                }
+                    
+                    if (AddPushButton(utilities, "btnTagNext", "Tag\nNext DS", null, Resource1.fill, "RLX.Pipe_TagNextAssetID", "Refer to documentation") == false)
+                    {
+                        MessageBox.Show("Failed to add tag next asset ID", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                #endregion
+
+
+
+
+
+            }
             catch { }
 
             return Result.Succeeded;

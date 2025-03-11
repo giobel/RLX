@@ -66,11 +66,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CirclePointsGenerator.cs" />
+    <Compile Include="MEP Model\BeginningOfChain.cs" />
     <Compile Include="MEP Model\FireAlarmDev_Fill_Title_Description.cs" />
+    <Compile Include="MEP Model\Pipe_TagNextAssetID.cs" />
     <Compile Include="MEP Model\Pipe_andFittings_Fill_Description.cs" />
     <Compile Include="MEP Model\Electrical_Equip_Fixtures_LightDevices_FireDev_Dependant_FixParam.cs" />
     <Compile Include="MEP Model\Electrical_Equip_Fixtures_FixDescriptions.cs" />
-    <Compile Include="MEP Model\Duct_Pipe_Conduits_BeginningOfChain1.cs" />
+    <Compile Include="MEP Model\Duct_Pipe_Conduits_CableTrays_BeginningOfChain1.cs" />
     <Compile Include="MEP Model\CableTrays_Fill_Title_Description.cs" />
     <Compile Include="MEP Model\AirTerminals_Fill_Title_Description.cs" />
     <Compile Include="MEP Model\DataDevices_Fill_Title_Description.cs" />
@@ -114,6 +116,7 @@
     <Compile Include="App.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MEP Model\Util_CopyParams.cs" />
+    <Compile Include="Utilities\ZoomSelected.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="RLX.addin" />
@@ -121,7 +124,6 @@
   <ItemGroup>
     <Folder Include="MEP Backup\" />
     <Folder Include="Pipes\" />
-    <Folder Include="Utilities\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

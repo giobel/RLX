@@ -63,29 +63,25 @@ namespace RLX
 
 
 
-
-
-
-
             foreach (Element e in elementsToExport)
             {
 
 
                 if (e.Category != null)
-                    {
+                {
                     string csvLine = $"{e.Id}\t{e.Category?.Name}\t";
                     foreach (string s in paramsToExport)
-                        {
+                    {
 
                         Parameter p = e.LookupParameter(s);
 
                         if (p != null && p.HasValue)
-                            {
-                            
+                        {
+
                             if (p?.StorageType == StorageType.String)
                             {
                                 string cleaned = p.AsValueString() == "" ? "EMPTY" : p.AsValueString().Replace(",", "");
-                                csvLine +=  cleaned + "\t";
+                                csvLine += cleaned + "\t";
                             }
                             else if (p?.StorageType == StorageType.ElementId)
                             {
@@ -94,26 +90,30 @@ namespace RLX
                                 string cleanedMaterial = material?.Name.Replace(",", "");
                                 csvLine += cleanedMaterial + "\t";
                             }
-
+                        }
+                        else
+                        {
+                            csvLine += "EMPTY\t";
 
                         }
 
-                        }
                         sb.AppendLine(csvLine);
                     }
                 }
+            }
 
-            string outputFile = folderName + '\\' + "Z13_0001_CMD_All_Visible_Elements.csv";
+                string outputFile = folderName + '\\' + "Z13_0002_CMD_All_Visible_Elements.csv";
 
-            File.WriteAllText(outputFile, headers + "\n");
+                File.WriteAllText(outputFile, headers + "\n");
 
-            File.AppendAllText(outputFile, sb.ToString());
+                File.AppendAllText(outputFile, sb.ToString());
 
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            process.StartInfo.FileName = outputFile;
-            process.Start();
+                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                process.StartInfo.FileName = outputFile;
+                process.Start();
 
-            return Result.Succeeded;
-        }
+                return Result.Succeeded;
+            }
+        
     }
 }

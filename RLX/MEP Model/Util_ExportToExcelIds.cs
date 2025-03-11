@@ -53,6 +53,13 @@ namespace RLX
 
             StringBuilder sb = new StringBuilder();
 
+            string headers = "Category\t";
+
+            foreach (string s in paramsToExport)
+            {
+                headers += s + "\t";
+
+            }
 
 
             var grouped = elementsToExport.GroupBy(x => x.LookupParameter("RLX_UniqueIdentifier").AsValueString());
@@ -60,14 +67,50 @@ namespace RLX
 
             foreach (var group in grouped)
             {
-                Helpers.DoElementsHaveSameParameterValues(group.ToList(), paramsToExport);
-                sb.AppendLine(group.Key + "\t" + group.First().Id + "\t" + group.First().Category.Name + "\t" + Helpers.DoElementsHaveSameParameterValues(group.ToList(), paramsToExport));
+
+                string csvLine = "";
+
+                foreach (string s in paramsToExport)
+                {
+
+                    Parameter p = group.First().LookupParameter(s);
+
+                    if (p != null && p.HasValue)
+                    {
+
+                        if (p?.StorageType == StorageType.String)
+                        {
+                            string cleaned = p.AsValueString() == "" ? "EMPTY" : p.AsValueString().Replace(",", "");
+                            csvLine += cleaned + "\t";
+                        }
+                        else if (p?.StorageType == StorageType.ElementId)
+                        {
+                            ElementId materialId = p.AsElementId();
+                            Material material = doc.GetElement(materialId) as Material;
+                            string cleanedMaterial = material?.Name.Replace(",", "");
+                            csvLine += cleanedMaterial + "\t";
+                        }
+                    }
+                    else
+                    {
+                        csvLine += "EMPTY\t";
+
+                    }
+
+                }
+
+                sb.AppendLine($"{group.First().Category.Name}\t{csvLine}");
+
+                //sb.AppendLine(group.Key + "\t" + group.First().Id + "\t" + group.First().Category.Name + "\t" + Helpers.DoElementsHaveSameParameterValues(group.ToList(), paramsToExport));
             }
 
-            string outputFile = folderName + '\\' + "Z13_0001_CMD_All_Visible_Elements.csv";
+            string outputFile = folderName + '\\' + "Z13_0002_CMD_All_Visible_Elements.csv";
 
+            File.WriteAllText(outputFile, headers + "\n");
 
-            File.WriteAllText(outputFile, sb.ToString());
+            File.AppendAllText(outputFile, sb.ToString());
+
+            
 
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             process.StartInfo.FileName = outputFile;
