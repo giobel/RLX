@@ -181,7 +181,7 @@ namespace RLX
                             double metricY = UnitUtils.ConvertFromInternalUnits(orderedStartPt.Y, UnitTypeId.Meters);
                             double metricZ = UnitUtils.ConvertFromInternalUnits(orderedStartPt.Z, UnitTypeId.Meters);
 
-                            doc.Create.NewFamilyInstance(orderedStartPt, positionFamily, StructuralType.NonStructural);
+                            doc.Create.NewFamilyInstance(beginningOfChain.OrderBy(p => p.X).ThenBy(p => p.Y).ToList().First(), positionFamily, StructuralType.NonStructural);
 
                             Helpers.FillXYZParam(group, metricX, metricY, metricZ);
                         }
