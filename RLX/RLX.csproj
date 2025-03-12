@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CirclePointsGenerator.cs" />
+    <Compile Include="MEP Model\AddSystemToTitle.cs" />
     <Compile Include="MEP Model\BeginningOfChain.cs" />
     <Compile Include="MEP Model\FireAlarmDev_Fill_Title_Description.cs" />
     <Compile Include="MEP Model\Pipe_TagNextAssetID.cs" />

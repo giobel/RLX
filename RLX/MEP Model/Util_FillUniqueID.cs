@@ -34,6 +34,26 @@ namespace RLX
             int countElements = visibleElements.Count;
             int counterModified = 0;
 
+            var activeDocTitle = uidoc.Document.Title;
+
+            string code = "";
+
+            if (activeDocTitle.Contains("Z13-CMD-CS-0001"))
+            {
+                //Silvertown Bld
+                code = "L252013B0";
+            }
+            else if (activeDocTitle.Contains("Z13-CMD-CS-0002"))
+            {
+                //Silvertown Service:
+                code = "X013013S0";
+            }
+            else if (activeDocTitle.Contains("Z14-CMD-CS-0001"))
+            {
+                //Greenwich Bld
+                code = "L114014B0";
+            }
+
 
             using (Transaction t = new Transaction(doc, "Fill Unique Ids"))
             {
@@ -43,14 +63,7 @@ namespace RLX
                 foreach (var e in visibleElements)
                     {
 
-                    //Silvertown Bld
-                    //string code = "L252013B0";
 
-                    //Silvertown Service:
-                    string code = "X013013S0";
-
-                    //Greenwich Bld
-                    //string code = "L114014B0";
 
 
 

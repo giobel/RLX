@@ -69,7 +69,7 @@ namespace RLX
                         else
                         {
                             uidoc.Selection.SetElementIds(new List<ElementId> { element.Id });
-                            TaskDialog.Show("R", "Failed");
+                            //TaskDialog.Show("R", "Failed");
                             return Result.Failed;
                         }
 

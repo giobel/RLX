@@ -35,7 +35,10 @@ namespace RLX
 
                 BuiltInCategory.OST_PipeCurves,
                 BuiltInCategory.OST_PipeFitting,
-
+                BuiltInCategory.OST_DuctCurves,
+                BuiltInCategory.OST_DuctFitting,
+                BuiltInCategory.OST_Conduit,
+                BuiltInCategory.OST_ConduitFitting,
             };
 
 
@@ -76,6 +79,7 @@ namespace RLX
                 foreach (Element item in selected)
                 {
                     item.LookupParameter("DS_AssetID").Set((latestId + 1).ToString());
+                    counterModified++;
                 }
 
 

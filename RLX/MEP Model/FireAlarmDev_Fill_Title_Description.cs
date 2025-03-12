@@ -65,7 +65,7 @@ namespace RLX
 
                     
                     
-                        string width = et.LookupParameter("Dimensions_Width")?.AsValueString();
+                    string width = et.LookupParameter("Dimensions_Width")?.AsValueString();
                     string length = et.LookupParameter("Dimensions_Length")?.AsValueString();
                     
                     if (length == null || length == "")

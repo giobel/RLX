@@ -114,7 +114,7 @@ namespace RLX
 
                     if (diam == null || diam == "")
                     {
-                        size = length != null ? $"{width}W x {length} x {height}H" : $"{width}W x {height}H";
+                        size = length != null ? $"{width.Split('.')[0]}W x {length.Split('.')[0]}L x {height.Split('.')[0]}H" : $"{width.Split('.')[0]}W x {height.Split('.')[0]}H";
                     }
                     else
                     {

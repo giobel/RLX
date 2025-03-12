@@ -42,10 +42,13 @@ namespace RLX
 
                 foreach (var e in visibleElements)
                     {
+                    try
+                    {
+                        Helpers.CopyUniclassFromType(doc, e);
 
-                    Helpers.CopyUniclassFromType(doc, e);
-
-                    counterModified++;
+                        counterModified++;
+                    }
+                    catch { }
 
                     }
                     
