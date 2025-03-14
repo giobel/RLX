@@ -62,16 +62,61 @@ namespace RLX
 
                     
                     
-                        string width = et.LookupParameter("Dimensions_Width")?.AsValueString();
+                    string width = et.LookupParameter("Dimensions_Width")?.AsValueString();
                     string length = et.LookupParameter("Dimensions_Length")?.AsValueString();
                     string height = et.LookupParameter("Dimensions_Height")?.AsValueString();
                     string diam = et.LookupParameter("Dimensions_Diameter")?.AsValueString();
+
+
+                    if (length == null || length == "")
+                    {
+                        length = element.LookupParameter("Asset_Dimensions_Overall_Length_Nominal")?.AsValueString();
+
+                    }
+
+
 
                     string size = "";
 
                     if (diam == null || diam == "")
                     {
+                        if (width == null || width == "")
+                        {
+                            try
+                            {
+                            double widthDouble = et.LookupParameter("Asset_DImensions_Overall_Width").AsDouble();
+                            width = UnitUtils.ConvertFromInternalUnits(widthDouble, UnitTypeId.Millimeters).ToString();
+                            }
+                            catch
+                            {
+                                //do nothing
+                            }
+
+
+                        }
+
+
+                        if (height == null || height == "")
+                        {
+                            double heightDouble = et.LookupParameter("Asset_Dimensions_Overall_Height").AsDouble();
+
+                            height= UnitUtils.ConvertFromInternalUnits(heightDouble, UnitTypeId.Millimeters).ToString();
+
+                        }
+
                         size = $"{width}W x {length}L x {height}H";
+
+
+
+
+                        if (length == null || length == "")
+                        {
+                            //length = et.LookupParameter("Asset_Dimensions_Overall_Length")?.AsValueString();
+                            size = $"{width}W x {height}H";
+                        }
+
+
+
                     }
                     else
                     {

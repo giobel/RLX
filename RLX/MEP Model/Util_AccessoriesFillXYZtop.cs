@@ -85,7 +85,7 @@ namespace RLX
                     }
                     else
                     {
-                        TaskDialog.Show("R", "Unique Id is null. Ignore");
+                        //TaskDialog.Show("R", "Unique Id is null. Ignore");
                     }
                 }
 

@@ -16,7 +16,7 @@ using static Autodesk.Revit.DB.SpecTypeId;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class Mech_Accessories_Fill_Title_Description : IExternalCommand
+    public class Mech_Duct_Pipe_Accessories_Fill_Title_Description : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -32,7 +32,8 @@ namespace RLX
             List<BuiltInCategory> builtInCats = new List<BuiltInCategory>
             {
                 BuiltInCategory.OST_DuctAccessory,
-                BuiltInCategory.OST_MechanicalEquipment
+                BuiltInCategory.OST_MechanicalEquipment,
+                BuiltInCategory.OST_PipeAccessory
 
             };
 
