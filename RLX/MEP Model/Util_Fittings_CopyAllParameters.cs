@@ -57,23 +57,33 @@ namespace RLX
                 {
                     Element source = group.FirstOrDefault(e=>!e.Category.Name.Contains("Fitting"));
 
-                    foreach (Element e in group)
+                    if (source != null)
                     {
 
-                        foreach (string paramName in paramsToSet)
+
+
+                        foreach (Element e in group)
                         {
-                        
+
+                            foreach (string paramName in paramsToSet)
+                            {
+
                                 Parameter p = source.LookupParameter(paramName);
+                                try
+                                {
 
-                            if (p.StorageType == StorageType.String)
-                                e.LookupParameter(paramName).Set(p.AsValueString());
+                                    if (p.StorageType == StorageType.String)
+                                        e.LookupParameter(paramName).Set(p.AsValueString());
 
-                            if (p.StorageType == StorageType.ElementId)
-                                e.LookupParameter(paramName).Set(p.AsElementId());
+                                    if (p.StorageType == StorageType.ElementId)
+                                        e.LookupParameter(paramName).Set(p.AsElementId());
+                                }
+                                catch { }
 
+                            }
+
+                            counterModified++;
                         }
-
-                        counterModified++;
                     }
 
                 }

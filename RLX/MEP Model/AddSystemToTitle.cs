@@ -44,7 +44,12 @@ namespace RLX
                     {
 
                     string system = element.LookupParameter("RLXSystem")?.AsValueString();
-                        
+
+                    if (system == null || system == "")
+                    {
+                        system = element.LookupParameter("System Type")?.AsValueString();
+                    }
+
                     Parameter titleparam = element.LookupParameter("RLX_Title");
 
                     string title = titleparam?.AsString();

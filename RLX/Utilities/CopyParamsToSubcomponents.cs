@@ -45,15 +45,11 @@ namespace RLX
                     "RLX_ClassificationUniclassEF_Description","RLX_Title","RLX_Description",
                 "RLX_ClassificationUniclassEF_Number","RLX_ClassificationUniclassPr_Description",
                 "RLX_ClassificationUniclassPr_Number","RLX_ClassificationUniclassSs_Description",
-                "RLX_ClassificationUniclassSs_Number","RLX_Component","RLX_CoordinatesX","RLX_CoordinatesY",
+                "RLX_ClassificationUniclassSs_Number","RLX_CoordinatesX","RLX_CoordinatesY",
                 "RLX_CoordinatesZ","RLX_Facility","RLX_GridReferenceSystem","RLX_Location","RLX_MaintenanceCost",
                 "RLX_Space","RLX_Specification","RLX_System","RLX_Type","RLX_UniqueIdentifier","RLX_Zone",
                 "DS_AssetID",
-                "DS_AssetType",
-                "DS_Axis",
-                "DS_Lane",
-                "DS_Chainage",
-                "DS_Location"};
+                "DS_AssetType"};
 
             //if (doc.GetElement(destinationPipesRef).Category.BuiltInCategory == BuiltInCategory.OST_PipeFitting)
             //{
@@ -68,26 +64,32 @@ namespace RLX
                 {
                     FamilyInstance familyInstance = doc.GetElement(eid) as FamilyInstance;
                     ICollection<ElementId> subElements = familyInstance.GetSubComponentIds();
-                    
+
                     if (subElements != null)
                     {
-                        foreach (ElementId subElement in subElements)
+                        try
                         {
-                            Element subelement = doc.GetElement(subElement);
-                            foreach (string paramName in paramsToSet)
+                            foreach (ElementId subElement in subElements)
                             {
-                                //					TaskDialog.Show("R", paramName);
-                                string p = familyInstance.LookupParameter(paramName).AsValueString();
-                                subelement.LookupParameter(paramName).Set(p);
+                                Element subelement = doc.GetElement(subElement);
+                                foreach (string paramName in paramsToSet)
+                                {
+                                    //					TaskDialog.Show("R", paramName);
+                                    string p = familyInstance.LookupParameter(paramName).AsValueString();
+                                    subelement.LookupParameter(paramName).Set(p);
+                                }
+
+                                var sourceMaterial = familyInstance.LookupParameter("RLX_MainMaterial").AsElementId();
+                                subelement.LookupParameter("RLX_MainMaterial").Set(sourceMaterial);
                             }
 
-                            var sourceMaterial = familyInstance.LookupParameter("RLX_MainMaterial").AsElementId();
-                            subelement.LookupParameter("RLX_MainMaterial").Set(sourceMaterial);
+                        }
+                        catch
+                        {
                         }
                     }
-                }
 
-                          
+                }
 
                 
                     t.Commit();
