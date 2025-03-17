@@ -33,6 +33,8 @@ namespace RLX
 
                 BuiltInCategory.OST_PipeCurves,
                 BuiltInCategory.OST_PipeFitting,
+                BuiltInCategory.OST_PipeAccessory
+
 
             };
 

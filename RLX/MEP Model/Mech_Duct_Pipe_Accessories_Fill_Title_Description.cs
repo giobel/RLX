@@ -98,13 +98,17 @@ namespace RLX
                         }
                     }
 
-                   
-                        
+
+                    string size = Helpers.GetElementDimensions(doc, element);
 
 
-                        string titleString = $"{element.Category.Name} {lengthString} x {widthString} x {heightString} {material.AsValueString()}";
 
-                        string cleanedTitle = Regex.Replace(titleString, @"\s{2,}", " "); // Replaces 2+ spaces with 1
+
+                    //string titleString = $"{element.Category.Name} {lengthString} x {widthString} x {heightString} {material.AsValueString()}";
+
+                    string titleString = $"{element.Category.Name} {size} {material.AsValueString()}";
+
+                    string cleanedTitle = Regex.Replace(titleString, @"\s{2,}", " "); // Replaces 2+ spaces with 1
 
 
                         title.Set(cleanedTitle);
@@ -116,11 +120,27 @@ namespace RLX
                         Level level = doc.GetElement(element.LevelId) as Level;
 
                         Parameter descriptionParam = et.get_Parameter(BuiltInParameter.ALL_MODEL_DESCRIPTION);
-                        //Parameter location = element.LookupParameter("RLX_Location");
-                        
-                        string levelSentenceCase = char.ToUpper(level.Name[0]) + level.Name.Substring(1).ToLower();
+                    //Parameter location = element.LookupParameter("RLX_Location");
 
-                        string descriptionString = $"{descriptionParam.AsValueString()} {Helpers.LocationforDescription()} {levelSentenceCase}";
+                    string levelSentenceCase = "";
+                    
+                    if (level != null)
+                    {
+                        levelSentenceCase = char.ToUpper(level.Name[0]) + level.Name.Substring(1).ToLower();
+                        
+                        
+                    }
+                    else
+                    {
+                        string levelName = element.LookupParameter("Schedule Level").AsValueString();
+
+                        levelSentenceCase = char.ToUpper(levelName[0]) + levelName.Substring(1).ToLower();
+                    }
+                    
+
+                    
+
+                    string descriptionString = $"{descriptionParam.AsValueString()} {Helpers.LocationforDescription()} {levelSentenceCase}";
 
                     string cleanedDescr = Regex.Replace(descriptionString, @"\s{2,}", " "); // Replaces 2+ spaces with 1
 

@@ -39,6 +39,9 @@ namespace RLX
                 BuiltInCategory.OST_DuctFitting,
                 BuiltInCategory.OST_Conduit,
                 BuiltInCategory.OST_ConduitFitting,
+                BuiltInCategory.OST_CableTray,
+                BuiltInCategory.OST_CableTrayFitting,
+                BuiltInCategory.OST_ElectricalFixtures
             };
 
 

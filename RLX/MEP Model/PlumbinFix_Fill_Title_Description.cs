@@ -16,7 +16,7 @@ using static Autodesk.Revit.DB.SpecTypeId;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class PlumbinFix_Fill_Title_Description : IExternalCommand
+    public class PlumbinFix_Sprinkl_Fill_Title_Description : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -31,7 +31,9 @@ namespace RLX
 
             List<BuiltInCategory> builtInCats = new List<BuiltInCategory>
             {
-                BuiltInCategory.OST_PlumbingFixtures
+                BuiltInCategory.OST_PlumbingFixtures,
+                BuiltInCategory.OST_PipeAccessory,
+                BuiltInCategory.OST_Sprinklers
 
             };
 
@@ -67,7 +69,10 @@ namespace RLX
                     string size = $"{diam}Dia";
                     
 
-
+                    if (element.Category.Name == "Sprinklers")
+                    {
+                        size = Helpers.GetElementDimensions(doc, element);
+                    }
 
                     string titleString = $"{element.Category.Name} {size} {material.AsValueString()}";
 

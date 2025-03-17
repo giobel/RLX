@@ -16,7 +16,7 @@ using static Autodesk.Revit.DB.SpecTypeId;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class DataDevices_Fill_Title_Description : IExternalCommand
+    public class GenericModels_Fill_Title_Description : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -31,7 +31,7 @@ namespace RLX
 
             List<BuiltInCategory> builtInCats = new List<BuiltInCategory>
             {
-                BuiltInCategory.OST_DataDevices
+                BuiltInCategory.OST_GenericModel
 
             };
 
@@ -43,7 +43,7 @@ namespace RLX
                    int countVisible = visibleElements.Count();
             int counterModified = 0;
 
-                using (Transaction t = new Transaction(doc, "Fill params"))
+                using (Transaction t = new Transaction(doc, "Fill generic model params"))
                 {
 
                     t.Start();
@@ -54,14 +54,15 @@ namespace RLX
                         Element et = doc.GetElement(element.GetTypeId());
                         Parameter title = element.LookupParameter("RLX_Title");
 
-                        
+
                         
 
 
                     Parameter material = element.LookupParameter("RLX_MainMaterial");
 
-
-                    string size = Helpers.GetElementDimensions(doc, element);
+                    
+                    
+                     string size = element.LookupParameter("Size")?.AsValueString();
 
 
 
@@ -71,7 +72,6 @@ namespace RLX
 
 
                         title.Set(cleanedTitle);
-
                             counterModified++;
 
 
@@ -79,20 +79,10 @@ namespace RLX
 
                         Level level = doc.GetElement(element.LevelId) as Level;
 
+                        Parameter nameParameter = element.LookupParameter("RLX_ClassificationUniclassPr_Description");
 
-                    string name = et.get_Parameter(BuiltInParameter.ALL_MODEL_DESCRIPTION).AsString();
-
-                    if (name == null || name == "")
-                    {
-                        name = element.LookupParameter("RLX_ClassificationUniclassPr_Description")?.AsString();
-                    }
-                    else
-                    {
-                        name = name.Split('-')[1];
-                    }
-
-                    
-
+                        string name = nameParameter?.AsValueString();
+                        
                         string levelSentenceCase = char.ToUpper(level.Name[0]) + level.Name.Substring(1).ToLower();
 
                         string descriptionString = $"{name} {Helpers.LocationforDescription()} {levelSentenceCase}";

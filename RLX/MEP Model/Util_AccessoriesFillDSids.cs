@@ -46,6 +46,8 @@ namespace RLX
             int securityDevicesModified = 0;
             int pipeaccessoriesModified = 0;
             int plumbingFixturesModified = 0;
+            int sprinklersModified = 0;
+
 
             int ligtinDevicesCounter = 1001;
             int datadevicesCounter = 2001;
@@ -60,6 +62,7 @@ namespace RLX
             int securityDevicesCounter = 8701;
             int pipeaccessoriesCounter = 8801;
             int plumbingFixturesCounter = 8901;
+            int sprinklersCounter = 9001;
 
             using (Transaction t = new Transaction(doc, "Fill DS Ids"))
             {
@@ -154,6 +157,12 @@ namespace RLX
                             pipeaccessoriesModified++;
                             break;
 
+                            case "Sprinklers":
+                            assetId.Set(sprinklersCounter.ToString());
+                            sprinklersCounter++;
+                            sprinklersModified++;
+                            break;
+
                     }
 
 
@@ -170,7 +179,7 @@ namespace RLX
             
                 $"data devices {datadevicesModified} lighting dev {lightinDevicesModified} elect equip {electrEquipModified} telephone {telephonesModified} " +
                 $"security devices {securityDevicesModified} plumbing fix {plumbingFixturesModified} " +
-                $"pipe access {pipeaccessoriesModified} \nof {countElements}");
+                $"pipe access {pipeaccessoriesModified} sprinklers {sprinklersModified} \nof {countElements}");
 
             return Result.Succeeded;
         }

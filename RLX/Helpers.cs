@@ -156,6 +156,103 @@ namespace RLX
             return closestIndex;
         }
 
+        public static string GetElementDimensions(Document doc, Element element)
+        {
+            Element et = doc.GetElement(element.GetTypeId());
+
+
+            string width = element.LookupParameter("Asset_DImensions_Overall_Width")?.AsValueString();
+
+            if (width == null || width == "")
+            {
+                width = et.LookupParameter("Dimensions_Width")?.AsValueString();
+
+                if (width == null || width == "")
+                {
+                    width = element.LookupParameter("Dimensions_Width")?.AsValueString();
+
+                    if (width == null || width == "")
+                {
+                    width = et.LookupParameter("Asset_DImensions_Overall_Width")?.AsValueString();
+                }
+
+                }
+            }
+
+
+            string length = element.LookupParameter("Asset_Dimensions_Overall_Length")?.AsValueString();
+
+            if (length == null || length == "")
+            {
+                length = et.LookupParameter("Dimensions_Length")?.AsValueString();
+
+                if (length == null || length == "")
+                {
+
+                    length = element.LookupParameter("Dimensions_Length")?.AsValueString();
+                        
+                    if (length == null || length == "")    
+                    {
+
+
+                    length = et.LookupParameter("Dimensions_Depth_Faceplate")?.AsValueString();
+
+                    if (length != null && length != "")
+                    {
+                        length = length + "thk";
+                    }
+                    else
+                    {
+                        length = et.LookupParameter("Asset_Dimensions_Overall_Depth")?.AsValueString();
+
+                    }
+                    }
+                }
+            }
+
+
+            string height = element.LookupParameter("Asset_Dimensions_Overall_Height")?.AsValueString();
+
+
+            if (height == null || height == "")
+            {
+                height = et.LookupParameter("Dimensions_Height")?.AsValueString();
+
+                if (height == null || height == "")
+                {
+
+                    height = element.LookupParameter("Dimensions_Height")?.AsValueString();
+
+                    if (height == null || height == "")
+                    {
+                    height = et.LookupParameter("Dimensions_Height_Nominal")?.AsValueString();
+
+                    if (height == null || height == "")
+                    {
+                        height = et.LookupParameter("Asset_Dimensions_Overall_Height")?.AsValueString();
+                    }
+                    }
+                }
+            }
+
+            string diam = et.LookupParameter("Dimensions_Diameter")?.AsValueString();
+
+            string size = "";
+
+            if (diam == null || diam == "")
+            {
+                size = length != null ? $"{width.Split('.')[0]}W x {length.Split('.')[0]}L x {height.Split('.')[0]}H" : $"{width.Split('.')[0]} x {height.Split('.')[0]}H";
+            }
+            else
+            {
+                size = $"{diam}Dia";
+            }
+
+
+
+            return size;
+        }
+
 
         public static string LocationforDescription()
         {
@@ -163,10 +260,10 @@ namespace RLX
             //return "Newham Portal Building";
 
             //Silvertown Services:
-            //return "Newham Services Building";
+            return "Newham Services Building";
 
             //Greenwich
-            return "Greenwich Portal Building";
+            //return "Greenwich Portal Building";
         }
 
 
