@@ -79,7 +79,7 @@ namespace RLX
                         
                         string levelSentenceCase = char.ToUpper(level.Name[0]) + level.Name.Substring(1).ToLower();
 
-                        string descriptionString = $"{descriptionParam.AsValueString()} {Helpers.LocationforDescription()} {levelSentenceCase}";
+                        string descriptionString = $"{descriptionParam.AsValueString()} {Helpers.LocationforDescription(uidoc)} {levelSentenceCase}";
 
 
                         description.Set(descriptionString);

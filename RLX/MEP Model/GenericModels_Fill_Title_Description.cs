@@ -85,7 +85,7 @@ namespace RLX
                         
                         string levelSentenceCase = char.ToUpper(level.Name[0]) + level.Name.Substring(1).ToLower();
 
-                        string descriptionString = $"{name} {Helpers.LocationforDescription()} {levelSentenceCase}";
+                        string descriptionString = $"{name} {Helpers.LocationforDescription(uidoc)} {levelSentenceCase}";
 
                     //string cleanedDescr = Regex.Replace(descriptionString, @"\s{2,}", " "); // Replaces 2+ spaces with 1
 

@@ -241,7 +241,10 @@ namespace RLX
 
             if (diam == null || diam == "")
             {
+
                 size = length != null ? $"{width.Split('.')[0]}W x {length.Split('.')[0]}L x {height.Split('.')[0]}H" : $"{width.Split('.')[0]} x {height.Split('.')[0]}H";
+
+                
             }
             else
             {
@@ -254,16 +257,33 @@ namespace RLX
         }
 
 
-        public static string LocationforDescription()
+        public static string LocationforDescription(UIDocument uidoc)
         {
-            //Silvertown Bld:
-            //return "Newham Portal Building";
 
-            //Silvertown Services:
-            return "Newham Services Building";
+            var activeDocTitle = uidoc.Document.Title;
 
-            //Greenwich
-            //return "Greenwich Portal Building";
+            string code = "";
+
+            if (activeDocTitle.Contains("Z13-CMD-CS-0001"))
+            {
+                //Silvertown Bld
+                //code = "L252013B0";
+                code = "Newham Portal Building";
+            }
+            else if (activeDocTitle.Contains("Z13-CMD-CS-0002"))
+            {
+                //Silvertown Service:
+                //code = "X013013S0";
+                code = "Newham Services Building";
+            }
+            else if (activeDocTitle.Contains("Z14-CMD-CS-0001"))
+            {
+                //Greenwich Bld
+                //code = "L114014B0";
+                code = "Greenwich Portal Building";
+            }
+
+            return code;
         }
 
 
@@ -316,6 +336,7 @@ namespace RLX
 
             List<BuiltInCategory> builtInCats = new List<BuiltInCategory>
             {
+                BuiltInCategory.OST_GenericModel,
                 BuiltInCategory.OST_CableTray,
                 BuiltInCategory.OST_CableTrayFitting,
                 BuiltInCategory.OST_Conduit,

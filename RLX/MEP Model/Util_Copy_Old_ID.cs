@@ -49,10 +49,10 @@ namespace RLX
                     //string old_code = "M260013B0";
                     
                     //Silvertown Services
-                    string old_code = "M260013B0";
+                    //string old_code = "M260013B0";
 
                     //Greenwich Bld
-                    //string old_code = "L114014B0";
+                    string old_code = "L114014B0";
 
                     if (p != null && p.AsValueString() != null && p.AsValueString().Contains(old_code))
                     {

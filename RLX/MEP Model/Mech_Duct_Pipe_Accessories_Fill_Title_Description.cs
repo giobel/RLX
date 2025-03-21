@@ -98,9 +98,16 @@ namespace RLX
                         }
                     }
 
+                    string size = "";
 
-                    string size = Helpers.GetElementDimensions(doc, element);
+                    try
+                    {
+                        size = Helpers.GetElementDimensions(doc, element);
+                    }
+                    catch
+                    {
 
+                    }
 
 
 
@@ -140,7 +147,7 @@ namespace RLX
 
                     
 
-                    string descriptionString = $"{descriptionParam.AsValueString()} {Helpers.LocationforDescription()} {levelSentenceCase}";
+                    string descriptionString = $"{descriptionParam.AsValueString()} {Helpers.LocationforDescription(uidoc)} {levelSentenceCase}";
 
                     string cleanedDescr = Regex.Replace(descriptionString, @"\s{2,}", " "); // Replaces 2+ spaces with 1
 

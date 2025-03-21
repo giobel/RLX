@@ -14,7 +14,7 @@ using System.Linq;
 namespace RLX
 {
     [Transaction(TransactionMode.Manual)]
-    public class Util_FillCommonParam : IExternalCommand
+    public class ElectricalCircuitsTagger : IExternalCommand
     {
         public Result Execute(
           ExternalCommandData commandData,
@@ -27,18 +27,18 @@ namespace RLX
             Document doc = uidoc.Document;
 
 
-            IList<Element> visibleElements = new FilteredElementCollector(doc, doc.ActiveView.Id).WherePasses(Helpers.RLXcatFilter()).WhereElementIsNotElementType().ToElements();
+            IList<Element> allCircuits = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_ElectricalCircuit).WhereElementIsNotElementType().ToElements();
 
-            int countElements = visibleElements.Count;
+            int countElements = allCircuits.Count;
             int counterModified = 0;
 
 
-            using (Transaction t = new Transaction(doc, "Fill XYZ"))
+            using (Transaction t = new Transaction(doc, "Fill Electrical Circuits"))
             {
 
                 t.Start();
 
-                foreach (var e in visibleElements)
+                foreach (var e in allCircuits)
                     {
                     Parameter system = e.LookupParameter("RLX_System");
                     Parameter facility = e.LookupParameter("RLX_Facility");
@@ -50,6 +50,8 @@ namespace RLX
                     Parameter acost = e.LookupParameter("RLX_ActualCost");
                     Parameter maincost = e.LookupParameter("RLX_MaintenanceCost");
                     Parameter spec = e.LookupParameter("RLX_Specification");
+
+
 
                     //Silvertown Bld:
                     system.Set("TunnelServiceBuildings_MEP");

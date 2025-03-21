@@ -57,7 +57,10 @@ namespace RLX
 
                 foreach (var group in grouped)
                 {
-                    Element source = group.FirstOrDefault(e=>e.Category.Id.IntegerValue == (int)BuiltInCategory.OST_PipeCurves || e.Category.Id.IntegerValue == (int)BuiltInCategory.OST_DuctCurves);
+                    //Element source = group.FirstOrDefault(e=>e.Category.Id.IntegerValue == (int)BuiltInCategory.OST_PipeCurves || e.Category.Id.IntegerValue == (int)BuiltInCategory.OST_DuctCurves
+                    
+                    //|| e.Category.Id.IntegerValue == (int)BuiltInCategory.OST_GenericModel
+                    //);
 
                     foreach (Element e in group)
 
@@ -68,8 +71,16 @@ namespace RLX
                             {
                                 try
                                 {
-                                    string p = source.LookupParameter(paramName).AsValueString();
-                                    subElement.LookupParameter(paramName).Set(p);
+                                    // string p = source.LookupParameter(paramName).AsValueString();
+                                    Parameter p = e.LookupParameter(paramName);
+
+                                    
+
+                                    if (p.StorageType == StorageType.String)
+                                        subElement.LookupParameter(paramName).Set(p.AsValueString());
+
+                                    if (p.StorageType == StorageType.ElementId)
+                                        subElement.LookupParameter(paramName).Set(p.AsElementId());
                                 }
                                 catch { }
                             }

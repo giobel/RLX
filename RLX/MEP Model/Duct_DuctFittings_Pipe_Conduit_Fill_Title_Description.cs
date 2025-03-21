@@ -111,8 +111,8 @@ namespace RLX
                     //Parameter location = element.LookupParameter("RLX_Location");
 
                     string levelSentenceCase = char.ToUpper(level.Name[0]) + level.Name.Substring(1).ToLower();
-
-                    string descrString = $"{descriptionValue} {Helpers.LocationforDescription()} {levelSentenceCase}";
+                        
+                    string descrString = $"{descriptionValue} {Helpers.LocationforDescription(uidoc)} {levelSentenceCase}";
 
 
                     string uniclassDescr = source.LookupParameter("RLX_ClassificationUniclassSs_Description").AsValueString();

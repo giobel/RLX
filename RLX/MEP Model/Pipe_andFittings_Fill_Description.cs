@@ -131,7 +131,7 @@ namespace RLX
 
 
 
-                            string descrString = $"{descriptionValue} {Helpers.LocationforDescription()} {levelSentenceCase}";
+                            string descrString = $"{descriptionValue} {Helpers.LocationforDescription(uidoc)} {levelSentenceCase}";
 
                             description.Set(descrString);
 
